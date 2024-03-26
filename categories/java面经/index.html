@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="标签: java面试, 小智同学的blog">
+    <meta name="keywords" content="分类: java面经, 小智同学的blog">
     <meta name="description" content="小智同学的blog">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -17,7 +17,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>标签: java面试 | 小智同学的blog</title>
+    <title>分类: java面经 | 小智同学的blog</title>
     <link rel="icon" type="image/jpeg" href="/favicon.jpg">
     
 
@@ -390,62 +390,46 @@
 
     
 
-<div id="tags" class="container chip-container">
+<div id="category-cloud" class="container chip-container">
     <div class="card">
         <div class="card-content">
             <div class="tag-title center-align">
-                <i class="fas fa-tags"></i>&nbsp;&nbsp;文章标签
+                <i class="fas fa-bookmark"></i>&nbsp;&nbsp;文章分类
             </div>
             <div class="tag-chips">
                 
                 
-                <a href="/tags/%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/" title="个人博客: 1">
+                
+                <a href="/categories/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" title="博客搭建: 1">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            data-tagname="个人博客" style="background-color: #F9EBEA;">个人博客
+                            style="background-color: #F9EBEA;">博客搭建
                         <span class="tag-length">1</span>
                     </span>
                 </a>
                 
                 
-                <a href="/tags/java%E9%9D%A2%E8%AF%95/" title="java面试: 2">
+                <a href="/categories/java%E9%9D%A2%E7%BB%8F/" title="java面经: 2">
                     <span class="chip center-align waves-effect waves-light
                              chip-active "
-                            data-tagname="java面试" style="background-color: #F5EEF8;">java面试
+                            style="background-color: #F5EEF8;">java面经
                         <span class="tag-length">2</span>
                     </span>
                 </a>
                 
-                
-                <a href="/tags/java%E5%9F%BA%E7%A1%80/" title="java基础: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="java基础" style="background-color: #D5F5E3;">java基础
-                        <span class="tag-length">1</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" title="大数据: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="大数据" style="background-color: #E8F8F5;">大数据
-                        <span class="tag-length">1</span>
-                    </span>
-                </a>
                 
             </div>
         </div>
     </div>
 </div>
 
+
     
 
     <article id="articles" class="container articles">
         <div class="row tags-posts">
             
-            
-            <div class="article tag-post col s12 m6 l4" data-tags="java面试, java基础" data-aos="fade-up">
+            <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
                     <a href="/2024/03/24/java%E5%9F%BA%E7%A1%80/">
                         <div class="card-image tag-image">
@@ -457,6 +441,14 @@
                         </div>
                     </a>
                     <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                接口和抽象类的区别和相同点？不同点：
+1.类可以实现很多个接口，但是只能继承一个抽象类
+2.Java接口中声明的变量默认都是final的。抽象类可以包含非final的变量。
+3.接口中所有的方法隐含的都是抽象的。而抽象类则可以同时包含抽象和
+                            
+                        </div>
                         <div class="publish-info">
                             <span class="publish-date">
                                 <i class="far fa-clock fa-fw icon-date"></i>2024-03-24
@@ -466,18 +458,31 @@
                                 <i class="fas fa-bookmark fa-fw icon-category"></i>
                                 
                                 <a href="/categories/java%E9%9D%A2%E7%BB%8F/" class="post-category">
-                                java面经
+                                    java面经
                                 </a>
                                 
                                 
                             </span>
                         </div>
                     </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/java%E9%9D%A2%E8%AF%95/">
+                            <span class="chip bg-color">java面试</span>
+                        </a>
+                        
+                        <a href="/tags/java%E5%9F%BA%E7%A1%80/">
+                            <span class="chip bg-color">java基础</span>
+                        </a>
+                        
+                    </div>
+                    
                 </div>
             </div>
             
-            
-            <div class="article tag-post col s12 m6 l4" data-tags="java面试, 大数据" data-aos="fade-up">
+            <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
                     <a href="/2024/03/24/%E5%A4%A7%E6%95%B0%E6%8D%AE/">
                         <div class="card-image tag-image">
@@ -489,6 +494,16 @@
                         </div>
                     </a>
                     <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                1.TopK问题1.1一类问题
+1亿个浮点数，如果找出最⼤的10000个
+有⼀个1G⽂件，内存限制⼤⼩是1M。返回频数最⾼100
+100w个数中找出最⼤的100个数
+海量数据分布在100台电脑中，想个办法⾼校统计出这批数据的TOP10
+海量
+                            
+                        </div>
                         <div class="publish-info">
                             <span class="publish-date">
                                 <i class="far fa-clock fa-fw icon-date"></i>2024-03-24
@@ -498,13 +513,27 @@
                                 <i class="fas fa-bookmark fa-fw icon-category"></i>
                                 
                                 <a href="/categories/java%E9%9D%A2%E7%BB%8F/" class="post-category">
-                                java面经
+                                    java面经
                                 </a>
                                 
                                 
                             </span>
                         </div>
                     </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/java%E9%9D%A2%E8%AF%95/">
+                            <span class="chip bg-color">java面试</span>
+                        </a>
+                        
+                        <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/">
+                            <span class="chip bg-color">大数据</span>
+                        </a>
+                        
+                    </div>
+                    
                 </div>
             </div>
             
