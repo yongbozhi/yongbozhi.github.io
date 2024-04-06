@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2024-04-05T14:58:07.938Z</updated>
+  <updated>2024-04-06T15:19:28.774Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,87 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>计算机网络</title>
+    <link href="http://example.com/2024/04/06/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
+    <id>http://example.com/2024/04/06/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/</id>
+    <published>2024-04-06T14:59:50.000Z</published>
+    <updated>2024-04-06T15:19:28.774Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;7层模型&quot;&gt;&lt;a href=&quot;#7层模型&quot; class=&quot;headerlink&quot; title=&quot;7层模型&quot;&gt;&lt;/a&gt;7层模型&lt;/h1&gt;&lt;p&gt;应⽤层</summary>
+        
+      
+    
+    
+    
+    <category term="java面经" scheme="http://example.com/categories/java%E9%9D%A2%E7%BB%8F/"/>
+    
+    
+    <category term="java面试" scheme="http://example.com/tags/java%E9%9D%A2%E8%AF%95/"/>
+    
+    <category term="计算机网络" scheme="http://example.com/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Mybatis</title>
+    <link href="http://example.com/2024/04/06/Mybatis/"/>
+    <id>http://example.com/2024/04/06/Mybatis/</id>
+    <published>2024-04-06T14:55:25.000Z</published>
+    <updated>2024-04-06T14:58:19.130Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;Mybatis的优缺点&quot;&gt;&lt;a href=&quot;#Mybatis的优缺点&quot; class=&quot;headerlink&quot; title=&quot;Mybatis的优缺点&quot;&gt;&lt;/a&gt;Mybatis的优缺点&lt;/h1&gt;&lt;img</summary>
+        
+      
+    
+    
+    
+    <category term="java面经" scheme="http://example.com/categories/java%E9%9D%A2%E7%BB%8F/"/>
+    
+    
+    <category term="java面试" scheme="http://example.com/tags/java%E9%9D%A2%E8%AF%95/"/>
+    
+    <category term="Mybatis" scheme="http://example.com/tags/Mybatis/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Spring</title>
+    <link href="http://example.com/2024/04/06/Spring/"/>
+    <id>http://example.com/2024/04/06/Spring/</id>
+    <published>2024-04-06T01:11:31.000Z</published>
+    <updated>2024-04-06T01:33:39.237Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;Spring&quot;&gt;&lt;a href=&quot;#Spring&quot; class=&quot;headerlink&quot; title=&quot;Spring&quot;&gt;&lt;/a&gt;Spring&lt;/h1&gt;&lt;h2 id=&quot;Spring是什么&quot;&gt;&lt;a href=&quot;#Spring是什么&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="java面经" scheme="http://example.com/categories/java%E9%9D%A2%E7%BB%8F/"/>
+    
+    
+    <category term="java面试" scheme="http://example.com/tags/java%E9%9D%A2%E8%AF%95/"/>
+    
+    <category term="Spring" scheme="http://example.com/tags/Spring/"/>
+    
+  </entry>
   
   <entry>
     <title>并发</title>
