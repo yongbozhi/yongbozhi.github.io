@@ -1,0 +1,1545 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="秒杀系统, 小智同学的blog">
+    <meta name="description" content="项目架构
+
+SPU与SKU
+SPU与SKU概念
+SPU &amp;#x3D; Standard Product Unit  （标准产品单位）概念 : SPU 是商品信息聚合的最小单位，是一组可复用、易检索的标准化信息
+的集合，该集合描述了一个产品的">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>秒杀系统 | 小智同学的blog</title>
+    <link rel="icon" type="image/jpeg" href="/favicon.jpg">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 7.1.1"><link rel="alternate" href="/atom.xml" title="小智同学的blog" type="application/atom+xml">
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.jpg" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">小智同学的blog</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.jpg" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">小智同学的blog</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/10.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">秒杀系统</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/java%E9%9D%A2%E8%AF%95/">
+                                <span class="chip bg-color">java面试</span>
+                            </a>
+                        
+                            <a href="/tags/%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/">
+                                <span class="chip bg-color">秒杀系统</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/java%E9%9D%A2%E7%BB%8F/" class="post-category">
+                                java面经
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2024-04-07
+                </div>
+                
+
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    9k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    31 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h1 id="项目架构"><a href="#项目架构" class="headerlink" title="项目架构"></a>项目架构</h1><img src="/2024/04/07/%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/clip_image002.gif" class="" title="Eureka  gi t hub  ConfigSezveE  ConfigServer  ConfigSecver  Keep alived  N ginx Master  N ginx Backup  Keep alived  Hystrix Dashboard  iJ 3;  MySQL  Eureka  oauth2.  Hyst ix &#x2F;  ff!j  MYSQL  My3QL  Redis  Eureka  Redis  SpringCIoud Bus  Redis">
+
+<p>SPU与SKU</p>
+<p>SPU与SKU概念</p>
+<h3 id="SPU-Standard-Product-Unit-（标准产品单位）"><a href="#SPU-Standard-Product-Unit-（标准产品单位）" class="headerlink" title="SPU &#x3D; Standard Product Unit  （标准产品单位）"></a>SPU &#x3D; Standard Product Unit  （标准产品单位）</h3><p>概念 : SPU 是商品信息聚合的最小单位，是一组可复用、易检索的标准化信息</p>
+<p>的集合，该集合描述了一个产品的特性。</p>
+<p>通俗点讲，属性值、特性相同的货品就可以称为一个 SPU</p>
+<p>&#x3D;&#x3D;同款商品的公共属性抽取&#x3D;&#x3D;</p>
+<p>例如：<strong>华为P30 就是一个 SPU</strong></p>
+<h3 id="SKU-stock-keeping-unit-库存量单位"><a href="#SKU-stock-keeping-unit-库存量单位" class="headerlink" title="SKU&#x3D;stock keeping unit( 库存量单位)"></a>SKU&#x3D;stock keeping unit( 库存量单位)</h3><p>SKU 即库存进出计量的单位， 可以是以件、盒、托盘等为单位。</p>
+<p>SKU 是物理上不可分割的最小存货单元。在使用时要根据不同业态，不同管理模式来处理。</p>
+<p>在服装、鞋类商品中使用最多最普遍。</p>
+<p>例如：<strong>华为P30 红色 64G 就是一个 SKU</strong></p>
+<p>&#x3D;&#x3D;某个库存单位的商品独有属性(某个商品的独有属性)&#x3D;&#x3D;</p>
+<img src="/2024/04/07/%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/clip_image004.jpg" class="" title="tb_spu *  id  name  caption  brand id  (SPU*)  SPUE  category 1 _id  category2_id  category3_id  template_id  freight_id  mage  mages  sale service  introduction  spec_items  para_items  sale num  comment num  is marketable  is_enable_spec  is delete  status  BIGINT  VARCHAR  VARCHAR  VARCHAR  INT  INT  INT  INT  INT  INT  VARCHAR  VARCHAR  VARCHAR  TEXT  VARCHAR  VARCHAR  INT  INT  CHAR  CHAR  CHARBf2,ä Windows  Windows,  CHAR">
+
+<img src="/2024/04/07/%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/clip_image006.jpg" class="" title="tb_sku  id  name  pnce  num  alert num  mage  mages  weight  create time  update time  spu_id  category_id  category_name  brand name  spec  sale num  comment num  status  fits (h)  SPUD  I-IEÆ,  BIGINT  VARCHAR  VARCHAR  INT  INT  INT  VARCHAR  VARCHAR  INT  DATETIME  DATETIME  BIGINT  INT  VARCHAR  VARCHAR  VARCHAR  INT  INT  CHAR  Windows">
+
+<h2 id="秒杀："><a href="#秒杀：" class="headerlink" title="秒杀："></a>秒杀：</h2><h3 id="防止超卖："><a href="#防止超卖：" class="headerlink" title="防止超卖："></a>防止超卖：</h3><ul>
+<li>下单时：为每个商品个数创建队列，里面存商品id（某商品有100个，存100个次此商品id），每次下单从里面取一个，如果有说明有商品，相反则删除排队信息。在我们对Redis进行操作的时候，很多时候，都是先将数据查询出来，在内存中修改，然后存入到Redis，在并发场景，会出现数据错乱问题，为了控制数量准确，我们单独将商品数量整一个自增键，自增键是线程安全的，所以不担心并发场景的问题。</li>
+<li>支付成功后修改库存：将商品查出来减少库存在放入数据库中，多线程购买的时候会引起超卖现象，利用数据库的行级锁可防止此情况。</li>
+</ul>
+<h3 id="防止用户重复排队："><a href="#防止用户重复排队：" class="headerlink" title="防止用户重复排队："></a>防止用户重复排队：</h3><ul>
+<li>用户每次抢单的时候，一旦排队，我们设置一个自增值，让该值的初始值为1，每次进入抢单的时候，对它进行递增，如果值&gt;1，则表明已经排队,不允许重复排队,如果重复排队，则对外抛出异常，并抛出异常信息100表示已经正在排队。</li>
+</ul>
+<h3 id="并发削峰："><a href="#并发削峰：" class="headerlink" title="并发削峰："></a>并发削峰：</h3><ul>
+<li>抢购商品时，使用redis排队抢单，并多线程抢单，排队抢单：队列中记录订单的状态SeckillStatus ：用户ID和商品ID（商品ID，商品抢购时间段，用户登录名）</li>
+<li>削峰还可以提一下nginx和分布式微服务中的<a href="onenote:分布式微服务.one#限流策略&section-id={6BA1F89F-1441-4B70-9972-A327827F7CF9}&page-id={CC2EC0F0-E52F-44AC-8A3D-82130A4EBFEC}&object-id={A4CB52A9-9549-438C-807D-8A55F9A57771}&10&base-path=https://d.docs.live.net/73ef43393996c94e/文档/java">限流策略</a></li>
+</ul>
+<h3 id="超时订单回滚："><a href="#超时订单回滚：" class="headerlink" title="超时订单回滚："></a>超时订单回滚：</h3><ul>
+<li>通过rabbitmq延时队列实现</li>
+</ul>
+<h3 id="多个用户请求的时候怎样保证redis中的数据是准确的："><a href="#多个用户请求的时候怎样保证redis中的数据是准确的：" class="headerlink" title="多个用户请求的时候怎样保证redis中的数据是准确的："></a>多个用户请求的时候怎样保证redis中的数据是准确的：</h3><p>对于一些可能产生并发问题的操作进行加锁操作</p>
+<p>获取队列判断有无商品的时候</p>
+<h3 id="分布式锁红锁5个机器键和值是一样的吗："><a href="#分布式锁红锁5个机器键和值是一样的吗：" class="headerlink" title="分布式锁红锁5个机器键和值是一样的吗："></a>分布式锁红锁5个机器键和值是一样的吗：</h3><p>是一样的</p>
+<h3 id="redis中获取队列有线程安全的问题吗："><a href="#redis中获取队列有线程安全的问题吗：" class="headerlink" title="redis中获取队列有线程安全的问题吗："></a>redis中获取队列有线程安全的问题吗：</h3><p>redis本身一个键值同一时刻只能一个进程操作，但是操作不能保证原子性，所以也会造成问题</p>
+<p>我们正常理解的线程安全问题是指单进程多线程模型内部多个线程操作进程内共享内存导致的数据资源充突。而 Redis 的线程安全问题的产生，并不是来自于 Redis 服务器内部。</p>
+<p>Redis 作为数据服务器，就相当于多个客户端的共享内存，多个客户端就相当于同一进程下的多个线程，如果多个客户端之间没有良好的数据同步策略，就会产生类似线程安全的问题。</p>
+<p>典型场景是：</p>
+<p>Redis 内存储了一个用户的状态： user5277&#x3D;idle；</p>
+<p>客户端连接 A 读取了用户状态，获取到用户的空闲状态 status &#x3D; get(“user5277”)；</p>
+<p>客户端连接 B 也同样读取了用户状态；</p>
+<p>客户端连接 A 给用户安排了一个任务，并将 Redis 内用户状态置为忙碌 set(“user5277”, “busy”)；</p>
+<p>客户端连接 B 同样设置用户为忙碌状态。</p>
+<p>可是此时用户却被同时分配了两个任务。</p>
+<p>导致这个问题的原因就是虽然 Redis 是单线程的，能保证命令的序列化，但由于其执行效率很高，多个客户端的命令之间不做好请求同步，同样会造成命令的顺序错乱。</p>
+<p>当然这个问题也很好解决，给用户状态加锁就行了，使同一时间内只能有一个客户端操作用户状态。不过加锁我们就需要考虑锁粒度、死锁等问题了，无疑添加了程序的复杂性，不利于维护。</p>
+<p>效率问题：获取两次键值就是两次请求，慢，导致这种问题的原因就是 Redis 的普通命令没有服务端计算的能力，无法在服务器进行复合命令操作，虽然有 Redis 也提供了 pipeline 的特性，但它需要多个命令的请求和响应之间没有依赖关系。想简化多个相互依赖的命令就只能将数据拉回客户端，由客户端处理后再请求 Redis。</p>
+<p>Lua脚本的执行。</p>
+<p><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000040160105">https://segmentfault.com/a/1190000040160105</a></p>
+<h3 id="多个用户请求的时候怎样保证redis中的数据是准确的"><a href="#多个用户请求的时候怎样保证redis中的数据是准确的" class="headerlink" title="多个用户请求的时候怎样保证redis中的数据是准确的"></a>多个用户请求的时候怎样保证redis中的数据是准确的</h3><img src="/2024/04/07/%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/clip_image008.gif" class="" title="img">
+
+<h3 id="并发量大加锁的话用户来了并发就会很慢怎么解决："><a href="#并发量大加锁的话用户来了并发就会很慢怎么解决：" class="headerlink" title="并发量大加锁的话用户来了并发就会很慢怎么解决："></a>并发量大加锁的话用户来了并发就会很慢怎么解决：</h3><p>预估机器资源，每个机器最大访问量多少，保证请求响应时间短，不要加特定的锁，成功就成功，失败就失败，多线程下单</p>
+<p>购物车提交订单时要做价格校验，一定以数据库为准</p>
+<p>支付系统：用户通过网关路由到订单系统进行下单，下单之后订单系统会将订单号发送给支付系统，支付系统会访问微信服务器。</p>
+<p>多线程抢单之后，更新排队信息，这时可以查询订单状态，若已抢单，则进入支付，若未抢单，则隔几秒查询一次</p>
+<p>加盐加密：就是人为的通过一组随机字符与用户原密码的组合形成一个新的字符</p>
+<p>服务器端怎样认证令牌正确性：服务端拿到令牌后，使用base64之后的头部的信息和载荷的信息与使用自身的秘钥（私钥）做加盐，在用头部声明的算法加密，与令牌的签名部分做对比，若相同，则说明认证成功</p>
+<p>这一步是直接让队列中的元素出来，并发是没有问题的，因为redis是单线程，不需要用分布式锁来互斥的获取</p>
+<img src="/2024/04/07/%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/clip_image010.jpg" class="" title="img">
+
+<img src="/2024/04/07/%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/clip_image012.jpg" class="" title="img">
+
+<p>没有库存的话直接同步到redis中</p>
+<p>redis中数据和mysql的数据怎么保持一致，redis中没有数据了，但是mysql中有，到底以哪为准，最终的信息以数据库中为准吗</p>
+<p>不能保证强一致性，只能是最终一致性，要保证一致性可以使用延时双删或者是先删数据库在删redis，为了确保能删掉，可以将消息发送到mq(<a href="onenote:redis.one#如何保证Redis和数据库的数据一致&section-id={D84E434C-802C-4920-94C4-EEBB2F80F9EC}&page-id={AE05E194-ADFA-4690-81F5-8E9AE85A4DFF}&object-id={864C5691-4462-44C1-8FF5-7971AD421BC8}&3B&base-path=https://d.docs.live.net/73ef43393996c94e/文档/java">如何保证Redis和数据库的数据一致</a>)。最终数据以mysql中为准</p>
+<p>可以说最终的信息由mysql决定，那redis做了哪些操作呢</p>
+<p>主要是缓存的作用，把大量的并发放到redis中解决，后台可以慢慢放到数据库中，可以说下<a href="onenote:redis.one#Redis为什么性能非常高&section-id={D84E434C-802C-4920-94C4-EEBB2F80F9EC}&page-id={7883F82C-D021-464E-B062-B14525EB644D}&object-id={109DE118-1D4A-4432-BAEA-7068718A759B}&46&base-path=https://d.docs.live.net/73ef43393996c94e/文档/java">Redis为什么性能非常高</a></p>
+<h3 id="rabbitmq的作用"><a href="#rabbitmq的作用" class="headerlink" title="rabbitmq的作用"></a>rabbitmq的作用</h3><p>死信队列</p>
+<p>用户支付失败了，消息队列中的数据怎么删除</p>
+<p>没有办法消除</p>
+<p>怎么实现秒杀功能，比如说多并发去抢商品，怎样保证商品还有：</p>
+<p>我说的是创建队列去把同等数量的id放到redis队列中，但是多个线程去都去先get队列，还是会遇到问题（其实是不会遇到问题的，因为redis是单线程，获取队列后，直接将元素取出来，这个元素就不在队列了，其他线程在取其实就没用了），这时就要用到分布式锁 ，减到负的怎么办，就清空redis中该商品的数据，减到负的就不减了</p>
+<p>在一个事务中，锁超时了怎么办，还要去获取锁，续命策略有哪些</p>
+<p>看门狗机制：加锁的时间是30秒.如果加锁的业务没有执行完,那么到 30-10 &#x3D; 20秒的时候,就会进行一次续期,把锁重置成30秒.那这个时候可能又有同学问了,那业务的机器万一宕机了呢?宕机了定时任务跑不了,就续不了期,那自然30秒之后锁就解开了呗.</p>
+<p>分布式锁出现死锁怎么办：设置过期时间，或者就是看门狗设置特定的过期时间</p>
+<p>怎样解锁 </p>
+<p>删除键值</p>
+<p>A调用B，A中失败了，但是消息已经发出去了，B如果已经消费了消息怎么办：</p>
+<p>分布式事务-两阶段提交 </p>
+<p>线程池如何使用?为什么这样设置：</p>
+<p><a href="onenote:并发.one#线程池调优&section-id={C7CC559D-F80F-49BD-AAAC-881F89FBE30F}&page-id={9D1939F5-3D95-4700-BE4B-501272561604}&end&base-path=https://d.docs.live.net/73ef43393996c94e/文档/java">线程池调优</a></p>
+<p>如果秒杀开始后，商家想改库存，但是redis已经减了， 如何保证库存-致性</p>
+<p>canal可以用来监控数据库数据的变化，从而获得新增数据，或者修改的数据。</p>
+<p>Canal工作原理</p>
+<ol>
+<li>canal模拟mysql slave的交互协议，伪装自己为mysql slave，向mysql master发</li>
+</ol>
+<p>送dump协议</p>
+<ol start="2">
+<li><p>mysql master收到dump请求，开始推送binary log给slave(也就是canal)</p>
+</li>
+<li><p>canal解析binary log对象(原始为byte流)</p>
+</li>
+</ol>
+<p>7.如果并发量增大了，你会如何改进你的架构?</p>
+<p>8.限制单体并发量提高的瓶颈是什么?</p>
+<p>9.缓存该如何使用?除了使用Redis 之外，还有什么解决方案吗?</p>
+<ol start="10">
+<li><p>Redis 的ZSet是怎么实现的?</p>
+</li>
+<li><p>热点数据如何缓存，你提到了本地缓存,你项目的进程使用什么方式与本地缓存的进程进行通信?</p>
+</li>
+</ol>
+<p>12.如果秒杀开始后，商家想改库存，但是redis已经减了， 如何保证库存-致性</p>
+<p>13.分布式锁能解决什么问题，几种实现</p>
+<ol start="14">
+<li>spring拦截 器限流如何实现</li>
+</ol>
+<p>15.验证码从0到1</p>
+<h2 id="表结构说明"><a href="#表结构说明" class="headerlink" title="表结构说明"></a>表结构说明</h2><h3 id="秒杀商品信息表"><a href="#秒杀商品信息表" class="headerlink" title="秒杀商品信息表"></a>秒杀商品信息表</h3><img src="/2024/04/07/%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/clip_image014.jpg" class="" title="CREATE  sup  sku  TABLE (  bigint(2e) NOT NULL AUTO INCREMENT,  id" alt="bigint(28) DEFAULT NULL COWENT  id">
+
+<h3 id="秒杀订单表"><a href="#秒杀订单表" class="headerlink" title="秒杀订单表"></a>秒杀订单表</h3><img src="/2024/04/07/%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/clip_image016.jpg" class="" title="CREATE TABLE (  • id" alt="bigint(2e) NOT NULL COMMENT  seckill bigint(28) DEFAULT NULL COMMENT ,  -money">
+
+<h2 id="秒杀流程"><a href="#秒杀流程" class="headerlink" title="秒杀流程"></a>秒杀流程</h2><p>秒杀技术实现核心思想是运用缓存减少数据库瞬间的访问压力！读取商品详细信息时运用缓存，当用户点击抢购时减少缓存中的库存数量，当库存数为0时或活动期结束时，同步到数据库。 产生的秒杀预订单也不会立刻写到数据库中，而是先写到缓存，当用户付款成功后再写入数据库。</p>
+<img src="/2024/04/07/%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/clip_image018.gif" class="" title="img">
+
+<h3 id="秒杀商品压入缓存实现"><a href="#秒杀商品压入缓存实现" class="headerlink" title="秒杀商品压入缓存实现"></a>秒杀商品压入缓存实现</h3><p>秒杀商品列表和秒杀商品详情都是从Redis中取出来的，所以我们首先要将符合参与秒杀的商品定时查询出来，并将数据存入到Redis缓存中。</p>
+<p>数据存储类型我们可以选择Hash类型。</p>
+<p>秒杀分页列表这里可以通过获取redisTemplate.boundHashOps(key).values()获取结果数据。</p>
+<p>秒杀商品详情，可以通过redisTemplate.boundHashOps(key).get(key)获取详情。</p>
+<p>&#x2F;&#x2F; namespace &#x3D; SeckillGoods_20195712</p>
+<p>redisTemplate.boundHashOps(“SeckillGoods_”+extName).put(seckillGood.getId(),seckillGood);</p>
+<p>Redis数据如下：</p>
+<img src="/2024/04/07/%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/clip_image020.gif" class="" title=". oods 2019052422  xAC xED x00 x05t x00 x17Secki11Goods 2019052422  Size:  30 TTL:  Rename  row  2  3  4  5  6  7  8  10  11  12  13  14  15  16  17  18  19  key  value  changgou.  changgou.  changgou.  changgou.  changgou.  changgou.  changgou.  changgou.  changgou.  changgou.  changgou.  changgou.  changgou.  changgou.  changgou.  changgou.  changgou.  changgou.  changgou.  seckill.  seckill.  seckill.  seckill.  seckill.  seckill.  seckill.  seckill.  seckill.  seckill.  seckill.  seckill.  seckill.  seckill.  seckill.  seckill.  seckill.  seckill.  seckill.  • Secki 1 x02  POJ0.  • Secki 1 x02  POJ0.  • Secki 1 x02  POJ0.  • Secki 1 x02  POJ0.  • Secki 1 x02  POJ0.  • Secki 1 x02  POJ0.  • Secki 1 x02  POJ0.  • Secki 1 x02  POJ0.  • Secki 1 x02  POJ0.  • Secki 1 x02  POJ0.  • Secki 1 x02  POJ0.  • Secki 1 x02  POJ0.  • Secki 1 x02  POJ0.  • Secki 1 x02  POJ0.  • Secki 1 x02  POJ0.  • Secki 1 x02  POJ0.  • Secki 1 x02  POJ0.  • Secki 1 x02  POJ0.  • Secki 1 x02  POJ0.">
+
+<p>SeckillGoodsCount—在我们对Redis进行操作的时候，很多时候，都是先将数据查询出来，在内存中修改，然后存入到Redis，在并发场景，会出现数据错乱问题，为了控制数量准确，我们单独将商品数量整一个自增键，自增键是线程安全的，所以不担心并发场景的问题。</p>
+<p>SeckillGoodsCountList—防止超卖放id的</p>
+<img src="/2024/04/07/%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/clip_image022.jpg" class="" title="for (Secki llGoods seckillGocn:i : seckillGoods) (  redi gTempIate. boundHashOps( key: . put (gecki I IGood. getld() , secki IIGood)  Longo ids &#x3D; pushlds (seckillGood. getStockCount secki llGood. getld())  redisTemplate. boundListOps( key: getld()) . leftPushAll(ids) ,  redisTempIatc. boundHashOps( key: SeckillGoodsCount-) . increment (seckil IGood. getld , secki IlGood. getStockCount . %}
+
+&lt;p&gt;将秒杀商品从数据库中查询出来，并存入到Redis缓存&lt;&#x2F;p&gt;
+&lt;p&gt;查询活动没结束的所有秒杀商品&lt;&#x2F;p&gt;
+&lt;p&gt;1)计算秒杀时间段&lt;&#x2F;p&gt;
+&lt;p&gt;2)状态必须为审核通过 status&#x3D;1&lt;&#x2F;p&gt;
+&lt;p&gt;3)商品库存个数&gt;0&lt;&#x2F;p&gt;
+&lt;p&gt;4)活动没有结束 endTime&gt;&#x3D;now()&lt;&#x2F;p&gt;
+&lt;p&gt;5)在Redis中没有该商品的缓存&lt;&#x2F;p&gt;
+&lt;p&gt;6)执行查询获取对应的结果集&lt;&#x2F;p&gt;
+&lt;p&gt;将活动没有结束的秒杀商品入库&lt;&#x2F;p&gt;
+{% asset_img clip_image024.jpg&quot; 定 时 任 务 方 法  3 &#x2F; ． 就 就 ？ ： 从 每 分 钟 的 第 3 秒 开 始 执 行 ， 每 过 秒 执 行 一  @Schedu1ed(cron">
+
+<h3 id="秒杀详情页"><a href="#秒杀详情页" class="headerlink" title="秒杀详情页"></a>秒杀详情页</h3><p>秒杀详情页需要根据商品ID查询商品详情，我们可以在频道页点击秒杀抢</p>
+<p>购的时候将时间和ID一起传到后台，然后根据ID去Redis中查询详情信息。</p>
+<h3 id="用户排队下单"><a href="#用户排队下单" class="headerlink" title="用户排队下单"></a>用户排队下单</h3><p>首先要判断用户是否重复排队：</p>
+<p>用户每次抢单的时候，一旦排队，我们设置一个自增值，让该值的初始值为1，每次进入抢单的时候，对它进行递增，如果值&gt;1，则表明已经排队,不允许重复排队,如果重复排队，则对外抛出异常，并抛出</p>
+<p>异常信息100表示已经正在排队。</p>
+<p>![COverride  public Boolean add (Long id, String time, String username) <a href="file:///C:/Users/zhiyo/AppData/Local/Temp/msohtmlclip1/01/clip_image026.jpg">  Long userQueueCount ¯ redisTemp1ate. boundHashOps( key: “UserQueueCount”) . increment (username,  if (userQueueCount&gt;1) {  h’100:  throw new RuntimeException(String_ valueOf(StatusCode. REPERROR’) </a></p>
+<p>若没有则进行排队，我们可以采用Redis的队列实现。 排队信息中需要有用户抢单的商品信息，主要包含商品ID，商品抢购时间段，用户登录名。</p>
+<img src="/2024/04/07/%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/clip_image028.jpg" class="" title="Secki11Status secki11Status -  id, time);  new Seckillstatus(username,  new Date(),l,  &#x2F; Redis* , , Listtgæ  redisTemp1ate. boundLis tops ( Seckill OrderQueue ) . leftPush(secki11Status);  multi Thread ingCreateOrder. createorder();">
+
+<h3 id="多线程下单操作"><a href="#多线程下单操作" class="headerlink" title="多线程下单操作"></a>多线程下单操作</h3><img src="/2024/04/07/%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/clip_image030.gif" class="" title="存 储 商 品 完 整 信 息  R e d i s  引 ： k count:2  itle ． 华 为 笔 记 本  定 时 任 务  压 入 队 列 队 列  123  123  创 建 订 单  Reds 中 商 品 个 数 递 臧  队 列 中 0 i 123  good 引 123 商 品  秒 杀 下 单  存 雀  队 列 是  否 存 亡  不 存 亡">
+
+<h3 id="防止超卖"><a href="#防止超卖" class="headerlink" title="防止超卖"></a>防止超卖</h3><p>可以利用Redis队列实现，给每件商品创建一个独立的商品个数队列</p>
+<p>每次给用户下单的时候，先从队列中取数据，如果能取到数据，则表明有库存，如果取不到，则表明没有库存。</p>
+<img src="/2024/04/07/%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/clip_image032.gif" class="" title="CAsync  public void createOrder ( ) {  Secki11Status secki11Status  try {  (Secki11Status) redisTemp1ate. boundListOps( key:  Secki11GoodsCountList Seckil 10rderQueue) . rightPop ( ) + secki11Status. getGoodsId ( ) ) . rightPop ( ) Object sgood &#x3D; redisTemp1ate. boundList0ps( key: if (sgood null) { cl earQueue (secki 11 Status) return ; &#x2F;&#x2F;i&#x2F;iiJ&#x2F;X&#x2F;iiJ secki11Status. getTime ( ) String time String username&#x3D;secki IIStatus. getUsername ( ) Long id secki 11 Status. getGoodsId ( ) (Secki11Goods) redisTemp1ate. boundHashOps( key: Secki 1 IGoods goods iT1)t new Secki110rder ( ) Secki 110rder secki 1 IOrder secki 110rder. setld (idWorker. nextld ( ) ) secki 110rder. setSecki111d (id) setMoney (goods. getCostPrice ( ) ) secki 1 IOrder. secki 1 IOrder. setUserId (username) secki110rder. setCreateTime (new Date ( ) ) secki110rder. setStatus (0) Secki 1 IGoods + time). get(id) f&#x2F;JRedi s 1&#x2F;1 redisTemp1ate. boundHash0ps ( key: Secki110rder) . put (username, secki 110rder) Long surplusCount &#x3D; redisTemp1ate. boundHash0ps( key: Secki11GoodsCount) . increment (id, Dj,h} goods. setStockCount (surplusCount. intVa1ue ( ) ) DiJDjÆ} if (surplusCount&lt;&#x3D;0) { 9&#x2F;41 2&#x2F;74!&#x2F;rdUbf&#x2F;JMySQL 1&#x2F;1 secki 1 IGoodsMapper. updateByPr imaryKeySe1 ect i ve (goods) i%V&#x2F;c- if s $4&#x2F;&#x2F;-1&#x2F;1 redisTemp1ate. boundHashOps ( key: Secki11Goods  } else {  QWiffChf&#x2F;JRei ds 1&#x2F;1  redisTemp1ate. boundHash0ps ( key: Secki11Goods secki IIStatus. setStatus (2) secki IIStatus. setOrderId (secki 110rder. getld ( ) ) + time). delete(id)  + time) . put (id, goods)  secki IIStatus. setMoney (secki 110rder. getMoney ( ) . floatVa1ue ( ) )  redisTemp1ate. boundHash0ps ( key: UserQueueStatus&quot;) . put (username, secki IIStatus) catch (Exception e) { e. printStackTrace ( ) * gparam seckil 1Sta tus public void clearQueue (Secki11Status secki11Status) { redisTemp1ate. boundHashOps ( key: redisTemp1ate. boundHashOps ( key: UserQueueCount) . delete (secki 11Status. getUsername ( ) ) UserQueueStatus) . delete (secki 11Status. getUsername ( ) ) %}
+
+&lt;h3 id&#x3D;goods-setStockCount-surplusCount-intValue-只是为了下面将数据重置到redis&quot;&gt;&lt;a href&#x3D;#goods-setStockCount-surplusCount-intValue-只是为了下面将数据重置到redis class&#x3D;headerlink title&#x3D;goods.setStockCount(surplusCount.intValue()) 只是为了下面将数据重置到redis&gt;&lt;&#x2F;a&gt;goods.setStockCount(surplusCount.intValue()) 只是为了下面将数据重置到redis&lt;&#x2F;h3&gt;&lt;p&gt;清理用户排队信息：UserQueueCount是为了防止用户重复抢单建立的&lt;&#x2F;p&gt; &lt;p&gt; UserQueueStatus是为了查询用户订单状态建立的&lt;&#x2F;p&gt; &lt;h3 id&#x3D;下单状态查询&gt;&lt;a href&#x3D;#下单状态查询 class&#x3D;headerlink title&#x3D;下单状态查询&gt;&lt;&#x2F;a&gt;下单状态查询&lt;&#x2F;h3&gt;&lt;p&gt;虽然可以实现用户下单异步操作，但是并不能确定下单是否成功，所以我们需要做一个页面判断，每过1秒钟查询一次下单状态,多线程下单的时&lt;&#x2F;p&gt; &lt;p&gt;候，需要修改抢单状态，支付的时候，清理抢单状态。&lt;&#x2F;p&gt; &lt;p&gt;排队信息不仅放到list集合中供抢单使用，也会放到一个hash中，供查询状态&lt;&#x2F;p&gt; {% asset_img clip_image034.jpg new SeckillStatus (username, new Date Status: l, id, time) .  SeckillStatus secki IIStatus -  ( key: I ;  rcdisTompIato. boundHashOps ( key: UserQucucStatus¯) . put (username. seckiIIStatus) %}
+
+&lt;p&gt;多线程抢单后更新状态：&lt;&#x2F;p&gt;
+&lt;p&gt;0是排队，2是等待支付&lt;&#x2F;p&gt;
+{% asset_img clip_image036.jpg&quot; seekiIIStatus. setStatus (2)  setOrderld(seckillOrder. getld())  secki IStatus  setb%ney L " alt="Order. getoney floatValue ; redisTeapIate. boundHashOps( key: •UserOueueStatus•). put (usernatne. seckiIIStatus) %}
+
+&lt;h3 id&#x3D;后台可根据用户名查询抢单状态&quot;&gt;&lt;a href&#x3D;#后台可根据用户名查询抢单状态 class&#x3D;headerlink title&#x3D;后台可根据用户名查询抢单状态&gt;&lt;&#x2F;a&gt;后台可根据用户名查询抢单状态&lt;&#x2F;h3&gt;{% asset_img clip_image038.jpg public Secki11Status queryStatus(String username) {  return (Secki11Status) redisTemp1ate.boundHashOps(lJserQueueStatus&quot;) .get(username); %}
+
+&lt;h3 id&#x3D;订单支付&quot;&gt;&lt;a href&#x3D;#订单支付 class&#x3D;headerlink title&#x3D;订单支付&gt;&lt;&#x2F;a&gt;订单支付&lt;&#x2F;h3&gt;&lt;p&gt;创建支付二维码&lt;&#x2F;p&gt; &lt;p&gt;下单成功后，会跳转到支付选择页面，在支付选择页面要显示订单编号和订单金额，所以我们需要在下单的时候，将订单金额以及订单编号信息存储到用户查询对象中。&lt;&#x2F;p&gt; &lt;p&gt;选择微信支付后，会跳转到微信支付页面，微信支付页面会根据用户名查看用户秒杀订单，并根据用户秒杀订单的ID和钱数创建预支付信息并获取二维码信息，展示给用户看,此时页面每3秒查询一次支付状态，如果支付成功，需要修改订单状态信息。&lt;&#x2F;p&gt; &lt;p&gt;支付流程&lt;&#x2F;p&gt; {% asset_img clip_image040.gif @支 付 状 态 一 〉 n 。 ti 巧 -1  微 信 支 付  @二 维  O  网 关  1 下 单  Order—Hash  支 付 系 统  MySQL  订 单 入  Redi s—MySQL  秒 杀 系 统  4 s end  清 理 排 队  Redis  存 回 滚  清 理 排 队  成 功  L1st ner  昷 听 回 讠 周 支 、  send  delay  LIStener  delay  订 单 支 付 超 时  Redis  R dis 存 在 订 单  清 理 排 队 信 息  回 滚 存  10 S  微 信 支 付">
+
+<p>1.用户抢单，经过秒杀系统实现抢单，下单后会将向MQ发送一个延时队列消</p>
+<p>息，包含抢单信息，延时半小时后才能监听到</p>
+<p>2.秒杀系统同时启用延时消息监听，一旦监听到订单抢单信息，判断Redis缓存</p>
+<p>中是否存在订单信息，如果存在（就说明用户没有支付），则回滚</p>
+<p>3.秒杀系统还启动支付回调信息监听，如果支付完成，则将订单吃句话到</p>
+<p>MySQL，如果没完成，清理排队信息回滚库存</p>
+<p>4.每次秒杀下单后调用支付系统，创建二维码，如果用户支付成功了，微信系</p>
+<p>统会将支付信息发送给支付系统指定的回调地址，支付系统收到信息后，将信</p>
+<p>息发送给MQ，第3个步骤就可以监听到消息了。</p>
+<p>支付回调队列指定</p>
+<p>1.创建支付二维码需要指定队列</p>
+<p>2.回调地址回调的时候，获取支付二维码指定的队列，将支付信息发送到</p>
+<p>指定队列中</p>
+<p>支付微服务的参数携带</p>
+<img src="/2024/04/07/%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/clip_image042.jpg" class="" title="Map paran new HashMap()  param. put ( •appid•, appid);  param. put ( •mch_id•, partner);  param. put (  •nonce_str•, FXPayUti l.  param. put (  • body • , ;  param. put ( •  out _ , get  param. put (  param. put (  •gpbi  • , •127.0.  param. put ( •notify_url•, notifyurl) ;  param. put ( • trade_type• .  •NATIVE) ; param. put ( •attach&quot;, JSON_ toJSQVString(parameter)) %}
+
+&lt;p&gt;支付状态监听&lt;&#x2F;p&gt;
+&lt;p&gt;支付状态通过回调地址发送给MQ之后，我们需要在秒杀系统中监听支付信息（支付成功的状态码，success还是fail）&lt;&#x2F;p&gt;
+&lt;p&gt;如果用户支付成功，则修改订单信息（为了将订单信息放入mysql，先将”SeckillOrder”从redis中查出来，修改成已支付：1），并将订单入库，删除用户排队信息（”UserQueueCount”），清空redis中缓存（”SeckillOrder”），删除抢购状态信息(“UserQueueStatus”)&lt;&#x2F;p&gt;
+{% asset_img clip_image044.jpg&quot; @param out trade _ no  @param transaction_id  @param username  @Override  public void updatePayStatus(String out_trade_no,  Secki110rder secki110rder  (Seckillorder)  String username) {  redisTemp1ate. boundHashOps ( Seckillorder ) . get(username ) ;  secki110rder. setSta  secki110rder. setPayTime(new Date()) ;  secki110rderMapper. insertselective(seckillorder) ;  redisTemp1ate. boundHashOps ( Seckillorder&quot; ) . delete(username) ; redisTemp1ate. boundHashOps ( UserQueueCount ) . del ete ( username) ; redisTemp1ate. boundHashOps ( UserQueueStatus ) . delete( username) ; %}
+
+&lt;p&gt;如果用户支付失败，则关闭订单，删除订单信息，回滚库存，删除用户排队信息。&lt;&#x2F;p&gt;
+{% asset_img clip_image046.jpg&quot; @param username  @Override  public void closeOrder(String username) {  Secki11Status secki11Status &#x3D;  (Secki11Status)  redisTemp1ate. boundHashOps ( UserQueueStatus . get(username) ; Secki110rder secki110rder (Seckillorder) redisTemp1ate. boundHashOps ( Seckillorder ) . get(username ) ; if(secki11Status!&#x3D;nu11 &amp;&amp; secki110rder redis Templ ate. boundHashOps( Secki110rder ) . delete( username) ; Secki11Goods secki11Goods &#x3D; (Secki11Goods) redisTemp1ate. boundHashOps ( Secki11Goods_+secki11Status. getT ime() ) . get(secki11Status . getGoodsId ( ) ) ; e Secki11GoodsCount Secki11GoodsCountList&quot; if(secki11Goods&#x3D;&#x3D;nu11){ secki11Goods - secki11GoodsMapper. selectByPrimaryKey (secki11Status . getGoodsId ( ) ) ; Long surplusCount redisTemp1ate. boundHashOps ( Secki 11Good scount ) . increment( secki IIStatus. getGoodsId() , secki11Goods. setStockCount(surp1 usCount. intVa1ue()) ; redisTemp1ate. bound ListOps(Secki11GoodsCountList secki11Status . getGoodsId ( ) ) . leftPush(secki11Status . getGoodsId ) ; Windows Windowsc %}
+
+{% asset_img clip_image048.jpg&quot; img">
+
+<h3 id="用户超时半小时未支付关闭订单回滚库存"><a href="#用户超时半小时未支付关闭订单回滚库存" class="headerlink" title="用户超时半小时未支付关闭订单回滚库存"></a>用户超时半小时未支付关闭订单回滚库存</h3><p>1.创建一个过期队列 Queue1</p>
+<p>2.接收消息的队列  Queue2</p>
+<p>3.中转交换机</p>
+<p>4.监听Queue2</p>
+<p>1)SeckillStatus-&gt;检查Redis中是否有订单信息</p>
+<p>2)如果有订单信息，调用删除订单回滚库存-&gt;[需要先关闭微信支付]</p>
+<p>3)如果关闭订单时，用户已支付，修改订单状态即可</p>
+<p>4)如果关闭订单时，发生了别的错误，记录日志，人工处理</p>
+<h2 id="秒杀系统的设计思考"><a href="#秒杀系统的设计思考" class="headerlink" title="秒杀系统的设计思考"></a>秒杀系统的设计思考</h2><img src="/2024/04/07/%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/clip_image092.gif" class="" title="img">
+
+
+
+<h2 id="高性能"><a href="#高性能" class="headerlink" title="高性能"></a>高性能</h2><h3 id="1-动静分离"><a href="#1-动静分离" class="headerlink" title="1 动静分离"></a>1 动静分离</h3><p>数据拆分</p>
+<ol>
+<li>用户。用户身份信息包括登录状态以及登录画像等；与之相关的广平推荐，如用户偏好、地域偏好等，同样可以通过异步方式进行加载</li>
+<li>时间。秒杀时间是由服务端统一管控的，可以通过动态请求进行获取</li>
+</ol>
+<p>静态缓存</p>
+<p>三种方式：1、浏览器；2、服务端 ；3、CDN</p>
+<p>1.浏览器当然是第一选择，但用户的浏览器是不可控的，主要体现在如果用户不主动刷新，系统很难主动地把消息推送给用户，如此可能会导致用户端在很长一段时间内看到的信息都是错误的。对于秒杀系统，保证缓存可以在秒级时间内失效是不可或缺的。</p>
+<p>2.服务端主要进行动态逻辑计算及加载，本身并不擅长处理大量连接，每个连接消耗内存较多，同时 Servlet 容器解析 HTTP 较慢，容易侵占逻辑计算资源；另外，静态数据下沉至此也会拉长请求路径。</p>
+<p>3.CDN本身更擅长处理大并发的静态文件请求，既可以做到主动失效，又离用户尽可能近。</p>
+<p>失效问题。任何一个缓存都应该是有时效的</p>
+<p>命中率问题。高命中是缓存系统最为核心的性能要求</p>
+<p>选择若干 CDN 节点进行静态化改造，节点的选取通常需要满足以下几个条件：</p>
+<ol>
+<li>临近访问量集中的地区</li>
+<li>距离主站较远的地区</li>
+<li>节点与主站间网络质量良好的地区</li>
+</ol>
+<p>数据整合</p>
+<p>分离出动静态数据之后，前端如何组织数据页就是一个新的问题，主要在于动态数据的加载处理，通常有两种方案：ESI（Edge Side Includes）方案和 CSI（Client Side Include）方案。</p>
+<ol>
+<li>ESI 方案：Web 代理服务器上请求动态数据，并将动态数据插入到静态页面中，用户看到页面时已经是一个完整的页面。这种方式对服务端性能要求高，但用户体验较好</li>
+<li>CSI 方案：Web 代理服务器上只返回静态页面，前端单独发起一个异步 JS 请求动态数据。这种方式对服务端性能友好，但用户体验稍差</li>
+</ol>
+<h3 id="2-热点优化"><a href="#2-热点优化" class="headerlink" title="2 热点优化"></a>2 热点优化</h3><p>热点操作</p>
+<p>零点刷新、零点下单、零点添加购物车等都属于热点操作。热点操作是用户的行为，不好改变，但可以做一些限制保护，比如用户频繁刷新页面时进行提示阻断。</p>
+<p>热点数据</p>
+<p><em>热点识别</em></p>
+<ol>
+<li>静态热点：能够提前预测的热点数据。大促前夕，可以根据大促的行业特点、活动商家等纬度信息分析出热点商品，或者通过卖家报名的方式提前筛选；另外，还可以通过技术手段提前预测，例如对买家每天访问的商品进行大数据计算，然后统计出 TOP N 的商品，即可视为热点商品</li>
+<li>动态热点：无法提前预测的热点数据。冷热数据往往是随实际业务场景发生交替变化的，尤其是如今直播卖货模式的兴起——带货商临时做一个广告，就有可能导致一件商品在短时间内被大量购买。由于此类商品日常访问较少，即使在缓存系统中一段时间后也会被逐出或过期掉，甚至在db中也是冷数据。瞬时流量的涌入，往往导致缓存被击穿，请求直接到达DB，引发DB压力过大</li>
+</ol>
+<p>秒杀系统需要实现热点数据的动态发现能力，一个常见的实现思路是：</p>
+<ol>
+<li>异步采集交易链路各个环节的热点 Key 信息，如 Nginx采集访问URL或 Agent 采集热点日志（一些中间件本身已具备热点发现能力），提前识别潜在的热点数据</li>
+<li>聚合分析热点数据，达到一定规则的热点数据，通过订阅分发推送到链路系统，各系统根据自身需求决定如何处理热点数据，或限流或缓存，从而实现热点保护</li>
+</ol>
+<h3 id="热点隔离"><a href="#热点隔离" class="headerlink" title="热点隔离"></a>热点隔离</h3><p>将热点数据隔离出来，不要让 1% 影响到另外的 99%。</p>
+<ol>
+<li>业务隔离。秒杀作为一种营销活动，卖家需要单独报名，从技术上来说，系统可以提前对已知热点做缓存预热</li>
+<li>系统隔离。系统隔离是运行时隔离，通过分组部署和另外 99% 进行分离，另外秒杀也可以申请单独的域名，入口层就让请求落到不同的集群中</li>
+<li>数据隔离。秒杀数据作为热点数据，可以启用单独的缓存集群或者DB服务组，从而更好的实现横向或纵向能力扩展</li>
+</ol>
+<p>热点优化</p>
+<ol>
+<li>缓存：热点缓存是最为有效的办法。如果热点数据做了动静分离，那么可以长期缓存静态数据</li>
+<li>限流：流量限制更多是一种保护机制。需要注意的是，各服务要时刻关注请求是否触发限流并及时进行review</li>
+</ol>
+<h3 id="3-系统优化"><a href="#3-系统优化" class="headerlink" title="3 系统优化"></a>3 系统优化</h3><p>如提升硬件水平、调优JVM 性能</p>
+<ol>
+<li>减少序列化：减少 Java 中的序列化操作可以很好的提升系统性能。序列化大部分是在 RPC 阶段发生，因此应该尽量减少 RPC 调用，一种可行的方案是将多个关联性较强的应用进行 “合并部署”，从而减少不同应用之间的 RPC 调用（微服务设计规范）</li>
+<li>直接输出流数据：只要涉及字符串的I&#x2F;O操作，无论是磁盘 I&#x2F;O 还是网络 I&#x2F;O，都比较耗费 CPU 资源，因为字符需要转换成字节，而这个转换又必须查表编码。所以对于常用数据，比如静态字符串，推荐提前编码成字节并缓存，具体到代码层面就是通过 OutputStream() 类函数从而减少数据的编码转换；另外，热点方法toString()不要直接调用ReflectionToString实现，推荐直接硬编码，并且只打印DO的基础要素和核心要素</li>
+<li>裁剪日志异常堆栈：无论是外部系统异常还是应用本身异常，都会有堆栈打出，超大流量下，频繁的输出完整堆栈，只会加剧系统当前负载。可以通过日志配置文件控制异常堆栈输出的深度</li>
+<li>去组件框架：极致优化要求下，可以去掉一些组件框架，比如去掉传统的 MVC 框架，直接使用 Servlet 处理请求。这样可以绕过一大堆复杂且用处不大的处理逻辑，节省毫秒级的时间，当然，需要合理评估你对框架的依赖程度</li>
+</ol>
+<h2 id="一致性"><a href="#一致性" class="headerlink" title="一致性"></a>一致性</h2><h3 id="1-减库存的方式"><a href="#1-减库存的方式" class="headerlink" title="1 减库存的方式"></a>1 减库存的方式</h3><ol>
+<li>下单减库存。买家下单后，扣减商品库存。下单减库存是最简单的减库存方式，也是控制最为精确的一种</li>
+<li>付款减库存。买家下单后，并不立即扣减库存，而是等到付款后才真正扣减库存。但因为付款时才减库存，如果并发比较高，可能出现买家下单后付不了款的情况，因为商品已经被其他人买走了</li>
+<li>预扣库存。这种方式相对复杂一些，买家下单后，库存为其保留一定的时间（如 15 分钟），超过这段时间，库存自动释放，释放后其他买家可以购买</li>
+</ol>
+<h3 id="2-减库存的问题"><a href="#2-减库存的问题" class="headerlink" title="2 减库存的问题"></a>2 减库存的问题</h3><p>下单减库存:</p>
+<ul>
+<li>优势：用户体验最好。下单减库存是最简单的减库存方式，也是控制最精确的一种。下单时可以直接通过数据库事务机制控制商品库存，所以一定不会出现已下单却付不了款的情况。</li>
+<li>劣势：可能卖不出去。正常情况下，买家下单后付款概率很高，所以不会有太大问题。但有一种场景例外，就是当卖家参加某个促销活动时，竞争对手通过恶意下单的方式将该商品全部下单，导致库存清零，那么这就不能正常售卖了——要知道，恶意下单的人是不会真正付款的，这正是 “下单减库存” 的不足之处。</li>
+</ul>
+<p>付款减库存</p>
+<ul>
+<li>优势：一定实际售卖。“下单减库存” 可能导致恶意下单，从而影响卖家的商品销售， “付款减库存” 由于需要付出真金白银，可以有效避免。</li>
+<li>劣势：用户体验较差。用户下单后，不一定会实际付款，假设有 100 件商品，就可能出现 200 人下单成功的情况，因为下单时不会减库存，所以也就可能出现下单成功数远远超过真正库存数的情况，这尤其会发生在大促的热门商品上。如此一来就会导致很多买家下单成功后却付不了款，购物体验自然是比较差的。</li>
+</ul>
+<p>预扣库存</p>
+<ul>
+<li>优势：缓解了以上两种方式的问题。预扣库存实际就是“下单减库存”和 “付款减库存”两种方式的结合，将两次操作进行了前后关联，下单时预扣库存，付款时释放库存。</li>
+<li>劣势：并没有彻底解决以上问题。比如针对恶意下单的场景，虽然可以把有效付款时间设置为 10 分钟，但恶意买家完全可以在 10 分钟之后再次下单。</li>
+</ul>
+<h3 id="3-实际如何减库存"><a href="#3-实际如何减库存" class="headerlink" title="3 实际如何减库存"></a>3 实际如何减库存</h3><p>业界最为常见的是预扣库存。无论是外卖点餐还是电商购物，下单后一般都有个 “有效付款时间”，超过该时间订单自动释放，这就是典型的预扣库存方案。但如上所述，预扣库存还需要解决恶意下单的问题，保证商品卖的出去；另一方面，如何避免超卖，也是一个痛点。</p>
+<ol>
+<li>卖的出去：恶意下单的解决方案主要还是结合安全和反作弊措施来制止。比如，识别频繁下单不付款的买家并进行打标，这样可以在打标买家下单时不减库存；再比如为大促商品设置单人最大购买件数，一人最多只能买 N 件商品；又或者对重复下单不付款的行为进行次数限制阻断等</li>
+<li>避免超卖：库存超卖的情况实际分为两种。对于普通商品，秒杀只是一种大促手段，即使库存超卖，商家也可以通过补货来解决；而对于一些商品，秒杀作为一种营销手段，完全不允许库存为负，也就是在数据一致性上，需要保证大并发请求时数据库中的库存字段值不能为负，一般有多种方案：一是在通过事务来判断，即保证减后库存不能为负，否则就回滚；二是直接设置数据库字段类型为无符号整数，这样一旦库存为负就会在执行 SQL 时报错；三是使用 CASE WHEN 判断语句——</li>
+</ol>
+<p>UPDATE item SET inventory &#x3D; CASE WHEN inventory &gt;&#x3D; xxx THEN inventory-xxx ELSE inventory END</p>
+<p>业务手段保证商品卖的出去，技术手段保证商品不会超卖，库存问题从来就不是简单的技术难题，解决问题的视角是多种多样的。</p>
+<h3 id="4-一致性性能的优化"><a href="#4-一致性性能的优化" class="headerlink" title="4 一致性性能的优化"></a>4 一致性性能的优化</h3><p>4.1 高并发读</p>
+<p>秒杀场景解决高并发读问题，关键词是“分层校验”。即在读链路时，只进行不影响性能的检查操作，如用户是否具有秒杀资格、商品状态是否正常、用户答题是否正确、秒杀是否已经结束、是否非法请求等，而不做一致性校验等容易引发瓶颈的检查操作；直到写链路时，才对库存做一致性检查，在数据层保证最终准确性。</p>
+<p>因此，在分层校验设定下，系统可以采用分布式缓存甚至LocalCache来抵抗高并发读。即允许读场景下一定的脏数据，这样只会导致少量原本无库存的下单请求被误认为是有库存的，等到真正写数据时再保证最终一致性，由此做到高可用和一致性之间的平衡。</p>
+<p>实际上，分层校验的核心思想是：不同层次尽可能过滤掉无效请求，只在“漏斗” 最末端进行有效处理，从而缩短系统瓶颈的影响路径。</p>
+<p>4.2 高并发写</p>
+<p><em>更换<strong>DB</strong>选型</em></p>
+<p>秒杀商品和普通商品的减库存是有差异的，核心区别在数据量级小、交易时间短，把秒杀减库存直接放到缓存系统中实现，也就是直接在一个带有持久化功能的缓存中进行减库存操作，比如 Redis.</p>
+<p>如果减库存逻辑非常单一的话，比如没有复杂的 SKU 库存和总库存这种联动关系的话，是完全可以的。但如果有比较复杂的减库存逻辑，或者需要使用到事务，那就必须在数据库中完成减库存操作。</p>
+<p><em>优化<strong>DB</strong>性能</em></p>
+<p>库存数据落地到数据库实现其实是一行存储（MySQL），因此会有大量线程来竞争 InnoDB 行锁。但并发越高，等待线程就会越多，TPS 下降，RT 上升，吞吐量会受到严重影响</p>
+<ol>
+<li>应用层排队。通过缓存加入集群分布式锁，从而控制集群对数据库同一行记录进行操作的并发度，同时也能控制单个商品占用数据库连接的数量，防止热点商品占用过多的数据库连接</li>
+<li>数据层排队。应用层排队是有损性能的，数据层排队是最为理想的。业界中，阿里的数据库团队开发了针对InnoDB 层上的补丁程序（patch），可以基于DB层对单行记录做并发排队，从而实现秒杀场景下的定制优化——注意，排队和锁竞争是有区别的，如果熟悉 MySQL 的话，就会知道 InnoDB 内部的死锁检测，以及 MySQL Server 和 InnoDB 的切换都是比较消耗性能的。</li>
+</ol>
+<h3 id="高可用"><a href="#高可用" class="headerlink" title="高可用"></a>高可用</h3><p>秒杀请求高度集中于某一特定的时间点。造成一个特别高的零点峰值，而对资源的消耗也几乎是瞬时的。所以秒杀系统的可用性保护是不可或缺的。</p>
+<p>1 流量削峰</p>
+<p>能够抢到商品的人数是固定的，无论 100 人和 10000 人参加结果都是一样的，即有效请求额度是有限的。并发度越高，无效请求也就越多。但秒杀作为一种商业营销手段，活动开始之前是希望有更多的人来刷页面，只是真正开始后，秒杀请求不是越多越好。因此系统可以设计一些规则，人为的延缓秒杀请求，甚至可以过滤掉一些无效请求。</p>
+<p>1.1 答题</p>
+<ol>
+<li>防止作弊。早期秒杀器比较猖獗，存在恶意买家或竞争对手使用秒杀器扫货的情况，商家没有达到营销的目的，所以增加答题来进行限制</li>
+<li>延缓请求。零点流量的起效时间是毫秒级的，答题可以人为拉长峰值下单的时长，由之前的 &lt;1s 延长到 &lt;10s。这个时间对于服务端非常重要，会大大减轻高峰期并发压力；另外，由于请求具有先后顺序，答题后置的请求到来时可能已经没有库存了，因此根本无法下单，此阶段落到数据层真正的写也就非常有限了</li>
+</ol>
+<p>答题除了做正确性验证，还需要对提交时间做验证，比如&lt;1s 人为操作的可能性就很小，可以进一步防止机器答题的情况。</p>
+<p>1.2 排队</p>
+<p>最为常见的削峰方案是使用消息队列，通过把同步的直接调用转换成异步的间接推送缓冲瞬时流量。除了消息队列，类似的排队方案还有很多，例如：</p>
+<ol>
+<li>线程池加锁等待</li>
+<li>本地内存蓄洪等待</li>
+<li>本地文件序列化写，再顺序读</li>
+</ol>
+<p>排队方式的弊端也是显而易见的，主要有两点：</p>
+<ol>
+<li>请求积压。流量高峰如果长时间持续，达到了队列的水位上限，队列同样会被压垮，这样虽然保护了下游系统，但是和请求直接丢弃也没多大区别</li>
+<li>用户体验。异步推送的实时性和有序性自然是比不上同步调用的，由此可能出现请求先发后至的情况，影响部分敏感用户的购物体验</li>
+</ol>
+<p>排队本质是在业务层将一步操作转变成两步操作，从而起到缓冲的作用，但鉴于此种方式的弊端，最终还是要基于业务量级和秒杀场景做出妥协和平衡。</p>
+<p>1.3 过滤</p>
+<p>过滤的核心结构在于分层，通过在不同层次过滤掉无效请求，达到数据读写的精准触发。常见的过滤主要有以下几层：</p>
+<p>1、读限流：对读请求做限流保护，将超出系统承载能力的请求过滤掉</p>
+<p>2、读缓存：对读请求做数据缓存，将重复的请求过滤掉</p>
+<p>3、写限流：对写请求做限流保护，将超出系统承载能力的请求过滤掉</p>
+<p>4、写校验：对写请求做一致性校验，只保留最终的有效数据</p>
+<h3 id="2-Plan-B"><a href="#2-Plan-B" class="headerlink" title="2 Plan B"></a>2 Plan B</h3><p>在秒杀这一场景下，为了保证系统的高可用，必须设计一个 Plan B 方案来进行兜底。</p>
+<p>高可用建设，其实是一个系统工程，贯穿在系统建设的整个生命周期。</p>
+<img src="/2024/04/07/%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/clip_image094.gif" class="" title="img">
+
+<p>具体来说，系统的高可用建设涉及架构阶段、编码阶段、测试阶段、发布阶段、运行阶段，以及故障发生时，逐一进行分析：</p>
+<ol>
+<li>架构阶段：考虑系统的可扩展性和容错性，避免出现单点问题。例如多地单元化部署，即使某个IDC甚至地市出现故障，仍不会影响系统运转</li>
+<li>编码阶段：保证代码的健壮性，例如RPC调用时，设置合理的超时退出机制，防止被其他系统拖垮，同时也要对无法预料的返回错误进行默认的处理</li>
+<li>测试阶段：保证CI的覆盖度以及Sonar的容错率，对基础质量进行二次校验，并定期产出整体质量的趋势报告</li>
+<li>发布阶段：系统部署最容易暴露错误，因此要有前置的checklist模版、中置的上下游周知机制以及后置的回滚机制</li>
+<li>运行阶段：系统多数时间处于运行态，最重要的是运行时的实时监控，及时发现问题、准确报警并能提供详细数据，以便排查问题</li>
+<li>故障发生：首要目标是及时止损，防止影响面扩大，然后定位原因、解决问题，最后恢复服务</li>
+</ol>
+<p>日常运维而言</p>
+<ol>
+<li>预防：建立常态压测体系，定期对服务进行单点压测以及全链路压测，摸排水位</li>
+<li>管控：做好线上运行的降级、限流和熔断保护。需要注意的是，无论是限流、降级还是熔断，对业务都是有损的，所以在进行操作前，一定要和上下游业务确认好再进行。就拿限流来说，哪些业务可以限、什么情况下限、限流时间多长、什么情况下进行恢复，都要和业务方反复确认</li>
+<li>监控：建立性能基线，记录性能的变化趋势；建立报警体系，发现问题及时预警</li>
+<li>恢复：遇到故障能够及时止损，并提供快速的数据订正工具，不一定要好，但一定要有</li>
+</ol>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">小智同学</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="http://example.com/2024/04/07/%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/">http://example.com/2024/04/07/%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">小智同学</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/java%E9%9D%A2%E8%AF%95/">
+                                    <span class="chip bg-color">java面试</span>
+                                </a>
+                            
+                                <a href="/tags/%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/">
+                                    <span class="chip bg-color">秒杀系统</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2024/04/07/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="分布式锁">
+                        
+                        <span class="card-title">分布式锁</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2024-04-07
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/java%E9%9D%A2%E7%BB%8F/" class="post-category">
+                                    java面经
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/java%E9%9D%A2%E8%AF%95/">
+                        <span class="chip bg-color">java面试</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/">
+                        <span class="chip bg-color">分布式锁</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="操作系统">
+                        
+                        <span class="card-title">操作系统</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2024-04-07
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/java%E9%9D%A2%E7%BB%8F/" class="post-category">
+                                    java面经
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/java%E9%9D%A2%E8%AF%95/">
+                        <span class="chip bg-color">java面试</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
+                        <span class="chip bg-color">操作系统</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h1, h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2024</span>
+            
+            <a href="/about" target="_blank">小智同学</a>
+            
+            
+            <br>
+            
+                &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                        class="white-color">153.7k</span>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+                <span id="sitetime"> Loading ...</span>
+                <script>
+                    var calcSiteTime = function () {
+                        var seconds = 1000;
+                        var minutes = seconds * 60;
+                        var hours = minutes * 60;
+                        var days = hours * 24;
+                        var years = days * 365;
+                        var today = new Date();
+                        var startYear = "2024";
+                        var startMonth = "3";
+                        var startDate = "26";
+                        var startHour = "0";
+                        var startMinute = "0";
+                        var startSecond = "0";
+                        var todayYear = today.getFullYear();
+                        var todayMonth = today.getMonth() + 1;
+                        var todayDate = today.getDate();
+                        var todayHour = today.getHours();
+                        var todayMinute = today.getMinutes();
+                        var todaySecond = today.getSeconds();
+                        var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                        var diff = t2 - t1;
+                        var diffYears = Math.floor(diff / years);
+                        var diffDays = Math.floor((diff / days) - diffYears * 365);
+
+                        // 区分是否有年份.
+                        var language = 'zh-CN';
+                        if (startYear === String(todayYear)) {
+                            document.getElementById("year").innerHTML = todayYear;
+                            var daysTip = 'This site has been running for ' + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                daysTip = '本站已运行 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                daysTip = '本站已運行 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = daysTip;
+                        } else {
+                            document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                            var yearsAndDaysTip = 'This site has been running for ' + diffYears + ' years and '
+                                + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                yearsAndDaysTip = '本站已運行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = yearsAndDaysTip;
+                        }
+                    }
+
+                    calcSiteTime();
+                </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/yongbozhi" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+    
+    
+        
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/sakura.js"><\/script>');
+            }
+        </script>
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7}});</script></body>
+
+</html>

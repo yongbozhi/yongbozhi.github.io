@@ -1,0 +1,1497 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="操作系统, 小智同学的blog">
+    <meta name="description" content="用户态和内核态在CPU的所有指令中，有一些指令是非常危险的，如果错用，将导致整个系统崩溃。比如：清内存、设置时钟等。如果所有的程序都能使用这些指令，那么你的系统一天死机n回就不足为奇了。所以，CPU将指令分为特权指令和非特权指令，对于那些危">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>操作系统 | 小智同学的blog</title>
+    <link rel="icon" type="image/jpeg" href="/favicon.jpg">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 7.1.1"><link rel="alternate" href="/atom.xml" title="小智同学的blog" type="application/atom+xml">
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.jpg" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">小智同学的blog</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.jpg" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">小智同学的blog</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/3.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">操作系统</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/java%E9%9D%A2%E8%AF%95/">
+                                <span class="chip bg-color">java面试</span>
+                            </a>
+                        
+                            <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
+                                <span class="chip bg-color">操作系统</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/java%E9%9D%A2%E7%BB%8F/" class="post-category">
+                                java面经
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2024-04-07
+                </div>
+                
+
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    4.9k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    16 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h1 id="用户态和内核态"><a href="#用户态和内核态" class="headerlink" title="用户态和内核态"></a>用户态和内核态</h1><p>在CPU的所有指令中，有一些指令是非常危险的，如果错用，将导致整个系统崩溃。比如：清内存、设置时钟等。如果所有的程序都能使用这些指令，那么你的系统一天死机n回就不足为奇了。所以，CPU将指令分为特权指令和非特权指令，对于那些危险的指令，只允许操作系统及其相关模块使用。</p>
+<p>从用户空间到内核空间有两种触发手段：</p>
+<p>1.用户空间的应用程序，通过系统调用，进入内核空间。这个时候用户空间的进程要传递很多变量、参数的值给内核，内核态运行的时候也要保存用户进程的一些寄存器值、变量等。所谓的“进程上下文”，可以看作是用户进程传递给内核的这些参数以及内核要保存的那一整套的变量和寄存器值和当时的环境等。</p>
+<p>2.硬件通过触发信号，导致内核调用中断处理程序，进入内核空间。这个过程中，硬件的一些变量和参数也要传递给内核，内核通过这些参数进行中断处理。所谓的“中断上下文”，其实也可以看作就是硬件传递过来的这些参数和内核需要保存的一些其他环境（主要是当前被打断执行的进程环境）。</p>
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image001.jpg" class="" title="img">
+
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image002.jpg" class="" title="img">
+
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image003.jpg" class="" title="img">
+
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image004.jpg" class="" title="img">
+
+<h1 id="进程和线程"><a href="#进程和线程" class="headerlink" title="进程和线程"></a>进程和线程</h1><h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><ul>
+<li>什么是进程</li>
+</ul>
+<p>进程可以理解为就是应用程序的启动实例。如微信、Idea、Navicat等，当打开它们后，就相当于开启了一个进程。每个进程都会在操作系统中拥有独立的内存空间、地址、文件资源、数据资源等。<strong>进程是资源分配和管理的最小单位</strong></p>
+<p>线程从属于进程，是程序的实际执行者，一个进程中可以包含若干个线程，并且也可以把线程称为轻量级进程。每个线程都会拥有自己的计数器、堆栈、局部变量等属性，并且能够访问共享的内存变量。**线程是操作系统（CPU）调度和执行的最小单位。CPU会在这些线程上来回切换，让使用者感觉线程是在同时执行的。</p>
+<p><strong>线程使用带来的问题</strong></p>
+<p>​    有很多人都会存在一个误区，在代码中使用多线程，一定会为系统带来性能提升，这个观点是错误的。并发编程的目的是为了让程序运行的更快，但是，绝对不是说启动的线程越多，性能提升的就越大，其会受到很多因素的影响，如锁问题、线程状态切换问题、线程上下文切换问题，还会受到硬件资源的影响，如CPU核数。</p>
+<p>什么叫做线程上下文切换</p>
+<p>​    不管是在多核甚至单核处理器中，都是能够以多线程形式执行代码的，CPU通过给每个线程分配CPU时间片来实现线程执行间的快速切换。 所谓的时间片就是CPU分配给每个线程的执行时间，当某个线程获取到CPU时间片后，就会在一定时间内执行，当时间片到期，则该线程会进入到挂起等待状态。时间片一般为几十毫秒，通过在CPU的高速切换，让使用者感觉是在同时执行。</p>
+<p>​    同时还要保证线程在切换的过程中，要记录线程被挂起时，已经执行了哪些指令、变量值是多少，那这点则是通过每个线程内部的程序计数器来保证。</p>
+<p>​    简单来说：线程从挂起到再加载的过程，就是一次上下文切换。其是比较耗费资源的。</p>
+<p>引起上下文切换的几种情况：</p>
+<ul>
+<li>时间片用完，CPU正常调度下一个任务。</li>
+<li>被其他优先级更高的任务抢占。</li>
+<li>执行任务碰到IO阻塞，调度器挂起当前任务，切换执行下一个任务。</li>
+<li>用户代码主动挂起当前任务让出CPU时间。</li>
+<li>多任务抢占资源，由于没有抢到被挂起。</li>
+<li>硬件中断。</li>
+</ul>
+<p><strong>CPU时间片轮转机制&amp;优化</strong></p>
+<p>​    之前已经提到了线程的执行，是依赖于CPU给每个线程分配的时间来进行。在CPU时间片轮转机制中，如果一个线程的时间片到期，则CPU会挂起该线程并给另一个线程分配一定的时间分片。如果进程在时间片结束前阻塞或结束，则 CPU 会立即进行切换。</p>
+<p>​     时间片太短会导致频繁的进程切换，降低了 CPU 效率: 而太长又可能引起对短的交互请求的响应变差。时间片为 <strong>100ms</strong> 通常是一个比较合理的折衷。</p>
+<p>并行与并发的理解</p>
+<p>并发即让多个任务能够<strong>交替</strong>执行，一般都会附带一个时间单位，也就是所谓的在单</p>
+<p>位时间内的并发量有多少。</p>
+<p>并行即让多个任务能够同时执行。比如说：你可以一遍上厕所，一遍吃饭。</p>
+<p>线程的实现方式有两种：继承Thread类、实现Runnable接口。但是有一些书籍或者文章会说有三种方式，即实现Callable接口。但通过该接口定义线程并不是Java标准的定义方式，而是基于</p>
+<p>Future思想来完成。</p>
+<p>Thread是对一个线程的抽象，而Runnable是对业务逻辑的抽象，并且Thread 可以接受任意一个 Runnable 的实例并执行。</p>
+<p>优化：启动线程前，最好为这个线程设置特定的线程名称，这样在出现问题时，给开发人员一些提示，快速定位到问题线程。</p>
+<p>线程中止</p>
+<p>线程在正常下当run执行完，或出现异常都会让该线程中止。</p>
+<p>理解suspend()、resume()、stop()</p>
+<p>这三个方法对应的是暂停、恢复和中止。</p>
+<p>但是三个已经在Java源码中被标注为过期方法。</p>
+<p>当调用suspend()时，线程不会将当前持有的资源释放(如锁)，而是占有者资源进入到暂停状</p>
+<p>态，这样的话，容易造成死锁问题的出现。</p>
+<p>当调用stop()时，会<strong>立即停止run()中剩余的操作</strong>。因此可能会导致一些的工作得不到完成，如文件流，数据库等关闭。并且<strong>会立即释放该线程所持有的所有的锁</strong>，导致数据得</p>
+<p>不到同步的处理，出现数据不一致的问题。</p>
+<p>线程中止的安全且优雅姿势</p>
+<p>​    Java对于线程安全中止设计了一个<strong>中断属性</strong>，其可以理解是线程的一个标识位属性。它用于表示一个运行中的线程是否被其他线程进行了中断操作。好比其他线程对这个线程打了一个招呼，告诉它你该中断了。通过**interrupt()**实现。</p>
+<p>添加该方法后，会出现一个异常，但是可以发现并不会线程的继续执行。</p>
+<p>​    线程通过检查自身是否被中断来进行响应，可以通过**isInterrupted()**进行判断，如果返回值为true，代表添加了中断标识，返回false，代表没有添加中断标识。通过它可以对线程进行中断操作。</p>
+<p>对线程中断属性的判断，可以利用其进行线程执行的中断操作。线程也可以通过静态方法**Thread.interrupted()**查询线程是否被中断，并对中断标识进行复位，如果该线程已经被添加了中断标识，当使用了该方法后，会将线程的中断标识由true改为false。</p>
+<p>同时要注意：<strong>处于死锁下的线程，无法被中断</strong></p>
+<h2 id="进程和线程的区别"><a href="#进程和线程的区别" class="headerlink" title="进程和线程的区别"></a>进程和线程的区别</h2><p>进程是执行着的应用程序，而线程是进程内部的一个执行序列。一个进程可以有多个线程。线程又叫做轻量级进程。</p>
+<p>**a.**<strong>地址空间和其它资源</strong>：进程间拥有独立内存，进程是资源分配的基本单位；线程隶属于某一进程，且同一进程的各线程间共享内存（资源），线程是cpu调度的基本单位。 进程间相互独立，同一进程的各线程间共享。某进程内的线程在其它进程不可见。</p>
+<p>**b.**<strong>通信：</strong>进程间相互独立，通信困难，常用的方法有：管道，信号，套接字，共享内存，消息队列等；线程间可以直接读写进程数据段（如全局变量）来进行通信——需要进程同步和互斥手段的辅助，以保证数据的一致性。 </p>
+<p>**c.**<strong>调度和切换</strong>：线程上下文切换比进程上下文切换要快。进程间切换要保存上下文，加载另一个进程；而线程则共享了进程的上下文环境，切换更快。</p>
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image005.jpg" class="" title="img">
+
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image006.jpg" class="" title="img">
+
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image008.jpg" class="" title="线 程 的 优 点 ：  。 一 个 进 程 中 可 以 同 时 存 在 个 线 程 ；  。 各 个 线 程 之 间 可 以 并 发 执 行 ；  。 各 个 线 程 之 间 可 以 共 享 地 址 空 间 和 文 件 等 资 源 ；  线 程 的 缺 点 ：  能 当 进 程 中 的 一 个 线 程 崩 溃 时 ， 会 导 致 其 所 属 进 程 的 所 有 线 程 崩 溃 。">
+
+<h2 id="线程间通信方式"><a href="#线程间通信方式" class="headerlink" title="线程间通信方式"></a>线程间通信方式</h2><img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image009.jpg" class="" title="img">
+
+<p>共享存储：基于数据结构：eg.在共享空间放数组</p>
+<p>基于存储区：在内存区中画出一片共享存储区，数据的形式和存放位置由进程决定</p>
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image010.jpg" class="" title="img">
+
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image011.jpg" class="" title="img">
+
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image012.jpg" class="" title="img">
+
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image013.jpg" class="" title="img">
+
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image014.jpg" class="" title="img">
+
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image015.jpg" class="" title="img">
+
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image016.jpg" class="" title="img">
+
+<h2 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h2><img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image017.jpg" class="" title="img">
+
+<p>死锁的定义</p>
+<p>一组进程中，<strong>每个进程都无限等待被该组进程中另一进程所占有的资源</strong>，因而永远无法得到的资源，这种现象称为进程死锁，这一组进程就称为死锁进程。</p>
+<p>产生死锁的必要条件</p>
+<p>(1)互斥使用(资源独占)：一个资源每次只能给一个进程使用</p>
+<p>(2)占有且等待(请求和保持，部分分配)：进程在申请新的资源的同时保持对原有资源的占有</p>
+<p>(3)不可剥夺：资源申请者不能强行的从资源占有者手中夺取资源，资源只能由占有者自愿释放</p>
+<p>(4)循环等待：存在一个进程等待队列 {P1 , P2 , … , Pn}，其中P1等待P2占有的资源，P2等待P3占有的资源，…，Pn等待P1占有的资源，形成一个进程等待环路。</p>
+<p>以哲学家进餐问题为例，我占着筷子，你们不能抢我的，我还想要另一只筷子，形成一个圈。            (互斥)   (不可剥夺)   (请求和保持)    (循环等待)</p>
+<p> 什么情况会发生死锁</p>
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image018.jpg" class="" title="img">
+
+<p>死锁预防</p>
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image019.jpg" class="" title="img">
+
+<p> 死锁避免</p>
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image021.jpg" class="" title="img">
+
+<p> 死锁检测与消除</p>
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image022.jpg" class="" title="img">
+
+<p><a target="_blank" rel="noopener" href="https://www.huaweicloud.com/articles/9fa2f8ad06587f13ca7f11ec4d9a5077.html">https://www.huaweicloud.com/articles/9fa2f8ad06587f13ca7f11ec4d9a5077.html</a></p>
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image023.jpg" class="" title="img">
+
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image024.jpg" class="" title="img">
+
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_46527915/category_10424299.html">https://blog.csdn.net/qq_46527915/category_10424299.html</a></p>
+<p>线程之间同步的方式</p>
+<p>1、 临界区（CCriticalSection）</p>
+<p>当多个线程访问一个独占性共享资源时，可以使用临界区对象（有正在访问临界区资源标志）。拥有临界区的线程可以访问被保护起来的资源或代码段，其他线程若想访问，则被挂起，直到拥有临界区的线程放弃临界区为止。</p>
+<p>2、互斥对象：互斥对象和临界区很像，采用互斥对象机制，只有拥有互斥对象的线程才有访问公共资源的权限。因为互斥对象只有一个，所以能保证公共资源不会同时被多个线程同时访问。当前拥有互斥对象的线程处理完任务后必须将线程交出，以便其他线程访问该资源</p>
+<p>3、信号量：信号量也是内核对象。它允许多个线程在同一时刻访问同一资源，但是需要限制在同一时刻访问此资源的最大线程数目</p>
+<p>在用CreateSemaphore()创建信号量时即要同时指出允许的最大资源计数和当前可用资源计数。一般是将当前可用资源计数设置为最大资源计数，每增加一个线程对共享资源的访问，当前可用资源计数就会减1 ，只要当前可用资源计数是大于0 的，就可以发出信号量信号。但是当前可用计数减小到0时则说明当前占用资源的线程数已经达到了所允许的最大数目，不能在允许其他线程的进入，此时的信号量信号将无法发出。线程在处理完共享资源后，应在离开的同时通过ReleaseSemaphore （）函数将当前可用资源计数加1 。在任何时候当前可用资源计数决不可能大于最大资源计数。</p>
+<p>4、 事件（CEvent）</p>
+<p>事件机制，则允许一个线程在处理完一个任务后，主动唤醒另外一个线程执行任务。比如在某些网络应用程序中，一个线程如A负责侦听通信端口，另外一个线程B负责更新用户数据，利用事件机制，则线程A可以通知线程B何时更新用户数据。</p>
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image025.jpg" class="" title="img">
+
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image026.jpg" class="" title="img">
+
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image027.jpg" class="" title="img">
+
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image028.jpg" class="" title="img">
+
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image029.jpg" class="" title="img">
+
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image030.jpg" class="" title="img">
+
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image031.jpg" class="" title="img">
+
+<h2 id="进程调度"><a href="#进程调度" class="headerlink" title="进程调度"></a>进程调度</h2><img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image032.jpg" class="" title="img">
+
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image033.jpg" class="" title="img">
+
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image034.jpg" class="" title="img">
+
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image035.jpg" class="" title="img">
+
+<h2 id="线程优先级"><a href="#线程优先级" class="headerlink" title="线程优先级"></a>线程优先级</h2><p>线程优先级的<strong>范围是****1~10</strong>。一个线程的<strong>默认优先级是****5</strong>，可以在构建线程时，通过**setPriority()**修改该线程的优先级。优先级高的线程分配时间片的数量会高于优先级低的线程。</p>
+<p>​    一般来说对于频繁阻塞的线程需要设置优先级高点，而偏重计算的线程优先级会设置低些，确保处理器不会被独占。</p>
+<p>​    但<strong>注意，线程优先级不能作为线程执行正确性的依赖，因为不同的操作系统可能会忽略优先级的设置。</strong></p>
+<h2 id="守护线程"><a href="#守护线程" class="headerlink" title="守护线程"></a>守护线程</h2><p>守护线程是一种支持型的线程，我们之前创建的线程都可以称之为用户线程。通过守护线程可以完成一些支持性的工作，如GC、分布式锁续期。守护线程会伴随着用户线程的结束而结束。</p>
+<p>对于守护线程的创建，可以通过setDaemon()设置。</p>
+<p>当线程实例没有被设置为守护线程时，该线程并不会随着主线程的结束而结束。但是当被设置为守护线程后，当主线程结束，该线程也会伴随着结束。同时守护线程不一定会执行finally代码块。所以当线程被设定为守护线程后，无法确保清理资源等操作一定会被执行。</p>
+<h2 id="线程状态"><a href="#线程状态" class="headerlink" title="线程状态"></a>线程状态</h2><p><img src="/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image037.jpg" alt="Object.wait()  Objectjoin()  LockSupportprk()  《 实 例 化  初 始  (NEW)  T “ d 对 酾 0  (RUNNABLE)  运 行 中  (RUNNING)  等 待  (WAITING)  Objectnotify()  Object.notifyAllO  L&#39;EkSupm»rt.unvx•rk(Thread)  系 统 调 度  yield()  系 统 调 度  就 *(READY)  执 行 完 成  终 上  (TERMINATED)  Obiect.waiulong)  Thread.join(long)  LockSupport.parkNanos()  LockSupport.parktJntil()  超 时 等 待  (TIMED WAITING)  （ j “ 上 n 《 下 0  （ 讣 卞 0 ． n fyAll()  L&#39;RkSupport.unpark(Thread)  超 进 时 间 到  等 待 进 入 、 yn 山 ronized 方 法  获 取 到 锁 等 待 进 入 “ niz 块  阻 塞  (BLOCKED)  由 上 图 可 以 看 出 ： 线 程 创 建 之 后 它 将 处 于 NEW （ 新 建 ） 状 态 ， 调 用 start() 方 法 后 开 始 运 行 ，  线 程 这 时 候 处 于 READY （ 可 运 行 ） 状 态 。 可 运 行 状 态 的 线 程 获 得 了 CPU 时 间 片 (timeslice)  后 就 处 于 RUNNING （ 运 行 ） 状 态 。 "><img src="/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image039.jpg" alt="状 态 名 称  NEW  RUNNABLE  BLOCKED  WAITING  TIME WAITING  TERMINATED  初 始 状 态 ， 线 程 被 构 建 ， 但 是 还 没 有 调 用 start() 方 法  运 行 状 态  ， Java 线 程 将 作 系 统 中 的 就 绪 和 运 行 两 种 状 态 花 统 地 你 作 “ 运 行 中 &quot;  阻 不 状 态 ．  表 示 线 程 阻 寒 于 锁  等 待 状 态 ， 表 示 线 程 进 人 等 待 状 态 ， 进 人 该 状 态 表 示 当 前 线 程 需 要 等 待 其 他 线 程  做 出 一 些 特 定 动 作 （ 通 知 或 中 断 ）  超 时 等 侍 状 态 ， 该 状 态 不 同 于 WA 仃 ING ， 它 是 可 以 在 指 定 的 时 间 自 行 返 回 的  这 Il ． 态 ， 表 示 当 前 线 已 经 执 行 完 毕 "></p>
+<h2 id="线程安全活跃态问题以及竞态条件"><a href="#线程安全活跃态问题以及竞态条件" class="headerlink" title="线程安全活跃态问题以及竞态条件"></a>线程安全活跃态问题以及竞态条件</h2><img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image041.jpg" class="" title="1 ． 线 程 安 全 的 活 跃 性 问 题 可 以 分 为 死 锁 、 活 锁 、 饥 饿  1 ． 活 锁 就 是 有 时 线 程 虽 然 没 有 发 生 阻 塞 ， 但 是 仍 然 会 存 在 执 行 不 下 去 的 情 况 ， 活 锁 不 会 阻 塞 线 程 ， 线 程 会 一  直 重 复 执 行 某 个 相 同 的 操 作 ， 并 且 一 直 失 败 重 试  1 ． 我 们 开 发 中 使 用 的 异 步 消 息 队 列 就 有 可 能 造 成 活 锁 的 问 题 ， 在 消 息 队 列 的 消 费 端 如 果 没 有 正 确 的 旦  消 息 ， 并 目 执 行 过 程 中 报 错 了 ， 就 会 冉 次 放 回 消 息 头 ， 然 后 冉 拿 出 来 执 行 ， 一 直 循 环 往 复 的 失 败 。 这  个 问 题 除 了 正 确 的 匹 之 外 ， 往 往 是 通 i 寻 失 败 的 息 放 入 到 延 时 队 列 中 ， 等 到 一 定 的 延 时 冉 进 行 重  试 来 解 决 。  2 ．  几 的 时 间 就 可 以 ， 会 按 时 间  去 重 试">
+
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image043.jpg" class="" title="2 ． 饥 饿 就 是 线 程 因 无 法 访 问 所 需 资 氵 原 而 无 氵 去 执 行 下 去 的 情 况  1 ， 饥 饿 分 为 两 种 情 况 ：  1 ． 一 种 是 具 他 的 线 程 在 临 界 区 做 了 无 限 循 环 競 无 限 制 等 待 资 源 的 操 作 ， 让 其 他 的 线 程 一 直 不 能 拿 到  锁 进 入 临 界 区 ， 对 其 他 线 程 来 说 ， 就 进 入 了 饥 饿 状 态  2 ． 另 一 种 是 因 为 线 程 优 先 级 不 合 理 的 分 配 ， 导 致 部 分 线 程 始 终 无 法 获 取 到 CPU 资 源 而 一 直 无 法 执 行  2 ． 解 决 饥 饿 的 问 题 有 几 种 方 案 ．  1 ． 保 证 资 源 充 足 ， 很 多 场 景 下 ， 资 源 的 稀 缺 性 无 法 解 决  2 ． 公 平 分 配 资 源 ， 在 并 发 编 程 里 使 用 公 平 锁 ， 例 如 FIFO 策 略 ， 线 程 等 待 是 有 顺 序 的 ， 排 在 等 待 队 列  前 面 的 线 程 会 优 先 获 得 资 源  3 ， 免 持 有 锁 的 线 程 长 时 间 执 行 ， 很 多 场 景 下 ， 持 有 锁 的 线 程 的 执 行 时 间 也 很 难 缩 短  3 ． 死 锁 线 程 在 对 同 一 把 锁 进 行 竟 争 的 时 候 ， 未 抢 占 到 锁 的 纟 呈 会 等 待 持 有 锁 的 线 程 释 放 锁 后 继 纟 仓 占 ， 如  果 两 个 或 两 个 以 上 的 纟 呈 互 相 持 有 对 方 将 要 抢 占 的 锁 ， 互 相 等 待 对 方 先 行 释 放 锁 就 会 进 入 到 一 个 循 环 等 待  的 过 程 ， 这 个 过 程 就 叫 做 死 锁">
+
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image045.jpg" class="" title="2 、 线 程 安 全 的 竟 态 条 件 问 题  1 ． 同 一 个 程 序 多 线 程 访 问 同 一 个 资 源 ， 如 果 对 资 源 的 访 问 顺 序 敏 感 ， 就 称 存 在 竞 态 条 件 ， 代 码 区 成 为 临 界  区 。 大 多 数 并 发 错 误 一 样 ， 竟 态 条 件 不 总 是 会 产 生 问 题 ， 还 需 要 不 恰 当 的 执 行 时 序  2 ， 最 常 见 的 竟 态 条 件 为  1 ． 先 检 测 后 执 行 执 行 依 赖 于 检 测 的 结 果 ， 而 检 测 结 果 依 赖 于 多 个 线 程 的 执 行 时 序 ， 而 多 个 线 程 的 执 行 时  序 通 帛 情 况 下 是 不 固 定 不 可 判 断 的 ， 从 而 导 致 执 行 结 果 出 现 各 种 问 题 ， 见 一 种 可 能 的 解 决 办 法 就 是 ．  在 一 个 纟 呈 修 改 访 问 一 个 状 态 时 ， 要 防 止 其 他 线 程 访 问 修 改 ， 也 就 是 加 锁 机 制 ， 保 证 原 子 性  2 ． 延 迟 初 始 化 （ 典 型 为 单 例 ）">
+
+<h2 id="多级反馈队列调度算法"><a href="#多级反馈队列调度算法" class="headerlink" title="多级反馈队列调度算法"></a>多级反馈队列调度算法</h2><img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image046.jpg" class="" title="img">
+
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image047.jpg" class="" title="img">
+
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image049.gif" class="" title="img">
+
+<h2 id="孤儿进程，僵尸进程"><a href="#孤儿进程，僵尸进程" class="headerlink" title="孤儿进程，僵尸进程"></a>孤儿进程，僵尸进程</h2><p><strong>孤儿进程：一个父进程退出，而它的一个或多个子进程还在运行，那么那些子进程将成为孤儿进程。孤儿进程将被init进程(进程号为1)所收养，并由init进程对它们完成状态收集工作。</strong></p>
+<p><strong>僵尸进程：一个进程使用fork创建子进程，如果子进程退出，而父进程并没有调用wait或waitpid获取子进程的状态信息，那么子进程的进程描述符仍然保存在系统中。这种进程称之为僵死进程。</strong></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/Anker/p/3271773.html">https://www.cnblogs.com/Anker/p/3271773.html</a></p>
+<h1 id="内存"><a href="#内存" class="headerlink" title="内存"></a>内存</h1><h2 id="逻辑地址和物理地址"><a href="#逻辑地址和物理地址" class="headerlink" title="逻辑地址和物理地址"></a>逻辑地址和物理地址</h2><ul>
+<li><ul>
+<li>逻辑地址</li>
+<li>指由程序产生的段内偏移。有时候直接把逻辑地址当做虚拟地址。</li>
+</ul>
+</li>
+<li><ul>
+<li>物理地址</li>
+<li>指CPU外部地址总线上寻址物理内存的地址信号，是地址变换的最终结果。</li>
+</ul>
+</li>
+<li><ul>
+<li>虚拟地址</li>
+<li>指由程序产生的由段选择符和段内偏移地址组成的地址。</li>
+</ul>
+</li>
+<li><ul>
+<li>线性地址</li>
+<li>指虚拟地址到物理地址变换的中间层，是处理器可寻址的内存空间中的地址。程序代码会产生逻辑地址，也就是段中的偏移地址，加上相应的段基址就成了线性地址。如果开启了分页机制，那么线性地址需要再经过变换，转为为物理地址。如果无分页机制，那么线性地址就是物理地址。</li>
+</ul>
+</li>
+</ul>
+<h2 id="内存管理"><a href="#内存管理" class="headerlink" title="内存管理"></a>内存管理</h2><p><a href="onenote:#内存管理&section-id={7168EEEF-275B-413A-9384-A420806C9C4F}&page-id={9B7BA1DC-0CC3-41C0-A8E0-09388B487078}&object-id={2FB06EC1-4084-4E60-9B5D-D762ABB54D5D}&2B&base-path=https://d.docs.live.net/73ef43393996c94e/文档/java/操作系统.one">内存分段</a></p>
+<p><a href="onenote:#内存管理&section-id={7168EEEF-275B-413A-9384-A420806C9C4F}&page-id={9B7BA1DC-0CC3-41C0-A8E0-09388B487078}&object-id={2FB06EC1-4084-4E60-9B5D-D762ABB54D5D}&82&base-path=https://d.docs.live.net/73ef43393996c94e/文档/java/操作系统.one">内存分页</a></p>
+<p><a href="onenote:#内存管理&section-id={7168EEEF-275B-413A-9384-A420806C9C4F}&page-id={9B7BA1DC-0CC3-41C0-A8E0-09388B487078}&object-id={2FB06EC1-4084-4E60-9B5D-D762ABB54D5D}&89&base-path=https://d.docs.live.net/73ef43393996c94e/文档/java/操作系统.one">多级页表</a></p>
+<p><a href="onenote:#内存管理&section-id={7168EEEF-275B-413A-9384-A420806C9C4F}&page-id={9B7BA1DC-0CC3-41C0-A8E0-09388B487078}&object-id={2FB06EC1-4084-4E60-9B5D-D762ABB54D5D}&C4&base-path=https://d.docs.live.net/73ef43393996c94e/文档/java/操作系统.one">段页式内存管理</a></p>
+<p><a href="onenote:#内存管理&section-id={7168EEEF-275B-413A-9384-A420806C9C4F}&page-id={9B7BA1DC-0CC3-41C0-A8E0-09388B487078}&object-id={2FB06EC1-4084-4E60-9B5D-D762ABB54D5D}&DD&base-path=https://d.docs.live.net/73ef43393996c94e/文档/java/操作系统.one">总结</a></p>
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image050.jpg" class="" title="img">
+
+<p> 内存分段</p>
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image051.jpg" class="" title="img">
+
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image052.jpg" class="" title="img">
+
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image053.jpg" class="" title="img">
+
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image054.jpg" class="" title="img">
+
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image056.jpg" class="" title="再 来 看 看 ， 分 段 为 什 么 会 寻 致 内 存 交 换 效 率 低 的 问 ？  对 于 弓 进 程 的 系 统 来 说 ， 用 分 段 的 方 式 ， 内 存 碎 片 是 很 容 易 产 生 的 ， 产 生 了 内 存 碎 片 ， 那 不  得 不 申 新 Swap 内 存 区 域 ， 这 个 过 程 会 产 生 性 能 瓶 颈 。  因 为 硬 盘 的 访 闷 速 度 要 比 内 存 慢 太 了 ， 每 一 次 内 存 交 换 ， 我 们 都 需 要 把 一 大 段 连 续 的 内 存  数 踞 写 到 硬 盘 上 。  所 以 ， 如 果 内 存 交 挨 的 时 候 ， 交 挨 的 是 一 个 占 内 存 空 间 很 大 的 程 序 ， 这 样 整 个 机 器 都 会 显 得  为 了 解 决 内 存 分 殿 的 内 存 碎 片 和 内 存 交 涣 效 率 低 的 闷 ， 就 出 现 了 内 存 分 页 。">
+
+<p>内存分页</p>
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image057.jpg" class="" title="img">
+
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image058.jpg" class="" title="img">
+
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image059.jpg" class="" title="img">
+
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image060.jpg" class="" title="img">
+
+<p>多级页表</p>
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image061.jpg" class="" title="img">
+
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image062.jpg" class="" title="img">
+
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image063.jpg" class="" title="img">
+
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image064.jpg" class="" title="img">
+
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image065.jpg" class="" title="img">
+
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image066.jpg" class="" title="img">
+
+<p> 段页式内存管理</p>
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image067.jpg" class="" title="img">
+
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image068.jpg" class="" title="img">
+
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image069.jpg" class="" title="img">
+
+<p>总结</p>
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image070.jpg" class="" title="img">
+
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image071.jpg" class="" title="img">
+
+<h2 id="快表和多级页表"><a href="#快表和多级页表" class="headerlink" title="快表和多级页表"></a>快表和多级页表</h2><img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image072.jpg" class="" title="img">
+
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image073.jpg" class="" title="img">
+
+<h2 id="虚拟内存"><a href="#虚拟内存" class="headerlink" title="虚拟内存"></a>虚拟内存</h2><p>局部性原理</p>
+<p>在CPU访问寄存器时，无论是存取数据抑或存取指令，都趋于聚集在一片连续的区域中，这就被称为局部性原理。 </p>
+<p>时间局部性（temporal locality）  </p>
+<p>时间局部性指的是：被引用过一次的存储器位置在未来会被多次引用（通常在循环中）。 </p>
+<p>空间局部性（spatial locality）  </p>
+<p>如果一个存储器的位置被引用，那么将来他附近的位置也会被引用。</p>
+<p>基于局部性原理，在程序装入时，可以将程序的一部分装入内存，而将其余部分留在外存，就可以启动程序执行。在程序执行过程中，当所访问的信息不在内存时，由操作系统将所需要的部分调入内存,然后继续执行程序。另一方面，操作系统将内存中暂时不使用的内容换出到外存上，从而腾出空间存放将要调入内存的信息。这样，系统好像为用户提供了一个比实际内存大得多的存储器，称为虚拟存储器。</p>
+<p>之所以将其称为虚拟存储器，是因为这种存储器实际上并不存在，只是由于（对用户完全透明），给用户的感觉是好像存在一个比实际物理内存大得多的存储器。虚拟存储器的大小由计算机的地址结构决定，并非是内存和外存的简单相加。 </p>
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image074.jpg" class="" title="img">
+
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image075.jpg" class="" title="img">
+
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image076.jpg" class="" title="img">
+
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/lvyibin890/article/details/82217193">https://blog.csdn.net/lvyibin890/article/details/82217193</a></p>
+<h2 id="页错误"><a href="#页错误" class="headerlink" title="页错误"></a>页错误</h2><img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image077.jpg" class="" title="img">
+
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/lqy971966/article/details/106910442">https://blog.csdn.net/lqy971966/article/details/106910442</a></p>
+<h2 id="时钟置换算法"><a href="#时钟置换算法" class="headerlink" title="时钟置换算法"></a>时钟置换算法</h2><img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image078.jpg" class="" title="img">
+
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image079.jpg" class="" title="img">
+
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image080.jpg" class="" title="img">
+
+<h2 id="LRU算法"><a href="#LRU算法" class="headerlink" title="LRU算法"></a>LRU算法</h2><p>LRU 存储是基于双向链表实现的，下面的图演示了它的原理。其中 h 代表双向链表的表头，t 代表尾部。首先预先设置 LRU 的容量，如果存储满了，可以通过 O(1) 的时间淘汰掉双向链表的尾部，每次新增和访问数据，都可以通过 O(1)的效率把新的节点增加到对头，或者把已经存在的节点移动到队头。</p>
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image081.jpg" class="" title="img">
+
+<p>1.save(key, value)，首先在 HashMap 找到 Key 对应的节点，如果节点存在，更新节点的值，并把这个节点移动队头。如果不存在，需要构造新的节点，并且尝试把节点塞到队头，如果LRU空间不足，则通过 tail 淘汰掉队尾的节点，同时在 HashMap 中移除 Key。</p>
+<p>2.get(key)，通过 HashMap 找到 LRU 链表节点，把节点插入到队头，返回缓存的值。 </p>
+<h1 id="IO模型"><a href="#IO模型" class="headerlink" title="IO模型"></a>IO模型</h1><p>阻塞IO，非阻塞IO，IO多路复用，事件响应IO，异步IO</p>
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image082.jpg" class="" title="img">
+
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image083.jpg" class="" title="img">
+
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image084.jpg" class="" title="img">
+
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image085.jpg" class="" title="img">
+
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image086.jpg" class="" title="img">
+
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image087.jpg" class="" title="img">
+
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image088.jpg" class="" title="img">
+
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image089.jpg" class="" title="img">
+
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image090.jpg" class="" title="img">
+
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image091.jpg" class="" title="img">
+
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image092.jpg" class="" title="img">
+
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image093.jpg" class="" title="img">
+
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image094.jpg" class="" title="img">
+
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image095.jpg" class="" title="img">
+
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image096.jpg" class="" title="img">
+
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/115912936">https://zhuanlan.zhihu.com/p/115912936</a></p>
+<h1 id="中断"><a href="#中断" class="headerlink" title="中断"></a>中断</h1><img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image098.jpg" class="" title="臊 作 系 统 收 到 了 中 断 求 ， 会 打 断 其 他 进 程 的 运 行 ， 所 以 中 断 谴 求 的 应 程 序 ， 也 就 是 中 断  处 理 程 序 ， 要 尽 可 能 快 的 执 行 完 ， 这 样 可 以 少 对 正 常 进 程 运 行 调 度 地 影 。">
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">小智同学</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="http://example.com/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">http://example.com/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">小智同学</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/java%E9%9D%A2%E8%AF%95/">
+                                    <span class="chip bg-color">java面试</span>
+                                </a>
+                            
+                                <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
+                                    <span class="chip bg-color">操作系统</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2024/04/07/%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="秒杀系统">
+                        
+                        <span class="card-title">秒杀系统</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2024-04-07
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/java%E9%9D%A2%E7%BB%8F/" class="post-category">
+                                    java面经
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/java%E9%9D%A2%E8%AF%95/">
+                        <span class="chip bg-color">java面试</span>
+                    </a>
+                    
+                    <a href="/tags/%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/">
+                        <span class="chip bg-color">秒杀系统</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2024/04/06/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="计算机网络">
+                        
+                        <span class="card-title">计算机网络</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2024-04-06
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/java%E9%9D%A2%E7%BB%8F/" class="post-category">
+                                    java面经
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/java%E9%9D%A2%E8%AF%95/">
+                        <span class="chip bg-color">java面试</span>
+                    </a>
+                    
+                    <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">
+                        <span class="chip bg-color">计算机网络</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h1, h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2024</span>
+            
+            <a href="/about" target="_blank">小智同学</a>
+            
+            
+            <br>
+            
+                &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                        class="white-color">153.7k</span>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+                <span id="sitetime"> Loading ...</span>
+                <script>
+                    var calcSiteTime = function () {
+                        var seconds = 1000;
+                        var minutes = seconds * 60;
+                        var hours = minutes * 60;
+                        var days = hours * 24;
+                        var years = days * 365;
+                        var today = new Date();
+                        var startYear = "2024";
+                        var startMonth = "3";
+                        var startDate = "26";
+                        var startHour = "0";
+                        var startMinute = "0";
+                        var startSecond = "0";
+                        var todayYear = today.getFullYear();
+                        var todayMonth = today.getMonth() + 1;
+                        var todayDate = today.getDate();
+                        var todayHour = today.getHours();
+                        var todayMinute = today.getMinutes();
+                        var todaySecond = today.getSeconds();
+                        var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                        var diff = t2 - t1;
+                        var diffYears = Math.floor(diff / years);
+                        var diffDays = Math.floor((diff / days) - diffYears * 365);
+
+                        // 区分是否有年份.
+                        var language = 'zh-CN';
+                        if (startYear === String(todayYear)) {
+                            document.getElementById("year").innerHTML = todayYear;
+                            var daysTip = 'This site has been running for ' + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                daysTip = '本站已运行 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                daysTip = '本站已運行 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = daysTip;
+                        } else {
+                            document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                            var yearsAndDaysTip = 'This site has been running for ' + diffYears + ' years and '
+                                + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                yearsAndDaysTip = '本站已運行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = yearsAndDaysTip;
+                        }
+                    }
+
+                    calcSiteTime();
+                </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/yongbozhi" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+    
+    
+        
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/sakura.js"><\/script>');
+            }
+        </script>
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7}});</script></body>
+
+</html>
