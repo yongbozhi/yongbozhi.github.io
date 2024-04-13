@@ -8,8 +8,9 @@
     <meta name="description" content="elasticsearch项目流程数据导入现在需要将数据从数据库中查询出来，然后将数据导入到ES中。
 
 
-1.创建一个JavaBean，在JavaBean（SkuInfo）中添加索引库映射配置（一些注解）
-FieldType.Text:Te">
+
+创建一个JavaBean，在JavaBean（SkuInfo）中添加索引库映射配置（一些注解）
+FieldType.Text:Tex">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -406,14 +407,14 @@ FieldType.Text:Te">
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    4.6k
+                    5.5k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    16 分
+                    19 分
                 </div>
                 
 
@@ -434,80 +435,117 @@ FieldType.Text:Te">
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <h1 id="elasticsearch"><a href="#elasticsearch" class="headerlink" title="elasticsearch"></a>elasticsearch</h1><h2 id="项目流程"><a href="#项目流程" class="headerlink" title="项目流程"></a>项目流程</h2><h3 id="数据导入"><a href="#数据导入" class="headerlink" title="数据导入"></a>数据导入</h3><p>现在需要将数据从数据库中查询出来，然后将数据导入到ES中。</p>
-<img src="/2024/04/07/ElasticSearch/clip_image002.gif" class="" title="O  searchkß%  Fei gn  Ä-ifiSku  goodskß-%  Eureka  Elasticsearch">
+<img src="/2024/04/07/ElasticSearch/clip_image002.gif" class="">
 
-<p>1.创建一个JavaBean，在JavaBean（SkuInfo）中添加索引库映射配置（一些注解）</p>
+<ol>
+<li><p>创建一个JavaBean，在JavaBean（SkuInfo）中添加索引库映射配置（一些注解）</p>
 <p>FieldType.Text:Text类型，Text支持分词</p>
 <p>index&#x3D;true；添加数据时，是否分词</p>
 <p>analyzer&#x3D;“ik_smart”:创建索引的分词器</p>
 <p>store&#x3D;false;是否存储</p>
 <p>searchAnalyzer&#x3D;”ik_smart”:搜索时使用的分词器</p>
-<p>2.创建Feign，实现查询所有Sku集合</p>
-<p>3.在搜索微服务中调用Feign,查询所有Sku集合，并将Sku集合转化为SkuInfo的集合</p>
-<p>4.Controller-Service-调用Dao（继承ElasticsearchRepository）实现数据导入到Elasticsearch</p>
-<h3 id="文档映射Bean创建"><a href="#文档映射Bean创建" class="headerlink" title="文档映射Bean创建"></a>文档映射Bean创建</h3><p>搜索商品的时候，会根据如下属性搜索数据,并且不是所有的属性都需要分词搜索，我们创建JavaBean，将JavaBean数据存入到ES中要以搜索条件和搜索展示</p>
-<p>结果为依据，部分关键搜索条件分析如下：</p>
-<p>1.可能会根据商品名称搜索，而且可以搜索商品名称中的任意一个词语，所以</p>
-<p>需要分词</p>
-<p>2.可能会根据商品分类搜索，商品分类不需要分词</p>
-<p>3.可能会根据商品品牌搜索，商品品牌不需要分词</p>
-<p>4.可能会根据商品商家搜索，商品商家不需要分词</p>
-<p>5.可能根据规格进行搜索，规格时一个键值对结构，用Map</p>
-<h3 id="关键字搜索"><a href="#关键字搜索" class="headerlink" title="关键字搜索"></a>关键字搜索</h3><img src="/2024/04/07/ElasticSearch/clip_image004.gif" class="" title="畅 购  到 0 CHANG GOU  全 品 分 类  关 键 字 索  服 装 城  华 为 ×  美 妆 馆  青 橙 超 市  全 球 购  Q  Stiger 、  闪 购  联 湮 4G  团 购  有 趣  秒 杀  全 部 结 果 &#x2F; 智 能 手 机  手 机 、 数 码 、 配 亻 牛  品 牌  网 络 制 式  显 示 屏 尺 寸  像 头 像 寮  价  更 多 筛 选 项  锥 晕 新 品  iPhone ×  条 亻 牛 索  萦 尼 0  GSM （ 移 动 &#x2F; 联 湮 2G ）  OPPO ×  电 信 2G  多 选  更 多  长 (C 能 ．  Stig 亿 0  电 信 3G  联 湮 3G  电 信 3G  移 动 3G  (C) 匚 H  联 湮 3G  EX 匚 囗  联 湮 4G  nMSUN  生 0 一 生 9 英 ，  12 開 万 以 上  生 0 一 生 9 英 寸  800-1199 万  500 一 1000 兀  0 一 5D0 兀  恃 点  1200 一 1599 万  100D 一 1500 兀  卡 双 卡  移 动 3G  16 開 万 以 上  15D0 一 2D00 兀  其 他  200D 一 3000 兀  3000 元 以 上  系 统  手 机 内 存  评 价">
+</li>
+<li><p>创建Feign，实现查询所有Sku集合</p>
+</li>
+<li><p>在搜索微服务中调用Feign,查询所有Sku集合，并将Sku集合转化为SkuInfo的集合</p>
+</li>
+<li><p>Controller-Service-调用Dao（继承ElasticsearchRepository）实现数据导入到Elasticsearch</p>
+</li>
+</ol>
+<h3 id="文档映射Bean创建"><a href="#文档映射Bean创建" class="headerlink" title="文档映射Bean创建"></a>文档映射Bean创建</h3><p>搜索商品的时候，会根据如下属性搜索数据,并且不是所有的属性都需要分词搜索，我们创建JavaBean，将JavaBean数据存入到ES中要以搜索条件和搜索展示结果为依据，部分关键搜索条件分析如下：</p>
+<ol>
+<li><p>可能会根据商品名称搜索，而且可以搜索商品名称中的任意一个词语，所以需要分词</p>
+</li>
+<li><p>可能会根据商品分类搜索，商品分类不需要分词</p>
+</li>
+<li><p>可能会根据商品品牌搜索，商品品牌不需要分词</p>
+</li>
+<li><p>可能会根据商品商家搜索，商品商家不需要分词</p>
+</li>
+<li><p>可能根据规格进行搜索，规格时一个键值对结构，用Map</p>
+</li>
+</ol>
+<h3 id="关键字搜索"><a href="#关键字搜索" class="headerlink" title="关键字搜索"></a>关键字搜索</h3><img src="/2024/04/07/ElasticSearch/clip_image004.gif" class="" width="">
 
-<p>我们先使用SpringDataElasticsearch实现一个简单的搜索功能，先实现根据关键字搜索，从上面搜索图片可以看得到，每次搜索的时候，除了关键字外，还有可能有品</p>
-<p>牌、分类、规格等，后台接收搜索条件使用Map接收比较合适。</p>
-<p>查询关键字为诺基亚的商品，key为keywords，value为诺基亚</p>
-<h3 id="分类统计"><a href="#分类统计" class="headerlink" title="分类统计"></a>分类统计</h3><p>看下面的SQL语句，我们在执行搜索的时候，第1条SQL语句是执行搜，第2条语句是根据分类名字分组查看有多少分类，大概执行了2个步骤就可以获取数据结果以及分类统计，我</p>
-<p>们可以发现他们的搜索条件完全一样。</p>
-<p>`&#96;&#96;sql</p>
-<p>– 查询所有</p>
-<p>SELECT * FROM tb_sku WHERE name LIKE ‘%手机%’;</p>
-<p>– 根据分类名字分组查询</p>
-<p>SELECT category_name FROM tb_sku WHERE name LIKE ‘%手机%’ GROUP BY category_name;</p>
-<p>`&#96;&#96;</p>
-<img src="/2024/04/07/ElasticSearch/clip_image006.gif" class="" title="手 机 、 数 码 、  长 (C “ 伊 H “  配 亻  品 牌  网 络 制 式  显 示 屏 尺 寸  像 头 像 寮  价  更 多 筛 选 项  0  分 类 显 示  多 选  更 多  萦 尼 0  GSM （ 移 动 &#x2F; 联 湮 2G ）  电 信 2G  Stig 亿 r 、  电 信 3G  Stig 亿 0  联 湮 3G  HO 匚 H  联 湮 3G  EX 匚 囗  联 湮 4G  AMSUN  移 动 3G  联 湮 4G  电 信 3G  3000 元 以 上  移 动 3G  生 0 一 生 9 英 ，  12 開 万 以 上  生 0 一 生 9 英 寸  800-1199 万  500 一 1000 兀  1200 一 1599 万  100D 一 1500 兀  卡 双 卡  16 開 万 以 上  15D0 一 2D00 兀  其 他  无 f 象 头  200D 一 3000 兀  0 一 5D0 兀  恃 点  系 统  手 机 内 存  新 品  评 价">
+<p>我们先使用SpringDataElasticsearch实现一个简单的搜索功能，先实现根据关键字搜索，从上面搜索图片可以看得到，每次搜索的时候，除了关键字外，还有可能有品牌、分类、规格等，后台接收搜索条件使用Map接收比较合适。查询关键字为诺基亚的商品，key为keywords，value为诺基亚</p>
+<h3 id="分类统计"><a href="#分类统计" class="headerlink" title="分类统计"></a>分类统计</h3><p>看下面的SQL语句，我们在执行搜索的时候，第1条SQL语句是执行搜，第2条语句是根据分类名字分组查看有多少分类，大概执行了2个步骤就可以获取数据结果以及分类统计，我们可以发现他们的搜索条件完全一样。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 查询所有</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> tb_sku <span class="keyword">WHERE</span> name <span class="keyword">LIKE</span> <span class="string">&#x27;%手机%&#x27;</span>;</span><br><span class="line"><span class="comment">-- 根据分类名字分组查询</span></span><br><span class="line"><span class="keyword">SELECT</span> category_name <span class="keyword">FROM</span> tb_sku <span class="keyword">WHERE</span> name <span class="keyword">LIKE</span> <span class="string">&#x27;%手机%&#x27;</span> <span class="keyword">GROUP</span> <span class="keyword">BY</span> category_name;</span><br></pre></td></tr></table></figure>
 
-<p>我们每次执行搜索的时候，需要显示商品分类名称，这里要显示的分类名称其实就是符合搜素条件的所有商品的分类集合，我们可以按照上面的实现思路，使用ES根据分组名称做</p>
-<p>一次分组查询即可实现。</p>
-<h3 id="品牌统计"><a href="#品牌统计" class="headerlink" title="品牌统计"></a>品牌统计</h3><img src="/2024/04/07/ElasticSearch/clip_image008.jpg" class="" title="img">
+<img src="/2024/04/07/ElasticSearch/clip_image006.gif" class="" width="">
 
-<p>– 查询所有</p>
-<p>SELECT * FROM tb_sku WHERE name LIKE ‘%手机%’;</p>
-<p>– 根据品牌名字分组查询</p>
-<p>SELECT brand_name FROM tb_sku WHERE name LIKE ‘%手机%’ GROUP BY brand_name;</p>
-<h3 id="规格统计"><a href="#规格统计" class="headerlink" title="规格统计"></a>规格统计</h3><img src="/2024/04/07/ElasticSearch/clip_image010.jpg" class="" title="既 35  5 ． 5 寸  土 。 尺 寸  和 0 的 0  色  咩 26  5 寸  16G  移 动  3 的 万 寺  红  0  0 万  藎  景  0  s11">
+<p>我们每次执行搜索的时候，需要显示商品分类名称，这里要显示的分类名称其实就是符合搜素条件的所有商品的分类集合，我们可以按照上面的实现思路，使用ES根据分组名称做一次分组查询即可实现。</p>
+<h3 id="品牌统计"><a href="#品牌统计" class="headerlink" title="品牌统计"></a>品牌统计</h3><img src="/2024/04/07/ElasticSearch/clip_image008.jpg" class="">
 
-<p>– 查询所有</p>
-<p>SELECT * FROM tb_sku WHERE name LIKE ‘%手机%’;</p>
-<p>– 根据规格名字分组查询</p>
-<p>SELECT spec FROM tb_sku WHERE name LIKE ‘%手机%’ GROUP BY spec;</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 根据品牌名字分组查询</span></span><br><span class="line"><span class="keyword">SELECT</span> brand_name <span class="keyword">FROM</span> tb_sku <span class="keyword">WHERE</span> name <span class="keyword">LIKE</span> <span class="string">&#x27;%手机%&#x27;</span> <span class="keyword">GROUP</span> <span class="keyword">BY</span> brand_name;</span><br></pre></td></tr></table></figure>
+
+<h3 id="规格统计"><a href="#规格统计" class="headerlink" title="规格统计"></a>规格统计</h3><img src="/2024/04/07/ElasticSearch/clip_image010.jpg" class="" width="">
+
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 根据规格名字分组查询</span></span><br><span class="line"><span class="keyword">SELECT</span> spec <span class="keyword">FROM</span> tb_sku <span class="keyword">WHERE</span> name <span class="keyword">LIKE</span> <span class="string">&#x27;%手机%&#x27;</span> <span class="keyword">GROUP</span> <span class="keyword">BY</span> spec;</span><br></pre></td></tr></table></figure>
+
 <p>上述SQL语句执行后的结果如下图：</p>
-<img src="/2024/04/07/ElasticSearch/clip_image012.gif" class="" title="Map---&gt;Put---&gt;Map&lt;String,Set&gt;  ENG,  a a p &lt; Strin g">
+<img src="/2024/04/07/ElasticSearch/clip_image012.gif" class="" width="">
 
 <p>获取到的规格数据我们发现有重复，不过也可以解决，解决思路如下：</p>
-<p>1.获取所有规格数据</p>
-<p>2.将所有规格数据转换成Map</p>
-<p>3.定义一个Map&lt;String,Set&gt;,key是规格名字，防止重复所以用Map，valu是规格值，规格值</p>
-<p>有多个，所以用集合，为了防止规格重复，用Set去除重复</p>
-<p>4.循环规格的Map，将数据填充到定义的Map&lt;String,Set&gt;中</p>
-<h3 id="条件筛选"><a href="#条件筛选" class="headerlink" title="条件筛选"></a>条件筛选</h3><img src="/2024/04/07/ElasticSearch/clip_image014.gif" class="" title="分 委  品 牌  网 制 式  示 屏 尺 寸  生 0-4.9 英 を  像 羡 像 素  1200 万 以 上  价 格  0-500 兀  更 多 篩 造  特 点  量 新 品  手 机 、 数 、 配 件  蓋 尼 ( SO ル り  GSM ( 移 &#x2F; 朕 通 2G )  TCL  圭 信 2G  信 3G  移 劯 3G  5 む 8 化 「 、  朕 通 3G  通 4G  日 ロ CH  通 3G  EXC ロ  通 4G  多 更 多  @分莞叟索  SUN ( 2 槲 叟 索 4.0-4.9 英 寸 800-1199 万 500-1000 兀 手 机 内 存 价 格 1500 万 以 上 1500-2000 兀 其 他 信 3G 3000 元 以 上 1200-1599 万 1000-1500 兀 十 双 十 ④ 排 序 无 像 美 2000-3000 兀 移 3G ① 价 槲 叟 索 %}
+<ol>
+<li><p>获取所有规格数据</p>
+</li>
+<li><p>将所有规格数据转换成Map</p>
+</li>
+<li><p>定义一个Map&lt;String,Set&gt;,key是规格名字，防止重复所以用Map，valu是规格值，规格值有多个，所以用集合，为了防止规格重复，用Set去除重复</p>
+</li>
+<li><p>循环规格的Map，将数据填充到定义的Map&lt;String,Set&gt;中</p>
+</li>
+</ol>
+<h3 id="条件筛选"><a href="#条件筛选" class="headerlink" title="条件筛选"></a>条件筛选</h3><img src="/2024/04/07/ElasticSearch/clip_image014.gif" class="" width="">
 
-&lt;p&gt;分类、品牌筛选&lt;&#x2F;p&gt;
-&lt;p&gt;页面每次向后台传入对应的分类和品牌，后台据分类和品牌进行条件过滤可。&lt;&#x2F;p&gt;
-&lt;p&gt;规格过滤&lt;&#x2F;p&gt;
-&lt;p&gt;规格这一块，需要向后台发送规格名字以及规格值，我们可以按照一定要求来发送数据，例如规格名字以特殊前缀提交到后台：spec_网络制式：电信4G、spec_显示屏尺寸：4.0-4.9英寸&lt;&#x2F;p&gt;
-&lt;p&gt;后台接到数据后，可以根据前缀spec_来区分是否是规格，如果以spec_xxx开始的数据则为规格数据，需要根据指定规格找信息。&lt;&#x2F;p&gt;
-{% asset_img clip_image016.gif&quot; num&quot;: { type: long •specMap&quot;: { propefties : { type: text, fields: { keyword: { ignore_above • 256, type: keywo;d type: text, fields: { keyword. { ignore_above : 256, type: keyword type : text , fields: { keyword: { ignore_above : 256, type: keyword type: text, fields: { keyword: { specMapnißE*.kemord %}
+<ul>
+<li><p>分类、品牌筛选</p>
+<p>页面每次向后台传入对应的分类和品牌，后台据分类和品牌进行条件过滤可。</p>
+</li>
+<li><p>规格过滤</p>
+<p>规格这一块，需要向后台发送规格名字以及规格值，我们可以按照一定要求来发送数据，例如规格名字以特殊前缀提交到后台：spec_网络制式：电信4G、spec_显示屏尺寸：4.0-4.9英寸,后台接到数据后，可以根据前缀spec_来区分是否是规格，如果以spec_xxx开始的数据则为规格数据，需要根据指定规格找信息。</p>
+<p>下图是规格的索引存储格式，真实数据在spechMap.规格名字.keyword中，所以找数据也是按照如下格式去找：spechMap.规格名字.keyword</p>
+</li>
+</ul>
+<img src="/2024/04/07/ElasticSearch/clip_image016.gif" class="" width="">
 
-&lt;p&gt;上图是规格的索引存储格式，真实数据在spechMap.规格名字.keyword中，所以找数据也是按照如下格式去找：spechMap.规格名字.keyword&lt;&#x2F;p&gt;
-&lt;p&gt;价格区间查询&lt;&#x2F;p&gt;
-&lt;p&gt;价格区间查询，每次需要将价格传入到后台，前端传入后台的价格大概是&lt;code&gt;price&#x3D;0-500&lt;&#x2F;code&gt;或者&lt;code&gt;price&#x3D;500-1000&lt;&#x2F;code&gt;依次类推，最后一个是&lt;code&gt;price&#x3D;3000&lt;&#x2F;code&gt;,后台可以根据-分割，如果分割得到的结果最多有2个，第1个表示&lt;code&gt;x&lt;price&lt;&#x2F;code&gt;，第2个表示&lt;code&gt;price&lt;&#x3D;y&lt;&#x2F;code&gt;。&lt;&#x2F;p&gt;
-&lt;h3 id&#x3D;搜索排序&quot;&gt;&lt;a href&#x3D;#搜索排序 class&#x3D;headerlink title&#x3D;搜索排序&gt;&lt;&#x2F;a&gt;搜索排序&lt;&#x2F;h3&gt;&lt;p&gt;排序这里总共有根据价格排序、根据评价排序、根据新品排序、根据销量排序，排序要想实现非常简单，只需要告知排序的域以及排序方式即可实现。&lt;&#x2F;p&gt; &lt;p&gt;价格排序：只需要根据价格高低排序即可，降序价格高-&gt;低，升序价格低-&gt;高&lt;&#x2F;p&gt; &lt;p&gt;评价排序：评价分为好评、中评、差评，可以在数据库中设计3个列，用来记录好评、中评、差评的量，每次排序的时候，好评的比例来排序，当然还要有条数限制，评价条数需要超过N条。&lt;&#x2F;p&gt; &lt;p&gt;新品排序：直接根据商品的发布时间或者更新时间排序。&lt;&#x2F;p&gt; &lt;p&gt;销量排序：销量排序除了销售数量外，还应该要有时间段限制。&lt;&#x2F;p&gt; &lt;p&gt;这里我们不单独针对某个功能实现排序，我们只需要在后台接收2个参数，分别是排&lt;&#x2F;p&gt; &lt;p&gt;序域名字和排序方式（升序，降序）&lt;&#x2F;p&gt; &lt;h3 id&#x3D;高亮显示&gt;&lt;a href&#x3D;#高亮显示 class&#x3D;headerlink title&#x3D;高亮显示&gt;&lt;&#x2F;a&gt;高亮显示&lt;&#x2F;h3&gt;&lt;p&gt;高亮搜索实现步骤解析：&lt;&#x2F;p&gt; &lt;p&gt;将之前的搜索换掉，换成高亮搜索，我们需要做3个步骤：&lt;&#x2F;p&gt; &lt;p&gt;1.指定高亮域，也就是设置哪个域需要高亮显示设置高亮域的时候，需要指定前缀和后缀，也就是关键词用什么html标签包裹，再给该标签样式&lt;&#x2F;p&gt; &lt;p&gt;2.高亮搜索实现&lt;&#x2F;p&gt; &lt;p&gt;3.将非高亮数据替换成高亮数据&lt;&#x2F;p&gt; &lt;p&gt;第1点，例如在百度中搜索数据的时候，会有2个地方高亮显示，分别是标题和描述，商城搜索的时候，只是商品名称高亮显示了。而高亮显示其实就是添加了样式，例如&lt;span style&#x3D;color:red;&gt;笔记本&lt;&#x2F;span&gt;,而其中span开始标签可以称为前缀，span结束标签可以称为后缀。&lt;&#x2F;p&gt; &lt;p&gt;第2点，高亮搜索使用ElasticsearchTemplate实现。&lt;&#x2F;p&gt; &lt;p&gt;第3点，高亮搜索后，会搜出非高亮数据和高亮数据，高亮数据会加上第1点中的高亮样式，此时我们需要将非高亮数据换成高亮数据即可。例如非高亮:华为笔记本性能超强悍 高亮数据：华为&lt;span style&#x3D;”color:red;”笔记本&lt;&#x2F;span&gt;性能超强悍,将非高亮的换成高亮的，到页面就能显示样式了。&lt;&#x2F;p&gt; &lt;h2 id&#x3D;倒排索引&gt;&lt;a href&#x3D;#倒排索引 class&#x3D;headerlink title&#x3D;倒排索引&gt;&lt;&#x2F;a&gt;倒排索引&lt;&#x2F;h2&gt;{% asset_img clip_image017.jpg img">
+<p>​	</p>
+<ul>
+<li><p>价格区间查询</p>
+<p>价格区间查询，每次需要将价格传入到后台，前端传入后台的价格大概是<code>price=0-500</code>或者<code>price=500-1000</code>依次类推，最后一个是<code>price=3000</code>,后台可以根据-分割，如果分割得到的结果最多有2个，第1个表示<code>x&lt;price</code>，第2个表示<code>price&lt;=y</code>。</p>
+</li>
+</ul>
+<h3 id="搜索排序"><a href="#搜索排序" class="headerlink" title="搜索排序"></a>搜索排序</h3><ul>
+<li><p>排序这里总共有根据价格排序、根据评价排序、根据新品排序、根据销量排序，排序要想实现非常简单，只需要告知排序的域以及排序方式即可实现。</p>
+</li>
+<li><p>价格排序：只需要根据价格高低排序即可，降序价格高-&gt;低，升序价格低-&gt;高</p>
+</li>
+<li><p>评价排序：评价分为好评、中评、差评，可以在数据库中设计3个列，用来记录好评、中评、差评的量，每次排序的时候，好评的比例来排序，当然还要有条数限制，评价条数需要超过N条。</p>
+</li>
+<li><p>新品排序：直接根据商品的发布时间或者更新时间排序。</p>
+</li>
+<li><p>销量排序：销量排序除了销售数量外，还应该要有时间段限制。</p>
+</li>
+<li><p>这里我们不单独针对某个功能实现排序，我们只需要在后台接收2个参数，分别是排序域名字和排序方式（升序，降序）</p>
+</li>
+</ul>
+<h3 id="高亮显示"><a href="#高亮显示" class="headerlink" title="高亮显示"></a>高亮显示</h3><p>高亮搜索实现步骤解析：将之前的搜索换掉，换成高亮搜索，我们需要做3个步骤：</p>
+<ol>
+<li><p>指定高亮域，也就是设置哪个域需要高亮显示设置高亮域的时候，需要指定前缀和后缀，也就是关键词用什么html标签包裹，再给该标签样式</p>
+</li>
+<li><p>高亮搜索实现</p>
+</li>
+<li><p>将非高亮数据替换成高亮数据</p>
+</li>
+</ol>
+<p>第1点，例如在百度中搜索数据的时候，会有2个地方高亮显示，分别是标题和描述，商城搜索的时候，只是商品名称高亮显示了。而高亮显示其实就是添加了样式，例如<span style="color:red;">笔记本</span>,而其中span开始标签可以称为前缀，span结束标签可以称为后缀。</p>
+<p>第2点，高亮搜索使用ElasticsearchTemplate实现。</p>
+<p>第3点，高亮搜索后，会搜出非高亮数据和高亮数据，高亮数据会加上第1点中的高亮样式，此时我们需要将非高亮数据换成高亮数据即可。例如非高亮:华为笔记本性能超强悍 高亮数据：华为&lt;span style&#x3D;”color:red;”笔记本</span>性能超强悍,将非高亮的换成高亮的，到页面就能显示样式了。</p>
+<h2 id="倒排索引"><a href="#倒排索引" class="headerlink" title="倒排索引"></a>倒排索引</h2><img src="/2024/04/07/ElasticSearch/clip_image017.jpg" class="">
 
 <p>term dictionary相当于给term作了一个排序</p>
 <p>term index 维护了term的前缀以及偏移量（位置）</p>
-<img src="/2024/04/07/ElasticSearch/clip_image018.jpg" class="" title="img">
+<img src="/2024/04/07/ElasticSearch/clip_image018.jpg" class="">
 
 <p>posting List中存放了后面的那些</p>
 <p>这些词在文章中的偏移量</p>
@@ -515,7 +553,7 @@ FieldType.Text:Te">
 <p>那如果反过来我想查询 name 中包含了 li 的数据有哪些?这样如何高效查询呢?</p>
 <p>仅仅通过上文提到的正排索引显然起不到什么作用，只能依次将所有数据遍历后判断名称中是否包含 li ;这样效率十分低下。</p>
 <p>但如果我们重新构建一个索引结构：</p>
-<img src="/2024/04/07/ElasticSearch/clip_image020.gif" class="" title="img">
+<img src="/2024/04/07/ElasticSearch/clip_image020.gif" class="">
 
 <p>当要查询 name 中包含 li 的数据时，只需要通过这个索引结构查询到 Posting List 中所包含的数据，再通过映射的方式查询到最终的数据。</p>
 <p>这个索引结构其实就是倒排索引。</p>
@@ -527,34 +565,31 @@ FieldType.Text:Te">
 <h3 id="Term-Index"><a href="#Term-Index" class="headerlink" title="Term Index"></a>Term Index</h3><p>所以我们可以选择一个折中的方法，既然无法将整个 Term Dictionary 放入内存中，那我们可以为 Term Dictionary 创建一个索引然后放入内存中。</p>
 <p>这样便可以高效的查询 Term Dictionary ，最后再通过 Term Dictionary 查询到 Posting List。</p>
 <p>相对于 MySQL 中的 B+树来说也会减少了几次磁盘 IO。</p>
-<img src="/2024/04/07/ElasticSearch/clip_image022.gif" class="" title="img">
+<img src="/2024/04/07/ElasticSearch/clip_image022.gif" class="">
 
 <p>这个 Term Index 我们可以使用这样的 Trie 树，也就是我们常说的字典树来存放。</p>
-<img src="/2024/04/07/ElasticSearch/clip_image024.gif" class="" title="img">
+<img src="/2024/04/07/ElasticSearch/clip_image024.gif" class="">
 
 <p>如果我们是以 j 开头的 Term 进行搜索，首先第一步就是通过在内存中的 Term Index 查询出以 j 打头的 Term 在 Term Dictionary 字典文件中的哪个位置(这个位置可以是一个文件指针，可能是一个区间范围)。</p>
 <p>紧接着在将这个位置区间中的所有 Term 取出，由于已经排好序，便可通过二分查找快速定位到具体位置;这样便可查询出 Posting List。</p>
 <p>最终通过 Posting List 中的位置信息便可在原始文件中将目标数据检索出来。</p>
 <h2 id="分词"><a href="#分词" class="headerlink" title="分词"></a>分词</h2><h3 id="分词器的组成"><a href="#分词器的组成" class="headerlink" title="分词器的组成"></a>分词器的组成</h3><p>分词器是专门处理分词的组件，分词器由以下三部分组成：</p>
-<p>Character Filters</p>
-<p>：针对原始文本处理，比如去除 html 标签</p>
-<p>Tokenizer</p>
-<p>：按照规则切分为单词，比如按照空格切分</p>
-<p>Token Filters</p>
-<p>：将切分的单词进行加工，比如大写转小写，删除 stopwords，增加同义语</p>
-<img src="/2024/04/07/ElasticSearch/clip_image026.gif" class="" title="img">
+<p>Character Filters：针对原始文本处理，比如去除 html 标签</p>
+<p>Tokenizer：按照规则切分为单词，比如按照空格切分</p>
+<p>Token Filters：将切分的单词进行加工，比如大写转小写，删除 stopwords，增加同义语</p>
+<img src="/2024/04/07/ElasticSearch/clip_image026.gif" class="">
 
 <p>同时 Analyzer 三个部分也是有顺序的，从图中可以看出，从上到下依次经过 Character Filters，Tokenizer 以及 Token Filters，这个顺序比较好理解，一个文本进来肯定要先对文本数据进行处理，再去分词，最后对分词的结果进行过滤。</p>
 <h3 id="ES-分词器"><a href="#ES-分词器" class="headerlink" title="ES 分词器"></a><strong>ES</strong> <strong>分词器</strong></h3><p>首先来介绍下 Stamdard Analyzer 分词器：</p>
 <p><strong>Stamdard Analyzer</strong></p>
-<img src="/2024/04/07/ElasticSearch/clip_image028.gif" class="" title="img">
+<img src="/2024/04/07/ElasticSearch/clip_image028.gif" class="">
 
 <p>它是 ES <strong>默认的分词器</strong>，它会对输入的文本<strong>按词的方式进行切分</strong>，切分好以后会进行<strong>转小写</strong>处理，<strong>默认的</strong> <strong>stopwords</strong> <strong>是关闭的</strong>。</p>
 <p>可以看出是按照空格、非字母的方式对输入的文本进行了转换，比如对 Java 做了转小写，对一些停用词也没有去掉，比如 in。</p>
 <p>其中 token 为分词结果；start_offset 为起始偏移；end_offset 为结束偏移；position 为分词位置。</p>
 <p>IK提供了两个分词算法ik_smart 和 ik_max_word ，其中 ik_smart 为最少切分，ik_max_word为最细粒度划分 </p>
 <p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/111775508">https://zhuanlan.zhihu.com/p/111775508</a></p>
-<h2 id="基础概念"><a href="#基础概念" class="headerlink" title="基础概念"></a>基础概念</h2><img src="/2024/04/07/ElasticSearch/clip_image029.jpg" class="" title="img">
+<h2 id="基础概念"><a href="#基础概念" class="headerlink" title="基础概念"></a>基础概念</h2><img src="/2024/04/07/ElasticSearch/clip_image029.jpg" class="">
 
 <p>Mapping：描述一个文档：有多少key，怎么分词的</p>
 <p>安全状态：绿色：安全  黄色：有分片没有备份    红色：有数据丢失</p>
@@ -577,246 +612,245 @@ FieldType.Text:Te">
 <h3 id="节点-node"><a href="#节点-node" class="headerlink" title="节点 node"></a>节点 node</h3><p>一个节点是集群中的一个服务器，作为集群的一部分，它存储数据，参与集群的索引和搜索功能。和集群类似，一 个节点也是由一个名字来标识的，默认情况下，这个名字是一个随机的漫威漫画角色的名字，这个名字会在启动的 时候赋予节点。这个名字对于管理工作来说挺重要的，因为在这个管理过程中，你会去确定网络中的哪些服务器对应于Elasticsearch集群中的哪些节点。 </p>
 <p>一个节点可以通过配置集群名称的方式来加入一个指定的集群。默认情况下，每个节点都会被安排加入到一个叫 做“elasticsearch”的集群中，这意味着，如果你在你的网络中启动了若干个节点，并假定它们能够相互发现彼此， 它们将会自动地形成并加入到一个叫做“elasticsearch”的集群中。 在一个集群里，只要你想，可以拥有任意多个节点。而且，如果当前你的网络中没有运行任何Elasticsearch节点， 这时启动一个节点，会默认创建并加入一个叫做“elasticsearch”的集群。 </p>
 <h3 id="分片和复制-shards-replicas"><a href="#分片和复制-shards-replicas" class="headerlink" title="分片和复制 shards&amp;replicas"></a>分片和复制 shards&amp;replicas</h3><p>一个索引可以存储超出单个结点硬件限制的大量数据。比如，一个具有10亿文档的索引占据1TB的磁盘空间，而任 一节点都没有这样大的磁盘空间；或者单个节点处理搜索请求，响应太慢。为了解决这个问题，Elasticsearch提供 了将索引划分成多份的能力，这些份就叫做分片。当你创建一个索引的时候，你可以指定你想要的分片的数量。每 个分片本身也是一个功能完善并且独立的“索引”，这个“索引”可以被放置到集群中的任何节点上。分片很重要，主要有两方面的原因： 1）允许你水平分割&#x2F;扩展你的内容容量。 2）允许你在分片（潜在地，位于多个节点上）之上 进行分布式的、并行的操作，进而提高性能&#x2F;吞吐量。 至于一个分片怎样分布，它的文档怎样聚合回搜索请求，是完全由Elasticsearch管理的，对于作为用户的你来说， 这些都是透明的。 </p>
-<p>在一个网络&#x2F;云的环境里，失败随时都可能发生，在某个分片&#x2F;节点不知怎么的就处于离线状态，或者由于任何原因 消失了，这种情况下，有一个故障转移机制是非常有用并且是强烈推荐的。为此目的，Elasticsearch允许你创建分 片的一份或多份拷贝，这些拷贝叫做复制分片，或者直接叫复制。 复制之所以重要，有两个主要原因： 在分片&#x2F;节点失败的情况下，提供了高可用性。因为这个原因，注意到复制分片从不与原&#x2F;主要（original&#x2F;primary）分片置于同一节点上是非常重要的。扩展你的搜索量&#x2F;吞吐量，因为搜索可以 在所有的复制上并行运行。总之，每个索引可以被分成多个分片。一个索引也可以被复制0次（意思是没有复制） 或多次。一旦复制了，每个索引就有了主分片（作为复制源的原来的分片）和复制分片（主分片的拷贝）之别。分 片和复制的数量可以在索引创建的时候指定。在索引创建之后，你可以在任何时候动态地改变复制的数量，但是你 </p>
-<p>事后不能改变分片的数量。 </p>
+<p>在一个网络&#x2F;云的环境里，失败随时都可能发生，在某个分片&#x2F;节点不知怎么的就处于离线状态，或者由于任何原因 消失了，这种情况下，有一个故障转移机制是非常有用并且是强烈推荐的。为此目的，Elasticsearch允许你创建分 片的一份或多份拷贝，这些拷贝叫做复制分片，或者直接叫复制。 复制之所以重要，有两个主要原因： 在分片&#x2F;节点失败的情况下，提供了高可用性。因为这个原因，注意到复制分片从不与原&#x2F;主要（original&#x2F;primary）分片置于同一节点上是非常重要的。扩展你的搜索量&#x2F;吞吐量，因为搜索可以 在所有的复制上并行运行。总之，每个索引可以被分成多个分片。一个索引也可以被复制0次（意思是没有复制） 或多次。一旦复制了，每个索引就有了主分片（作为复制源的原来的分片）和复制分片（主分片的拷贝）之别。分 片和复制的数量可以在索引创建的时候指定。在索引创建之后，你可以在任何时候动态地改变复制的数量，但是你事后不能改变分片的数量。 </p>
 <p>默认情况下，Elasticsearch中的每个索引被分片5个主分片和1个复制，这意味着，如果你的集群中至少有两个节 点，你的索引将会有5个主分片和另外5个复制分片（1个完全拷贝），这样的话每个索引总共就有10个分片。</p>
-<h2 id="写入数据的工作原理"><a href="#写入数据的工作原理" class="headerlink" title="写入数据的工作原理"></a>写入数据的工作原理</h2><img src="/2024/04/07/ElasticSearch/clip_image030.jpg" class="" title="img">
+<h2 id="写入数据的工作原理"><a href="#写入数据的工作原理" class="headerlink" title="写入数据的工作原理"></a>写入数据的工作原理</h2><img src="/2024/04/07/ElasticSearch/clip_image030.jpg" class="">
 
-<img src="/2024/04/07/ElasticSearch/clip_image031.jpg" class="" title="img">
+<img src="/2024/04/07/ElasticSearch/clip_image031.jpg" class="">
 
-<h2 id="查询数据的原理"><a href="#查询数据的原理" class="headerlink" title="查询数据的原理"></a>查询数据的原理</h2><img src="/2024/04/07/ElasticSearch/clip_image033.jpg" class="" title="img">
+<h2 id="查询数据的原理"><a href="#查询数据的原理" class="headerlink" title="查询数据的原理"></a>查询数据的原理</h2><img src="/2024/04/07/ElasticSearch/clip_image033.jpg" class="">
 
-<h2 id="ES部署如何优化"><a href="#ES部署如何优化" class="headerlink" title="ES部署如何优化"></a>ES部署如何优化</h2><img src="/2024/04/07/ElasticSearch/clip_image035.jpg" class="" title="img">
+<h2 id="ES部署如何优化"><a href="#ES部署如何优化" class="headerlink" title="ES部署如何优化"></a>ES部署如何优化</h2><img src="/2024/04/07/ElasticSearch/clip_image035.jpg" class="">
 
-<h2 id="腾讯课堂"><a href="#腾讯课堂" class="headerlink" title="腾讯课堂"></a>腾讯课堂</h2><h3 id="集群"><a href="#集群" class="headerlink" title="集群"></a>集群</h3><img src="/2024/04/07/ElasticSearch/clip_image036.jpg" class="" title="img">
+<h2 id="腾讯课堂"><a href="#腾讯课堂" class="headerlink" title="腾讯课堂"></a>腾讯课堂</h2><h3 id="集群"><a href="#集群" class="headerlink" title="集群"></a>集群</h3><img src="/2024/04/07/ElasticSearch/clip_image036.jpg" class="">
 
-<img src="/2024/04/07/ElasticSearch/clip_image037.jpg" class="" title="img">
+<img src="/2024/04/07/ElasticSearch/clip_image037.jpg" class="">
 
-<img src="/2024/04/07/ElasticSearch/clip_image038.jpg" class="" title="img">
+<img src="/2024/04/07/ElasticSearch/clip_image038.jpg" class="">
 
-<img src="/2024/04/07/ElasticSearch/clip_image039.jpg" class="" title="img">
+<h4 id="集群原理"><a href="#集群原理" class="headerlink" title="集群原理"></a>集群原理</h4><img src="/2024/04/07/ElasticSearch/clip_image039.jpg" class="">
 
-<img src="/2024/04/07/ElasticSearch/clip_image040.jpg" class="" title="img">
+<img src="/2024/04/07/ElasticSearch/clip_image040.jpg" class="">
 
-<img src="/2024/04/07/ElasticSearch/clip_image041.jpg" class="" title="img">
+<img src="/2024/04/07/ElasticSearch/clip_image041.jpg" class="">
 
-<img src="/2024/04/07/ElasticSearch/clip_image042.jpg" class="" title="img">
+<img src="/2024/04/07/ElasticSearch/clip_image042.jpg" class="">
 
-<img src="/2024/04/07/ElasticSearch/clip_image043.jpg" class="" title="img">
+<img src="/2024/04/07/ElasticSearch/clip_image043.jpg" class="">
 
-<img src="/2024/04/07/ElasticSearch/clip_image044.jpg" class="" title="img">
+<img src="/2024/04/07/ElasticSearch/clip_image044.jpg" class="">
 
-<img src="/2024/04/07/ElasticSearch/clip_image045.jpg" class="" title="img">
+<h4 id="关键技术"><a href="#关键技术" class="headerlink" title="关键技术"></a>关键技术</h4><img src="/2024/04/07/ElasticSearch/clip_image045.jpg" class="">
 
-<img src="/2024/04/07/ElasticSearch/clip_image046.jpg" class="" title="img">
+<img src="/2024/04/07/ElasticSearch/clip_image046.jpg" class="">
 
-<img src="/2024/04/07/ElasticSearch/clip_image047.jpg" class="" title="img">
+<img src="/2024/04/07/ElasticSearch/clip_image047.jpg" class="">
 
-<img src="/2024/04/07/ElasticSearch/clip_image048.jpg" class="" title="img">
+<img src="/2024/04/07/ElasticSearch/clip_image048.jpg" class="">
 
-<img src="/2024/04/07/ElasticSearch/clip_image049.jpg" class="" title="img">
+<img src="/2024/04/07/ElasticSearch/clip_image049.jpg" class="">
 
-<img src="/2024/04/07/ElasticSearch/clip_image050.jpg" class="" title="img">
+<img src="/2024/04/07/ElasticSearch/clip_image050.jpg" class="">
 
-<img src="/2024/04/07/ElasticSearch/clip_image051.jpg" class="" title="img">
+<img src="/2024/04/07/ElasticSearch/clip_image051.jpg" class="">
 
-<img src="/2024/04/07/ElasticSearch/clip_image052.jpg" class="" title="img">
+<img src="/2024/04/07/ElasticSearch/clip_image052.jpg" class="">
 
-<img src="/2024/04/07/ElasticSearch/clip_image053.jpg" class="" title="img">
+<h4 id="集群架构演变"><a href="#集群架构演变" class="headerlink" title="集群架构演变"></a>集群架构演变</h4><img src="/2024/04/07/ElasticSearch/clip_image053.jpg" class="">
 
-<img src="/2024/04/07/ElasticSearch/clip_image054.jpg" class="" title="img">
+<img src="/2024/04/07/ElasticSearch/clip_image054.jpg" class="">
 
-<img src="/2024/04/07/ElasticSearch/clip_image055.jpg" class="" title="img">
+<img src="/2024/04/07/ElasticSearch/clip_image055.jpg" class="">
 
-<img src="/2024/04/07/ElasticSearch/clip_image056.jpg" class="" title="img">
+<img src="/2024/04/07/ElasticSearch/clip_image056.jpg" class="">
 
-<img src="/2024/04/07/ElasticSearch/clip_image057.jpg" class="" title="img">
+<img src="/2024/04/07/ElasticSearch/clip_image057.jpg" class="">
 
-<img src="/2024/04/07/ElasticSearch/clip_image058.jpg" class="" title="img">
+<img src="/2024/04/07/ElasticSearch/clip_image058.jpg" class="">
 
-<h3 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h3><img src="/2024/04/07/ElasticSearch/clip_image059.jpg" class="" title="img">
+<h3 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h3><h4 id="索引文件结构"><a href="#索引文件结构" class="headerlink" title="索引文件结构"></a>索引文件结构</h4><img src="/2024/04/07/ElasticSearch/clip_image059.jpg" class="">
 
-<img src="/2024/04/07/ElasticSearch/clip_image060.jpg" class="" title="img">
+<img src="/2024/04/07/ElasticSearch/clip_image060.jpg" class="">
 
-<img src="/2024/04/07/ElasticSearch/clip_image061.jpg" class="" title="img">
+<img src="/2024/04/07/ElasticSearch/clip_image061.jpg" class="">
 
-<img src="/2024/04/07/ElasticSearch/clip_image062.jpg" class="" title="img">
+<img src="/2024/04/07/ElasticSearch/clip_image062.jpg" class="">
 
 <p>数据可变性问题：当更新数据的时候会触发分段的合并</p>
-<img src="/2024/04/07/ElasticSearch/clip_image063.jpg" class="" title="img">
+<img src="/2024/04/07/ElasticSearch/clip_image063.jpg" class="">
 
-<img src="/2024/04/07/ElasticSearch/clip_image064.jpg" class="" title="img">
+<img src="/2024/04/07/ElasticSearch/clip_image064.jpg" class="">
 
 <p>es文档的格式相当于作了一层json封装，Json形式更好操作，lucene文件相当于只有下面这种键值对的形式</p>
-<img src="/2024/04/07/ElasticSearch/clip_image065.jpg" class="" title="img">
+<img src="/2024/04/07/ElasticSearch/clip_image065.jpg" class="">
 
-<img src="/2024/04/07/ElasticSearch/clip_image066.jpg" class="" title="img">
+<img src="/2024/04/07/ElasticSearch/clip_image066.jpg" class="">
 
-<img src="/2024/04/07/ElasticSearch/clip_image067.jpg" class="" title="img">
+<img src="/2024/04/07/ElasticSearch/clip_image067.jpg" class="">
 
-<img src="/2024/04/07/ElasticSearch/clip_image068.jpg" class="" title="img">
+<img src="/2024/04/07/ElasticSearch/clip_image068.jpg" class="">
 
-<img src="/2024/04/07/ElasticSearch/clip_image069.jpg" class="" title="img">
+<h4 id="索引数据结构"><a href="#索引数据结构" class="headerlink" title="索引数据结构"></a>索引数据结构</h4><img src="/2024/04/07/ElasticSearch/clip_image069.jpg" class="">
 
-<img src="/2024/04/07/ElasticSearch/clip_image070.jpg" class="" title="img">
+<img src="/2024/04/07/ElasticSearch/clip_image070.jpg" class="">
 
-<img src="/2024/04/07/ElasticSearch/clip_image071.jpg" class="" title="img">
+<img src="/2024/04/07/ElasticSearch/clip_image071.jpg" class="">
 
-<img src="/2024/04/07/ElasticSearch/clip_image072.jpg" class="" title="img">
+<img src="/2024/04/07/ElasticSearch/clip_image072.jpg" class="">
 
 <p>也会找到doc的id，再去倒排索引去查数据</p>
-<img src="/2024/04/07/ElasticSearch/clip_image073.jpg" class="" title="img">
+<img src="/2024/04/07/ElasticSearch/clip_image073.jpg" class="">
 
-<img src="/2024/04/07/ElasticSearch/clip_image074.jpg" class="" title="img">
+<img src="/2024/04/07/ElasticSearch/clip_image074.jpg" class="">
 
-<img src="/2024/04/07/ElasticSearch/clip_image075.jpg" class="" title="img">
+<img src="/2024/04/07/ElasticSearch/clip_image075.jpg" class="">
 
-<img src="/2024/04/07/ElasticSearch/clip_image076.jpg" class="" title="img">
+<img src="/2024/04/07/ElasticSearch/clip_image076.jpg" class="">
 
-<img src="/2024/04/07/ElasticSearch/clip_image077.jpg" class="" title="img">
+<img src="/2024/04/07/ElasticSearch/clip_image077.jpg" class="">
 
-<img src="/2024/04/07/ElasticSearch/clip_image078.jpg" class="" title="img">
+<h4 id="索引设置"><a href="#索引设置" class="headerlink" title="索引设置"></a>索引设置</h4><img src="/2024/04/07/ElasticSearch/clip_image078.jpg" class="">
 
-<img src="/2024/04/07/ElasticSearch/clip_image079.jpg" class="" title="img">
+<img src="/2024/04/07/ElasticSearch/clip_image079.jpg" class="">
 
-<img src="/2024/04/07/ElasticSearch/clip_image080.jpg" class="" title="img">
+<img src="/2024/04/07/ElasticSearch/clip_image080.jpg" class="">
 
-<img src="/2024/04/07/ElasticSearch/clip_image081.jpg" class="" title="img">
+<img src="/2024/04/07/ElasticSearch/clip_image081.jpg" class="">
 
-<h3 id="数据更新"><a href="#数据更新" class="headerlink" title="数据更新"></a>数据更新</h3><img src="/2024/04/07/ElasticSearch/clip_image082.jpg" class="" title="img">
+<h3 id="数据更新"><a href="#数据更新" class="headerlink" title="数据更新"></a>数据更新</h3><h4 id="数据写入过程"><a href="#数据写入过程" class="headerlink" title="数据写入过程"></a>数据写入过程</h4><img src="/2024/04/07/ElasticSearch/clip_image082.jpg" class="">
 
-<img src="/2024/04/07/ElasticSearch/clip_image083.jpg" class="" title="img">
+<img src="/2024/04/07/ElasticSearch/clip_image083.jpg" class="">
 
 <p>先写到主分片，副本分片是同步过来的</p>
-<img src="/2024/04/07/ElasticSearch/clip_image084.jpg" class="" title="img">
+<img src="/2024/04/07/ElasticSearch/clip_image084.jpg" class="">
 
-<img src="/2024/04/07/ElasticSearch/clip_image085.jpg" class="" title="img">
+<img src="/2024/04/07/ElasticSearch/clip_image085.jpg" class="">
 
-<img src="/2024/04/07/ElasticSearch/clip_image086.jpg" class="" title="img">
+<img src="/2024/04/07/ElasticSearch/clip_image086.jpg" class="">
 
-<img src="/2024/04/07/ElasticSearch/clip_image087.jpg" class="" title="img">
+<img src="/2024/04/07/ElasticSearch/clip_image087.jpg" class="">
 
-<img src="/2024/04/07/ElasticSearch/clip_image088.jpg" class="" title="img">
+<img src="/2024/04/07/ElasticSearch/clip_image088.jpg" class="">
 
 <p>删除的时候只标记，等到合并的时候不合并标记的数据就是删除了</p>
-<img src="/2024/04/07/ElasticSearch/clip_image089.jpg" class="" title="img">
+<img src="/2024/04/07/ElasticSearch/clip_image089.jpg" class="">
 
-<img src="/2024/04/07/ElasticSearch/clip_image090.jpg" class="" title="img">
+<p>近实时性机制</p>
+<img src="/2024/04/07/ElasticSearch/clip_image090.jpg" class="">
 
-<img src="/2024/04/07/ElasticSearch/clip_image091.jpg" class="" title="img">
+<img src="/2024/04/07/ElasticSearch/clip_image091.jpg" class="">
 
-<img src="/2024/04/07/ElasticSearch/clip_image092.jpg" class="" title="img">
+<img src="/2024/04/07/ElasticSearch/clip_image092.jpg" class="">
 
-<img src="/2024/04/07/ElasticSearch/clip_image093.jpg" class="" title="img">
+<img src="/2024/04/07/ElasticSearch/clip_image093.jpg" class="">
 
-<img src="/2024/04/07/ElasticSearch/clip_image094.jpg" class="" title="img">
+<h4 id="可靠性机制"><a href="#可靠性机制" class="headerlink" title="可靠性机制"></a>可靠性机制</h4><img src="/2024/04/07/ElasticSearch/clip_image094.jpg" class="">
 
-<img src="/2024/04/07/ElasticSearch/clip_image095.jpg" class="" title="img">
+<img src="/2024/04/07/ElasticSearch/clip_image095.jpg" class="">
 
-<img src="/2024/04/07/ElasticSearch/clip_image096.jpg" class="" title="img">
+<img src="/2024/04/07/ElasticSearch/clip_image096.jpg" class="">
 
-<img src="/2024/04/07/ElasticSearch/clip_image097.jpg" class="" title="img">
+<img src="/2024/04/07/ElasticSearch/clip_image097.jpg" class="">
 
-<img src="/2024/04/07/ElasticSearch/clip_image098.jpg" class="" title="img">
+<img src="/2024/04/07/ElasticSearch/clip_image098.jpg" class="">
 
-<img src="/2024/04/07/ElasticSearch/clip_image099.jpg" class="" title="img">
+<img src="/2024/04/07/ElasticSearch/clip_image099.jpg" class="">
 
-<img src="/2024/04/07/ElasticSearch/clip_image100.jpg" class="" title="img">
+<img src="/2024/04/07/ElasticSearch/clip_image100.jpg" class="">
 
-<img src="/2024/04/07/ElasticSearch/clip_image101.jpg" class="" title="img">
+<h4 id="主副本同步"><a href="#主副本同步" class="headerlink" title="主副本同步"></a>主副本同步</h4><img src="/2024/04/07/ElasticSearch/clip_image101.jpg" class="">
 
-<img src="/2024/04/07/ElasticSearch/clip_image102.jpg" class="" title="img">
+<img src="/2024/04/07/ElasticSearch/clip_image102.jpg" class="">
 
 <p>弱一致性：不能保证主副的数据每一时刻都是最新的</p>
-<img src="/2024/04/07/ElasticSearch/clip_image103.jpg" class="" title="img">
+<img src="/2024/04/07/ElasticSearch/clip_image103.jpg" class="">
 
 <p>本地检查点：两个segment合并到哪一步了</p>
 <p>全局检查点：复制到哪一步了</p>
-<img src="/2024/04/07/ElasticSearch/clip_image104.jpg" class="" title="img">
+<img src="/2024/04/07/ElasticSearch/clip_image104.jpg" class="">
 
-<img src="/2024/04/07/ElasticSearch/clip_image105.jpg" class="" title="img">
+<h4 id="索引设置-1"><a href="#索引设置-1" class="headerlink" title="索引设置"></a>索引设置</h4><img src="/2024/04/07/ElasticSearch/clip_image105.jpg" class="">
 
-<img src="/2024/04/07/ElasticSearch/clip_image106.jpg" class="" title="img">
+<img src="/2024/04/07/ElasticSearch/clip_image106.jpg" class="">
 
-<img src="/2024/04/07/ElasticSearch/clip_image107.jpg" class="" title="img">
+<img src="/2024/04/07/ElasticSearch/clip_image107.jpg" class="">
 
-<img src="/2024/04/07/ElasticSearch/clip_image108.jpg" class="" title="img">
+<img src="/2024/04/07/ElasticSearch/clip_image108.jpg" class="">
 
-<img src="/2024/04/07/ElasticSearch/clip_image109.jpg" class="" title="img">
+<img src="/2024/04/07/ElasticSearch/clip_image109.jpg" class="">
 
-<h3 id="查询数据"><a href="#查询数据" class="headerlink" title="查询数据"></a>查询数据</h3><img src="/2024/04/07/ElasticSearch/clip_image110.jpg" class="" title="img">
+<h3 id="查询数据"><a href="#查询数据" class="headerlink" title="查询数据"></a>查询数据</h3><h4 id="技术原理"><a href="#技术原理" class="headerlink" title="技术原理"></a>技术原理</h4><img src="/2024/04/07/ElasticSearch/clip_image110.jpg" class="">
 
-<img src="/2024/04/07/ElasticSearch/clip_image111.jpg" class="" title="img">
+<img src="/2024/04/07/ElasticSearch/clip_image111.jpg" class="">
 
-<img src="/2024/04/07/ElasticSearch/clip_image112.jpg" class="" title="img">
+<img src="/2024/04/07/ElasticSearch/clip_image112.jpg" class="">
 
-<img src="/2024/04/07/ElasticSearch/clip_image113.jpg" class="" title="img">
+<img src="/2024/04/07/ElasticSearch/clip_image113.jpg" class="">
 
-<img src="/2024/04/07/ElasticSearch/clip_image114.jpg" class="" title="img">
+<img src="/2024/04/07/ElasticSearch/clip_image114.jpg" class="">
 
-<img src="/2024/04/07/ElasticSearch/clip_image115.jpg" class="" title="img">
+<img src="/2024/04/07/ElasticSearch/clip_image115.jpg" class="">
 
-<img src="/2024/04/07/ElasticSearch/clip_image116.jpg" class="" title="img">
+<img src="/2024/04/07/ElasticSearch/clip_image116.jpg" class="">
 
-<img src="/2024/04/07/ElasticSearch/clip_image117.jpg" class="" title="img">
+<img src="/2024/04/07/ElasticSearch/clip_image117.jpg" class="">
 
 <p>为什么比传统数据库快：（1）因为字典树相当于是第一层索引，放在内存中，词典相当于是第二层索引，放在磁盘中，（2）各种算法的优化，不同情况进行选择</p>
 <p>例如查询ABC模糊查询：先到字典树中查到数据在哪些块，在到词典中根据倒排索引查到编号（链表形式），结果合并是链表生成了跳表，跳表非常合适去做合并</p>
 <p>若不是模糊匹配而是精确匹配，用位图的话合并的速度会更快</p>
-<img src="/2024/04/07/ElasticSearch/clip_image118.jpg" class="" title="img">
+<img src="/2024/04/07/ElasticSearch/clip_image118.jpg" class="">
 
 <p>索引结构是一个多维的，比如说100个字段（都是数字的），那么就会建立100维的索引，这样就会比传统数据库快</p>
-<img src="/2024/04/07/ElasticSearch/clip_image119.jpg" class="" title="img">
+<h4 id="查询方式"><a href="#查询方式" class="headerlink" title="查询方式"></a>查询方式</h4><img src="/2024/04/07/ElasticSearch/clip_image119.jpg" class="">
 
-<img src="/2024/04/07/ElasticSearch/clip_image120.jpg" class="" title="img">
+<img src="/2024/04/07/ElasticSearch/clip_image120.jpg" class="">
 
-<img src="/2024/04/07/ElasticSearch/clip_image121.jpg" class="" title="img">
+<img src="/2024/04/07/ElasticSearch/clip_image121.jpg" class="">
 
 <p>倒排索引还要排序，根据term和文档的关联度打分并排序</p>
-<img src="/2024/04/07/ElasticSearch/clip_image122.jpg" class="" title="img">
+<img src="/2024/04/07/ElasticSearch/clip_image122.jpg" class="">
 
 <p>filter精确查询会更快，比模糊匹配更快，因为这个bitmap算法，并且会做缓存</p>
-<img src="/2024/04/07/ElasticSearch/clip_image123.jpg" class="" title="img">
+<img src="/2024/04/07/ElasticSearch/clip_image123.jpg" class="">
 
-<img src="/2024/04/07/ElasticSearch/clip_image124.jpg" class="" title="img">
+<img src="/2024/04/07/ElasticSearch/clip_image124.jpg" class="">
 
-<img src="/2024/04/07/ElasticSearch/clip_image125.jpg" class="" title="img">
+<img src="/2024/04/07/ElasticSearch/clip_image125.jpg" class="">
 
 <p>参照点：查第二页的时候把第一页的最后一条数据的id给我</p>
-<img src="/2024/04/07/ElasticSearch/clip_image126.jpg" class="" title="img">
+<img src="/2024/04/07/ElasticSearch/clip_image126.jpg" class="">
 
-<img src="/2024/04/07/ElasticSearch/clip_image127.jpg" class="" title="img">
+<h4 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h4><img src="/2024/04/07/ElasticSearch/clip_image127.jpg" class="">
 
-<img src="/2024/04/07/ElasticSearch/clip_image128.jpg" class="" title="img">
+<img src="/2024/04/07/ElasticSearch/clip_image128.jpg" class="">
 
 <p>局部：先分片内排序，在整体汇总排序</p>
 <p>全局：把词的信息做一个汇总，再排序，排完序在提出来</p>
-<img src="/2024/04/07/ElasticSearch/clip_image129.jpg" class="" title="img">
+<img src="/2024/04/07/ElasticSearch/clip_image129.jpg" class="">
 
-<img src="/2024/04/07/ElasticSearch/clip_image130.jpg" class="" title="img">
+<img src="/2024/04/07/ElasticSearch/clip_image130.jpg" class="">
 
-<img src="/2024/04/07/ElasticSearch/clip_image131.jpg" class="" title="img">
+<h4 id="聚合查询"><a href="#聚合查询" class="headerlink" title="聚合查询"></a>聚合查询</h4><img src="/2024/04/07/ElasticSearch/clip_image131.jpg" class="">
 
-<img src="/2024/04/07/ElasticSearch/clip_image132.jpg" class="" title="img">
+<img src="/2024/04/07/ElasticSearch/clip_image132.jpg" class="">
 
-<img src="/2024/04/07/ElasticSearch/clip_image133.jpg" class="" title="img">
+<img src="/2024/04/07/ElasticSearch/clip_image133.jpg" class="">
 
-<img src="/2024/04/07/ElasticSearch/clip_image134.jpg" class="" title="img">
+<img src="/2024/04/07/ElasticSearch/clip_image134.jpg" class="">
 
-<img src="/2024/04/07/ElasticSearch/clip_image135.jpg" class="" title="img">
+<img src="/2024/04/07/ElasticSearch/clip_image135.jpg" class="">
 
-<img src="/2024/04/07/ElasticSearch/clip_image136.jpg" class="" title="img">
+<img src="/2024/04/07/ElasticSearch/clip_image136.jpg" class="">
 
-<img src="/2024/04/07/ElasticSearch/clip_image137.jpg" class="" title="img">
+<img src="/2024/04/07/ElasticSearch/clip_image137.jpg" class="">
 
-<img src="/2024/04/07/ElasticSearch/clip_image138.jpg" class="" title="img">
+<h4 id="查询设置"><a href="#查询设置" class="headerlink" title="查询设置"></a>查询设置</h4><img src="/2024/04/07/ElasticSearch/clip_image138.jpg" class="">
 
-<img src="/2024/04/07/ElasticSearch/clip_image139.jpg" class="" title="img">
+<img src="/2024/04/07/ElasticSearch/clip_image139.jpg" class="">
 
-<img src="/2024/04/07/ElasticSearch/clip_image140.jpg" class="" title="img">
+<img src="/2024/04/07/ElasticSearch/clip_image140.jpg" class="">
 
-<img src="/2024/04/07/ElasticSearch/clip_image141.jpg" class="" title="img">
-
+<img src="/2024/04/07/ElasticSearch/clip_image141.jpg" class="">
 
                 
             </div>
@@ -1255,7 +1289,7 @@ FieldType.Text:Te">
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">153.7k</span>
+                        class="white-color">156k</span>
             
             
             

@@ -8,8 +8,9 @@
     <meta name="description" content="基础数据结构数据结构及其使用场景
 
 Redis还有更高级得数据结构，比如：HyperLogLog、Geo、BloomFilter 这几个数据结构
+
 String底层实现：
-如果一个字符串对象保存的是整数值， 并且这个整数值可以用 long 类">
+如果一个字符串对象保存的是整数值， 并且这个整数值可以用 long ">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -406,14 +407,14 @@ String底层实现：
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    11.8k
+                    12k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    41 分
+                    42 分
                 </div>
                 
 
@@ -433,81 +434,104 @@ String底层实现：
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h1><h2 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h2><h3 id="数据结构及其使用场景"><a href="#数据结构及其使用场景" class="headerlink" title="数据结构及其使用场景"></a>数据结构及其使用场景</h3><img src="/2024/04/05/redis/clip_image002.jpg" class="" title="Redis 的 数 据 结 构 及 使 用 场 景  Re 的 数 哐 结 构 有 、  1. 孛 串 ： 可 以 庠 来 做 最 简 单 的 數 缓 存 ， 可 以 緩 存 某 个 徜 的 孛 符 牛 ， 也 可 以 緩 存 臬 个 json 格 詭 孛 符 串 ， № 分 布 式 锁 的 实 现 利 用 了 这 种 赦 据 砉 构 ， 还 包 茫 可 以 实 现  计 數 器 、 s “ n 共 亨 ． 分 布 式 旧  2 、 哈 希 表 ： 可 以 来 存 儲 一 些 key 一 va 心 e 对 。 史 适 合 用 来 存 储 对 象  圭 列 表 ： Redis 的 列 表 命 0 的 绢 合 ， 可 以 当 雪 栈 ， 也 可 以 当 做 队 列 来 使 ， 可 以 用 来 存 类 似 信 公 众 号 、 两 等 泊 0 流 数  4 ． 合 ； 和 歹 刂 表 类 似 《 也 可 以 存 賭 多 个 元 索 ， 但 是 不 能 里 复 ， 合 可 以 进 行 交 隼 ． 并 、 差 军 臊 作 ， 从 而 可 以 妾 现 类 似 ， 栊 和 早 人 共 同 关 汀 的 人 、 朋 友 苤 等 功 能  气 有 序 合 ： 合 是 无 序 的 。 有 序 合 可 以 设 置 顺 序 ， 可 以 来 实 现 排 行 榜 功 能">
+                <h1 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h1><h2 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h2><h3 id="数据结构及其使用场景"><a href="#数据结构及其使用场景" class="headerlink" title="数据结构及其使用场景"></a>数据结构及其使用场景</h3><img src="/2024/04/05/redis/clip_image002.jpg" class="" width="">
 
 <p>Redis还有更高级得数据结构，比如：HyperLogLog、Geo、BloomFilter 这几个数据结构</p>
-<p>String底层实现：</p>
+<ol>
+<li><p>String底层实现：</p>
 <p>如果一个字符串对象保存的是整数值， 并且这个整数值可以用 long 类型来表示， 那么字符串对象会将整数值保存在字符串对象结构的 ptr 属性里面（将 void* 转换成 long ）， 并将字符串对象的编码设置为 int 。</p>
 <p>如果字符串对象保存的是一个字符串值， 并且这个字符串值的长度大于 39 字节， 那么字符串对象将使用一个简单动态字符串（SDS）来保存这个字符串值， 并将对象的编码设置为 raw。</p>
 <p>如果字符串对象保存的是一个字符串值， 并且这个字符串值的长度小于等于 39 字节， 那么字符串对象将使用 embstr 编码的方式来保存这个字符串值。</p>
-<p>List底层实现：</p>
+</li>
+<li><p>List底层实现：</p>
 <p>列表对象的编码可以是 ziplist 或者 linkedlist 。</p>
-<p>列吧表对象保存的所有字符串元素的长度都小于 64 字节并且保存的元素数量小于 512 个，使用 ziplist 编码；否则使用 linkedlist；</p>
-<p>Hash底层实现:</p>
+<p>列表对象保存的所有字符串元素的长度都小于 64 字节并且保存的元素数量小于 512 个，使用 ziplist 编码；否则使用 linkedlist；</p>
+</li>
+<li><p>Hash底层实现:</p>
 <p>哈希对象的编码可以是 ziplist 或者 hashtable 。</p>
 <p>哈希对象保存的所有键值对的键和值的字符串长度都小于 64 字节并且保存的键值对数量小于 512 个，使用ziplist 编码；否则使用hashtable；</p>
-<p>Set底层实现：</p>
+</li>
+<li><p>Set底层实现：</p>
 <p>集合对象的编码可以是 intset 或者 hashtable 。</p>
 <p>集合对象保存的所有元素都是整数值并且保存的元素数量不超过 512 个，使用intset编码；否则使用hashtable；</p>
-<p>Sorted Set底层实现：</p>
+</li>
+<li><p>Sorted Set底层实现：</p>
 <p>有序集合的编码可以是 ziplist 或者 skiplist</p>
-<p>有序集合保存的元素数量小于 128 个并且保存的所有元素成员的长度都小于 64 字</p>
-<p>节。使用 ziplist 编码；否则使用skiplist；</p>
-<p>HyperLogLog</p>
-<p>edis HyperLogLog 是用来做基数统计的算法，HyperLogLog 的优点是，在输入元素的数量或者体积非常非常大时，计算基数所需的空间总是固定的、并且是很小的。</p>
+<p>有序集合保存的元素数量小于 128 个并且保存的所有元素成员的长度都小于 64 字节。使用 ziplist 编码；否则使用skiplist；</p>
+</li>
+<li><p>HyperLogLog</p>
+<p>redis HyperLogLog 是用来做基数统计的算法，HyperLogLog 的优点是，在输入元素的数量或者体积非常非常大时，计算基数所需的空间总是固定的、并且是很小的。</p>
 <p>在 Redis 里面，每个 HyperLogLog 键只需要花费 12 KB 内存，就可以计算接近 2^64 个不同元素的基 数。这和计算基数时，元素越多耗费内存就越多的集合形成鲜明对比。</p>
 <p>但是，因为 HyperLogLog 只会根据输入元素来计算基数，而不会储存输入元素本身，所以 HyperLogLog 不能像集合那样，返回输入的各个元素。 </p>
 <p>应用场景：</p>
 <p>可以用来统计网站的登陆人数以及其他指标</p>
-<p>GEO</p>
+</li>
+<li><p>GEO</p>
 <p>基本概念： </p>
 <p>在 Redis 3.2 版本中新增了一种叫 geo 的数据结构，它主要用来存储地理位置信息，并对存储的信息进行操作。 </p>
 <p>使用： </p>
-<p>geoadd 用于存储指定的地理空间位置，可以将一个或多个经度(longitude)、纬度</p>
-<p>(latitude)、位置名称(member)添加到指定的 key 中。</p>
-<p>BloomFilter</p>
+<p>geoadd 用于存储指定的地理空间位置，可以将一个或多个经度(longitude)、纬度(latitude)、位置名称(member)添加到指定的 key 中。</p>
+</li>
+<li><p>BloomFilter</p>
 <p>基本概念： </p>
 <p>一种数据结构，是由一串很长的二进制向量组成，可以将其看成一个二进制数组。既然是二进制，那么里面存放的不是0，就是1，但是初始默认值都是0。他的主要作用是：判断一个元素是否在某个集合中。比如说，我想判断20亿的号码中是否存在某个号码，如果直接插DB，那么数据量太大时间会很慢；如果将20亿数据放到 缓存中，缓存也装不下。这个时候用 布隆过滤器 最合适了，布隆过滤器的原理是：</p>
-<p>添加元素<br> 当要向布隆过滤器中添加一个元素key时，我们通过多个hash函数，算出一个值，然后将这个值所在的方格置为1。</p>
-<img src="/2024/04/05/redis/clip_image004.gif" class="" title="img">
+<p>添加元素<br>当要向布隆过滤器中添加一个元素key时，我们通过多个hash函数，算出一个值，然后将这个值所在的方格置为1。</p>
+<img src="/2024/04/05/redis/clip_image004.gif" class="">
 
-<p>判断元素是否存在：<br> 判断元素是否存在，是先将元素经过多个hash函数计算，计算到多个下标值，然后判断这些下标对应的元素值是否都为1，如果存在不是 1 的，那么元素肯定不在集合中；如果都是 1，那么元素大概率在集合中，并不能百分之百肯定元素存在集合中，因为多个不同的数据通过hash函数算出来的结果是会有重复的，所以会存在某个位置是别的数据通过hash函数置为的1。<br> 总的来说：布隆过滤器可以判断某个数据一定不存在，但是无法判断一定存在。</p>
+<p>判断元素是否存在：<br>判断元素是否存在，是先将元素经过多个hash函数计算，计算到多个下标值，然后判断这些下标对应的元素值是否都为1，如果存在不是 1 的，那么元素肯定不在集合中；如果都是 1，那么元素大概率在集合中，并不能百分之百肯定元素存在集合中，因为多个不同的数据通过hash函数算出来的结果是会有重复的，所以会存在某个位置是别的数据通过hash函数置为的1。<br> 总的来说：布隆过滤器可以判断某个数据一定不存在，但是无法判断一定存在。</p>
 <p>布隆过滤器的优缺点：</p>
-<p>优点：优点很明显，二进制组成的数组，占用内存极少，并且插入和查询速度都足够快。</p>
-<p>缺点：随着数据的增加，误判率会增加；还有无法判断数据一定存在；另外还有一个重要缺点，无法删除数据。</p>
+<p>​	优点：优点很明显，二进制组成的数组，占用内存极少，并且插入和查询速度都足够快。</p>
+<p>​	缺点：随着数据的增加，误判率会增加；还有无法判断数据一定存在；另外还有一个重要缺点，无法删除数据。</p>
 <p>应用场景：</p>
-<p>解决缓存穿透问题：一般得查询场景都是先去查询缓存，如果缓存没有，那么就去 DB 查询，如果查到了，先存在 缓存 中，然后返回给调用方。如果查不到就返回空。这种情况如果有人频繁的请求缓存中没有得数据，比如id &#x3D; -1 得数据，那么会对 DB 造成极大得压力，这种情况就可以使用 redis 得布隆过滤器了，可以先将可能得id都</p>
-<p>存在布隆过滤器中，当查询来的时候，先去布隆过滤器查，如果查不到直接返回，不请求缓存以及DB，如果存在 布隆过滤器 中，那么才去缓存中取数据。</p>
-<p>黑名单校验：可以将黑名单中得ip放入到布隆过滤器中，这样不用每次来都去 db 中查询了。</p>
-<h3 id="Hashmap"><a href="#Hashmap" class="headerlink" title="Hashmap"></a>Hashmap</h3><img src="/2024/04/05/redis/clip_image006.jpg" class="" title="di">
+<p>​	解决缓存穿透问题：一般得查询场景都是先去查询缓存，如果缓存没有，那么就去 DB 查询，如果查到了，先存在 缓存 中，然后返回给调用方。如果查不到就返回空。这种情况如果有人频繁的请求缓存中没有得数据，比如id &#x3D; -1 得数据，那么会对 DB 造成极大得压力，这种情况就可以使用 redis 得布隆过滤器了，可以先将可能得id都存在布隆过滤器中，当查询来的时候，先去布隆过滤器查，如果查不到直接返回，不请求缓存以及DB，如果存在 布隆过滤器 中，那么才去缓存中取数据。</p>
+<p>​	黑名单校验：可以将黑名单中得ip放入到布隆过滤器中，这样不用每次来都去 db 中查询了。</p>
+</li>
+</ol>
+<h3 id="Hashmap"><a href="#Hashmap" class="headerlink" title="Hashmap"></a>Hashmap</h3><img src="/2024/04/05/redis/clip_image006.jpg" class="">
 
 <p>扩容时大小：ht[1] 哈希表大小为第一个大于等于 ht[0].used*2 的 2^n(2的n 次方幂) used：当前有多少个键值对</p>
 <p>缩容时大小：ht[1] 哈希表大小为第一个大于等于 ht[0].used的 2^n(2的n 次方幂)</p>
 <p>扩容的步骤如下：</p>
-<p>1、为字典ht[1]哈希表分配合适的空间；</p>
-<p>2、将ht[0]中所有的键值对rehash到ht[1]：rehash 指的是重新计算键的哈希值和索引值， 然后将键值对 放置到 ht[1] 哈希表的指定位置上；</p>
-<p>3、当 ht[0] 包含的所有键值对都迁移到了 ht[1] 之后 （ht[0] 变为空表）， 释放 ht[0] ， 将 ht[1] 设置 为 ht[0] ， 并在 ht[1] 新创建⼀个空⽩哈希表， 为下⼀次 rehash 做准备。</p>
+<ol>
+<li><p>为字典ht[1]哈希表分配合适的空间；</p>
+</li>
+<li><p>将ht[0]中所有的键值对rehash到ht[1]：rehash 指的是重新计算键的哈希值和索引值， 然后将键值对 放置到 ht[1] 哈希表的指定位置上；</p>
+</li>
+<li><p>当 ht[0] 包含的所有键值对都迁移到了 ht[1] 之后 （ht[0] 变为空表）， 释放 ht[0] ， 将 ht[1] 设置 为 ht[0] ， 并在 ht[1] 新创建⼀个空⽩哈希表， 为下⼀次 rehash 做准备。</p>
+</li>
+</ol>
 <p>哈希渐进式rehash的详细步骤：</p>
-<p>1、为ht[1]分配空间，让字典同时持有ht[0]和ht[1]两个哈希表。</p>
-<p>2、在字典中维持一个索引计数器变量rehashidx，并将它的指设置为0，表示rehash工作正式开始。</p>
-<p>3、在rehash进行期间，每次对字典执行添加、删除、查找或者更新操作时，程序除了执行指定的操作以外，还会顺带将ht[0]哈希表在rehashidx索引上的所有键值对rehash到ht[1]，当rehash工作完成之后，程序将rehashidx属性的值加一。</p>
-<p>4、随着字典操作的不断执行，最终在某个时间点，ht[0]的所有键值对都会被rehash至ht[1]，这时程序将rehashidx属性设置为-1，表示rehash已经操作完成 ，h[1]变为h[0]</p>
+<ol>
+<li><p>为ht[1]分配空间，让字典同时持有ht[0]和ht[1]两个哈希表。</p>
+</li>
+<li><p>在字典中维持一个索引计数器变量rehashidx，并将它的指设置为0，表示rehash工作正式开始。</p>
+</li>
+<li><p>在rehash进行期间，每次对字典执行添加、删除、查找或者更新操作时，程序除了执行指定的操作以外，还会顺带将ht[0]哈希表在rehashidx索引上的所有键值对rehash到ht[1]，当rehash工作完成之后，程序将rehashidx属性的值加一。</p>
+</li>
+<li><p>随着字典操作的不断执行，最终在某个时间点，ht[0]的所有键值对都会被rehash至ht[1]，这时程序将rehashidx属性设置为-1，表示rehash已经操作完成 ，h[1]变为h[0]</p>
+</li>
+</ol>
 <p>在 Redis 的实现里，扩容缩容有三条规则：</p>
-<p>当 Redis 没有进行 BGSAVE 相关操作，且 负载因子&gt;1的时候进行扩容。</p>
-<p>当 Redis 进行 BGSAVE 相关操作,当负载因子&gt;5的时候，强行进行扩容。</p>
-<p>当负载因子&lt;0.1的时候，进行缩容。</p>
+<ul>
+<li><p>当 Redis 没有进行 BGSAVE 相关操作，且 负载因子&gt;1的时候进行扩容。</p>
+</li>
+<li><p>当 Redis 进行 BGSAVE 相关操作,当负载因子&gt;5的时候，强行进行扩容。</p>
+</li>
+<li><p>当负载因子&lt;0.1的时候，进行缩容。</p>
 <p>负载因子&#x3D;哈希表以保存节点数量 &#x2F; 哈希表的大小.</p>
-<p> <em><strong>*Bgsave*</strong></em> 命令用于在后台异步保存当前数据库的数据到磁盘。</p>
+</li>
+</ul>
+<p> <strong>Bgsave</strong> 命令用于在后台异步保存当前数据库的数据到磁盘。</p>
 <p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844904049578377230#%E6%89%A9%E5%AE%B9%E4%B8%8E%E7%BC%A9%E5%AE%B9">https://juejin.cn/post/6844904049578377230#%E6%89%A9%E5%AE%B9%E4%B8%8E%E7%BC%A9%E5%AE%B9</a></p>
 <h3 id="压缩列表ziplist"><a href="#压缩列表ziplist" class="headerlink" title="压缩列表ziplist"></a><strong>压缩列表</strong>ziplist</h3><p>ziplist是一种连续，无序的数据结构。压缩列表是 Redis 为了节约内存而开发的， 由一系列特殊编码的连续内存块组成的顺序型（sequential）数据结构。</p>
-<p>组成</p>
+<p>组成：</p>
 <table>
 <thead>
 <tr>
-<th>*******<em><strong>属性*</strong></em></th>
-<th>*******<em><strong>类型*</strong></em></th>
-<th>*******<em><strong>长度*</strong></em></th>
-<th>*******<em><strong>用途*</strong></em></th>
+<th>属性</th>
+<th>类型</th>
+<th>长度</th>
+<th>用途</th>
 </tr>
 </thead>
 <tbody><tr>
@@ -542,23 +566,28 @@ String底层实现：
 </tr>
 </tbody></table>
 <p>压缩列表节点的构成　一个压缩列表可以包含任意多个节点（entry）， 每个节点可以保存一个字节数组或者一个整数值（小整数值或者长度比较短的字符串）。</p>
-<p>（1）节点的 previous_entry_length 属性以字节为单位， 记录了压缩列表中前一个节点的长度</p>
-<p>（2）节点的 encoding 属性记录了节点的 content 属性所保存数据的类型以及长度： </p>
-<p>（3）节点的 content 属性负责保存节点的值， 节点值可以是一个字节数组或者整数， 值的类型和长度由节点的 encoding 属性决定。</p>
+<ul>
+<li><p>节点的 previous_entry_length 属性以字节为单位， 记录了压缩列表中前一个节点的长度</p>
+</li>
+<li><p>节点的 encoding 属性记录了节点的 content 属性所保存数据的类型以及长度： </p>
+</li>
+<li><p>节点的 content 属性负责保存节点的值， 节点值可以是一个字节数组或者整数， 值的类型和长度由节点的 encoding 属性决定。</p>
+</li>
+</ul>
 <h3 id="跳表"><a href="#跳表" class="headerlink" title="跳表"></a>跳表</h3><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/lixinjie/p/a-post-about-skiplist.html">https://www.cnblogs.com/lixinjie/p/a-post-about-skiplist.html</a></p>
-<img src="/2024/04/05/redis/clip_image008.jpg" class="" title="Rodis ,馝i&amp;h|,鹵미i뢰~ |馝i&amp;h|,鹵미i떖 曰中 用才*示″3%1. 而 ,鹵p|로  Ⅲ十Ⅳ4,″裹11,는『」糲붓념모.  L32  NULL  NULL  length  tan. :">
+<img src="/2024/04/05/redis/clip_image008.jpg" class="">
 
-<img src="/2024/04/05/redis/clip_image010.jpg" class="" title="img">
+<img src="/2024/04/05/redis/clip_image010.jpg" class="">
 
 <p>查找流程：</p>
-<img src="/2024/04/05/redis/clip_image012.jpg" class="" title="没 们 0 以 诓 是 和 在 第 常 引 中 。 我 们 到 节 0 之 处 ． x 大 十 小 于 处 囟 的 朽 貞 乙 所 以 们 谚 n 旧  計 ． k 吸 旗 引 下 k 一 1 旗 引 · 在 苤 1 引 中 ． y 和 屙 只 有 3 书 点 （ 含 y 和 到 ． 所 以 ． 我 钔 在 k 一 1 吸 引 中 是 多  只 粼 历 3 个 白 。 欠 类 。 一 暇 引 星 多 只 靄 以 历 3 首 兯 貞 ，">
+<img src="/2024/04/05/redis/clip_image012.jpg" class="" width="">
 
 <p>插入流程：</p>
-<img src="/2024/04/05/redis/clip_image014.jpg" class="" title="· 懂 懒 鈿 詼 捍 ． 锈 合 适 入 0 “ 汀 0 分 分 “ e 相 同 ． 这 时 会 根 中 阐 字 凍 栉 ·  ． 阳 R 酊 川 止 e 旧 0 月 ． 独 出 适 入 的 0 内 0 数 产  ． 阳 谝 1 玩 的 新 堇 0 以 前 处 情 的 向 0 d 和 美 长 廢 卸 地 也 菪 新 鬲 凶 0 向 轟 d ．  · 貝 中 地 栌 了 蚋 饣 敷 地 和 阉 n update 數 用 记 录 的 一 过 言 ． 一 制 ； 小 斗 噕 入 “ 白 ． 巫 庸 ^ 0 “ 《 “ 效  记 灵 主 诬 00 上 一 虫 书 ， 以 便 十 最 肩 新 即 彐 n 伯 。">
+<img src="/2024/04/05/redis/clip_image014.jpg" class="" width="">
 
-<img src="/2024/04/05/redis/clip_image016.jpg" class="" title="5 球 ist 节 点  蜘 翱 的 过 &#96; 的 都 是 盟 使 判 凸 0 万 法 的 。 先 垡 个 “ 》 “ 是 出 0 · 如 存 在 盟 斷 的 。 不 存 在 就 适 入  程 》 五 中 刂 是 ． 知 丰 伐 剁 了 酴 ． 冉 斷 ． 这 ， 0 会 做 蚋 内 ． 0 上 束 讲 酗 了 ． 在 R 弱 50  版 本 中 ． R 开 An@嘏 优 化 了 这 个 刊 程 ． 鬥 屮 锔 刂 星 知 生 判 断 这 个 " alt="是 酉 在 ． 处 墨 0 0 ，  后 山 整 希 表 5 舅 e 过 序 。 谊 就 不 靄 蚋 次 粼 河 程 ．">
+<img src="/2024/04/05/redis/clip_image016.jpg" class="" width="">
 
-<img src="/2024/04/05/redis/clip_image018.jpg" class="" title="六 ． p 以 t 与 平 衡 树 、 咕 希 衮 的 比 较  的 全 Oil)  ， 0 必 的 据 侑 序 之 0 # 斗 娌 特 只 塑 卜 诠 》  黛 № 肝 河 以 就 匕 屮 励 恻 ：  Z 卉 3 ， 不 0 骷 印 压 0 忮">
+<img src="/2024/04/05/redis/clip_image018.jpg" class="" width="">
 
 <h3 id="跳表和红黑树的对比-1"><a href="#跳表和红黑树的对比-1" class="headerlink" title="跳表和红黑树的对比_1"></a>跳表和红黑树的对比_1</h3><ul>
 <li><ol>
@@ -570,82 +599,90 @@ String底层实现：
 </ol>
 </li>
 </ul>
-<h2 id="单线程还是多线程？"><a href="#单线程还是多线程？" class="headerlink" title="单线程还是多线程？"></a>单线程还是多线程？</h2><img src="/2024/04/05/redis/clip_image020.gif" class="" title="img">
+<h2 id="单线程还是多线程？"><a href="#单线程还是多线程？" class="headerlink" title="单线程还是多线程？"></a>单线程还是多线程？</h2><img src="/2024/04/05/redis/clip_image020.gif" class="">
 
 <h2 id="BIO，NIO，Epoll，IO多路复用"><a href="#BIO，NIO，Epoll，IO多路复用" class="headerlink" title="BIO，NIO，Epoll，IO多路复用"></a>BIO，NIO，Epoll，IO多路复用</h2><p>IO多路复用：单线程或单进程同时监测若干个文件描述符是否可以执行IO操作的能力。</p>
-<p>普通IO:</p>
-<img src="/2024/04/05/redis/clip_image021.jpg" class="" title="img">
+<ol>
+<li>普通IO:</li>
+</ol>
+<img src="/2024/04/05/redis/clip_image021.jpg" class="">
 
-<p>BIO:同步阻塞</p>
+<ol start="2">
+<li>BIO:同步阻塞</li>
+</ol>
 <p>来一个连接新建一个线程处理</p>
-<img src="/2024/04/05/redis/clip_image022.jpg" class="" title="img">
+<img src="/2024/04/05/redis/clip_image022.jpg" class="">
 
 <p>这是服务端程序：划线的地方都会阻塞程序：在接受连接（accept）的时候，若没有客户端连接，accept就会阻塞，有连接后运行，执行到read也会阻塞，因为没有客户端发送消息，发了消息后就会运行</p>
 <p>问题：没法处理多个连接，只有轮训到accept的时候才能继续接受连接</p>
-<img src="/2024/04/05/redis/clip_image023.jpg" class="" title="img">
+<img src="/2024/04/05/redis/clip_image023.jpg" class="">
 
 <p>开新线程处理：来一个请求开一个线程，会严重影响服务器性能  c10k问题：线程太多了</p>
 <p>用线程池限制了线程数量：并发就会减弱，</p>
-<img src="/2024/04/05/redis/clip_image024.jpg" class="" title="img">
+<img src="/2024/04/05/redis/clip_image024.jpg" class="">
 
 <p>还有一个严重的问题就是阻塞，客户端迟迟不发请求，那么就会影响造成线程开销浪费很多，每个线程处理一个连接，那么很多线程就一直阻塞着</p>
-<p>NIO：同步非阻塞</p>
+<ol start="3">
+<li>NIO：同步非阻塞</li>
+</ol>
 <p>简单版本：</p>
-<img src="/2024/04/05/redis/clip_image025.jpg" class="" title="img">
+<img src="/2024/04/05/redis/clip_image025.jpg" class="">
 
 <p>设置socketChannel为非阻塞：即使客户端没有发数据，read函数不会阻塞</p>
 <p>socketChannel会放在list中，轮训list</p>
 <p>问题：10万个连接，只有100个有收发数据，那么每次需要循环10万个，造成了时间浪费</p>
 <p>解决：令拿一个集合放那些有请求的连接：selector（多路复用器）</p>
-<img src="/2024/04/05/redis/clip_image026.jpg" class="" title="img">
+<img src="/2024/04/05/redis/clip_image026.jpg" class="">
 
-<img src="/2024/04/05/redis/clip_image027.jpg" class="" title="img">
+<img src="/2024/04/05/redis/clip_image027.jpg" class="">
 
 <p>一个selectionkey对应着一个channel，通过selectionkey就能找到channel</p>
 <p>selector.select会阻塞等待连接事件，当有连接时，则运行</p>
 <p>select也会阻塞等待读写事件，当两个客户端发生了读写事件时，那么这时候selectionKeys集合里面就是两个，那么就可以轮训处理这两个事件</p>
-<img src="/2024/04/05/redis/clip_image028.jpg" class="" title="img">
+<img src="/2024/04/05/redis/clip_image028.jpg" class="">
 
 <p>如果是连接事件，也会把客户端的socketChannel注册到selector，监听读写事件</p>
-<img src="/2024/04/05/redis/clip_image029.jpg" class="" title="img">
+<img src="/2024/04/05/redis/clip_image029.jpg" class="">
 
 <p>其实创建的这个selector，linux操作系统返回的就是epoll，linux操作系统一切皆文件，返回的的epfd（ep file discription），就是epoll</p>
-<img src="/2024/04/05/redis/clip_image030.jpg" class="" title="img">
+<img src="/2024/04/05/redis/clip_image030.jpg" class="">
 
-<p> AIO</p>
-<img src="/2024/04/05/redis/clip_image032.jpg" class="" width="0">
+<ol start="4">
+<li>AIO</li>
+</ol>
+<img src="/2024/04/05/redis/clip_image032.jpg" class="">
 
-<img src="/2024/04/05/redis/clip_image034.jpg" class="" width="0">
+<img src="/2024/04/05/redis/clip_image034.jpg" class="">
 
-<img src="/2024/04/05/redis/clip_image036.jpg" class="" title="img">
+<img src="/2024/04/05/redis/clip_image036.jpg" class="">
 
 <p>epol_ctl才是真正监听事件的方法</p>
 <p>fd：Channel的文件描述符</p>
 <p>select监听事件</p>
 <p>epoll_wait:阻塞等待事件的发生，有连接读写事件才会运行</p>
 <p>channel放着连接，rdlist放着事件的列表</p>
-<img src="/2024/04/05/redis/clip_image037.jpg" class="" title="img">
+<img src="/2024/04/05/redis/clip_image037.jpg" class="">
 
-<img src="/2024/04/05/redis/clip_image039.jpg" class="" title="img">
+<img src="/2024/04/05/redis/clip_image039.jpg" class="">
 
-<img src="/2024/04/05/redis/clip_image041.jpg" class="" title="img">
+<img src="/2024/04/05/redis/clip_image041.jpg" class="">
 
 <p>阻塞等待事件的发生</p>
-<img src="/2024/04/05/redis/clip_image043.jpg" class="" title="img">
+<img src="/2024/04/05/redis/clip_image043.jpg" class="">
 
 <p>3者区别：select每次轮询连接集合，有上限，poll：每次轮询连接集合，无上限，epoll：每次轮询的是有事件发生的连接，无上限</p>
-<h2 id="主从复制"><a href="#主从复制" class="headerlink" title="主从复制"></a>主从复制</h2><p><em><strong>*当启动一个 slave node 的时候，它会发送一个 PSYNC 命令给 master node。*</strong></em></p>
+<h2 id="主从复制"><a href="#主从复制" class="headerlink" title="主从复制"></a>主从复制</h2><p><strong>当启动一个 slave node 的时候，它会发送一个 PSYNC 命令给 master node。</strong></p>
 <p>如果这是 slave node 初次连接到 master node，那么会触发一次 full resynchronization 全量复制。此时 master 会启动一个后台线程，开始生成一份 RDB 快照文件，</p>
 <p>同时还会将从客户端 client 新收到的所有写命令缓存在内存中。RDB 文件生成完毕后， master 会将这个 RDB 发送给 slave，slave 会先写入本地磁盘，然后再从本地磁盘加载到内存中，</p>
 <p>接着 master 会将内存中缓存的写命令发送到 slave，slave 也会同步这些数据。</p>
 <p>slave node 如果跟 master node 有网络故障，断开了连接，会自动重连，连接之后 master node 仅会复制给 slave 部分缺少的数据。</p>
 <p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/renpingsheng/p/9796899.html">https://www.cnblogs.com/renpingsheng/p/9796899.html</a></p>
-<img src="/2024/04/05/redis/clip_image045.jpg" class="" title="redis 主 从 复 制 的 核 心 原 理  河 过 行 “ of 品 0 或 设 0 引 ave 。 顷 。 让 一 个 服 器 去 0 制 另 一 个  蹇 。 瞎 底 可 以 讲 行 读 与 襻  怍 ， 当 与 慢 作 导 致 数 剖 1 会 自 劝 将 数 河 步 搶 从 数 库 。 而 从 数 00 一 是 只 读 的 ， 葑 豐 主 重 庵 同 步 过  的 数 0 。 一 个 扌 数 亏 可 以 有 多 个 从 数 0 库 ， 而 一 ， 个 M 只 能 有 一 个 扌 数 瞎 私  〔 月 主 节 白 通 过 bg “ “ 命 令 fork 子 进 程 进 行 RDB 恃 久 化 、 该 过 程 是 菲 簡 肖 〔 pu 、 内 山 轰 地 ． 硬 盘 ℃ 的  〔 扌 节 点 过 网 适 RD 日 又 件 友 送 从 点 ， 对 主 从 节 的 鬲 都 会 带 + 很 大 的 料 耗  司 从 节 中 空 老 数 ． 载 入 新 RD 日 文 件 围 过 程 犀 沮 藶 的 ， 应 窖 户 的 命 令 ： 如 果 从 0 执 行  bgrewriteaof, 也 会 諾 犟 外 肖 耗">
+<img src="/2024/04/05/redis/clip_image045.jpg" class="" width="">
 
-<img src="/2024/04/05/redis/clip_image047.jpg" class="" title="地 一 次 次 行 0 枞  “ 劌 是 上 一 次 主  %asterüpsync  " alt="翩 表 示 扌 邗 运 行 》 D ． 。 e 示 当 航 主  ync(runid)(otfset)  0 行 ID ． 酬 1 是 当 前 从 书  点 刊 处">
+<img src="/2024/04/05/redis/clip_image047.jpg" class="" width="">
 
 <h2 id="部分同步"><a href="#部分同步" class="headerlink" title="部分同步"></a>部分同步</h2><p>部分复制主要是 Redis 针对全量复制的过高开销做出的一种优化措施，使用 psync {runId} {offset} 命令实现。当从节点正在复制主节点时，如果出现网络闪断或者命令丢失等异常情况时，从节点会向主节点要求补发丢失的命令数据，如果主节点的复制积压缓冲区存在这部分数据则直接发送给从节点，这样就保证了主从节点复制的一致性。补发的这部分数据一般远远小于全量数据，所以开销很小。</p>
-<img src="/2024/04/05/redis/clip_image049.jpg" class="" title="slave  2) Request  1)  3)  repl-backlog-  buffer  4) psync {offset} {runld}  master  5) CONTINUE">
+<img src="/2024/04/05/redis/clip_image049.jpg" class="" width="">
 
 <p> 当主从节点之间网络出现中断时，如果超过了 repl-timeout 时间，主节点会认为从节点故障并中断复制连接。</p>
 <p> 主从连接中断期间主节点依然响应命令，但因复制连接中断命令无法发送给从节点，不过主节点内部存在复制积压缓冲区( repl-backlog-buffer )，依然可以保存最近一段时间的写命令数据，默认最大缓存 1MB。</p>
@@ -653,61 +690,88 @@ String底层实现：
 <p> 当主从连接恢复后，由于从节点之前保存了自身已复制的偏移量和主节点的运行ID。因此会把它们作为 psync 参数发送给主节点，要求进行补发复制操作。</p>
 <p> 主节点接到 psync 命令后首先核对参数 runId 是否与自身一致，如果一致，说明之前复制的是当前主节点；之后根据参数 offset 在自身复制积压缓冲区查找，如果偏移量之后的数据存在缓冲区中，则对从节点发送 +CONTINUE 响应，表示可以进行部分复制。</p>
 <p> 主节点根据偏移量把复制积压缓冲区里的数据发送给从节点，保证主从复制进入正常状态。</p>
-<img src="/2024/04/05/redis/clip_image051.jpg" class="" title="img">
+<img src="/2024/04/05/redis/clip_image051.jpg" class="" width="">
 
-<h2 id="集群方案"><a href="#集群方案" class="headerlink" title="集群方案"></a>集群方案</h2><p>主从复制模式</p>
-<p> Sentinel（哨兵）模式</p>
-<p> Cluster 模式</p>
-<p>*<strong>*<em><em><strong><strong>主从复制机制的目的有两个*</strong></strong></em>*</em></strong></p>
-<p> 一个是读写分离，分担 “master” 的读写压力</p>
-<p> 一个是方便做容灾恢复</p>
-<p><img src="/redis/clip_image053.jpg" alt="从 服 务 器  主 服 务 器  创 建 快 照 、 缓 冲 快  [ 1 同 步 快 照 ]  載 入 、 解 析 快 照  缓 冲 快 照 同  [ 2 ． 同 步 与 缓 冲 ]  生 成 期 间 的 写 命 令  间 的 写 命 令  载 入 缓 冲  loop  从 服 务 器  [ 3 ． 同 步 增 量 ]  主 服 务 器 "></p>
-<p>从数据库启动成功后，连接主数据库，发送 SYNC 命令；</p>
-<p> 主数据库接收到 SYNC 命令后，开始执行 BGSAVE 命令生成 RDB 文件并使用缓冲区记录此后执行的所有写命令；</p>
-<p> 主数据库 BGSAVE 执行完后，向所有从数据库发送快照文件，并在发送期间继续记录被执行的写命令；</p>
-<p> 从数据库收到快照文件后丢弃所有旧数据，载入收到的快照；</p>
-<p> 主数据库快照发送完毕后开始向从数据库发送缓冲区中的写命令；</p>
-<p> 从数据库完成对快照的载入，开始接收命令请求，并执行来自主数据库缓冲区的写命令；（从数据库初始化完成）</p>
-<p> 主数据库每执行一个写命令就会向从数据库发送相同的写命令，从数据库接收并执行收到的写命令（从数据库初始化完成后的操作）</p>
-<p> 出现断开重连后，2.8之后的版本会将断线期间的命令传给重数据库，增量复制。</p>
-<p> 主从刚刚连接的时候，进行全量同步；全同步结束后，进行增量同步。当然，如果有需要，slave 在任何时候都可以发起全量同步。Redis 的策略是，无论如何，首先会尝试进行增量同步，如不成功，要求从机进行全量同步。</p>
-<p>*<strong>*<em><em><strong><strong>主从复制缺点*</strong></strong></em>*</em></strong></p>
+<h2 id="集群方案"><a href="#集群方案" class="headerlink" title="集群方案"></a>集群方案</h2><p><strong>主从复制模式</strong></p>
+<ul>
+<li><p>Sentinel（哨兵）模式</p>
+</li>
+<li><p>Cluster 模式</p>
+</li>
+</ul>
+<p><strong>主从复制机制的目的有两个</strong></p>
+<ul>
+<li><p>一个是读写分离，分担 “master” 的读写压力</p>
+</li>
+<li><p>一个是方便做容灾恢复</p>
+</li>
+</ul>
+<img src="/2024/04/05/redis/clip_image053.jpg" class="" width="">
+
+<ol>
+<li><p>从数据库启动成功后，连接主数据库，发送 SYNC 命令；</p>
+</li>
+<li><p>主数据库接收到 SYNC 命令后，开始执行 BGSAVE 命令生成 RDB 文件并使用缓冲区记录此后执行的所有写命令；</p>
+</li>
+<li><p>主数据库 BGSAVE 执行完后，向所有从数据库发送快照文件，并在发送期间继续记录被执行的写命令；</p>
+</li>
+<li><p>从数据库收到快照文件后丢弃所有旧数据，载入收到的快照；</p>
+</li>
+<li><p>主数据库快照发送完毕后开始向从数据库发送缓冲区中的写命令；</p>
+</li>
+<li><p>从数据库完成对快照的载入，开始接收命令请求，并执行来自主数据库缓冲区的写命令；（从数据库初始化完成）</p>
+</li>
+<li><p>主数据库每执行一个写命令就会向从数据库发送相同的写命令，从数据库接收并执行收到的写命令（从数据库初始化完成后的操作）</p>
+</li>
+<li><p>出现断开重连后，2.8之后的版本会将断线期间的命令传给重数据库，增量复制。</p>
+</li>
+<li><p>主从刚刚连接的时候，进行全量同步；全同步结束后，进行增量同步。当然，如果有需要，slave 在任何时候都可以发起全量同步。Redis 的策略是，无论如何，首先会尝试进行增量同步，如不成功，要求从机进行全量同步。</p>
+</li>
+</ol>
+<p><strong>主从复制缺点</strong></p>
 <p> Redis不具备自动容错和恢复功能，主机从机的宕机都会导致前端部分读写请求失败，需要等待机器重启或者手动切换前端的IP才能恢复（也就是要人工介入）；</p>
-<p> 主机宕机，宕机前有部分数据未能及时同步到从机，切换IP后还会引入数据不一致的问题，降低了系统的可用性；</p>
-<p> 如果多个 Slave 断线了，需要重启的时候，尽量不要在同一时间段进行重启。因为只要 Slave 启动，就会发送sync 请求和主机全量同步，当多个 Slave 重启的时候，可能会导致 Master IO 剧增从而宕机。</p>
-<p> Redis 较难支持在线扩容，在集群容量达到上限时在线扩容会变得很复杂；</p>
-<p><em><strong>*Sentinel*<em><strong><strong>（哨兵）模式*</strong></strong></em>*</strong></em></p>
-<p>*<strong>*<em><em><strong><strong>哨兵模式的作用*</strong></strong></em>*</em></strong></p>
-<p> 通过发送命令，让 Redis 服务器返回监控其运行状态，包括主服务器和从服务器；</p>
-<p> 当哨兵监测到 master 宕机，会自动将 slave 切换成 master ，然后通过发布订阅模式通知其他的从服务器，修改配置文件，让它们切换主机；</p>
-<p>一个哨兵进程对Redis服务器进行监控，也可能会出现问题，为此，我们可以使用多个哨兵进行监控。各个哨兵之间还会进行监控，这样就形成了多哨兵模式。</p>
-<p>*<strong>*<em><em><strong><strong>故障切换的过程*</strong></strong></em>*</em></strong></p>
-<p>假设主服务器宕机，哨兵1先检测到这个结果，系统并不会马上进行 failover 过程，仅仅是哨兵1主观的认为主服务器不可用，这个现象成为*****<em><strong><strong>主观下线*</strong></strong></em>*<em><strong>。当后面的哨兵也检测到主服务器不可用，并且数量达到一定值时，那么哨兵之间就会进行一次投票，投票的结果由一个哨兵发起，进行 failover 操作。切换成功后，就会通过发布订阅模式，让各个哨兵把自己监控的从服务器实现切换主机，这个过程称为</strong></em>**<em><strong><strong>客观下线*</strong></strong></em>****。这样对于客户端而言，一切都是透明的。</p>
-<p>*<strong>*<em><em><strong><strong>哨兵模式的优缺点*</strong></strong></em>*</em></strong></p>
-<p>*<strong>*<em><em><strong><strong>优点：*</strong></strong></em>*</em></strong></p>
+<ul>
+<li><p>主机宕机，宕机前有部分数据未能及时同步到从机，切换IP后还会引入数据不一致的问题，降低了系统的可用性；如果多个 Slave 断线了，需要重启的时候，尽量不要在同一时间段进行重启。因为只要 Slave 启动，就会发送sync 请求和主机全量同步，当多个 Slave 重启的时候，可能会导致 Master IO 剧增从而宕机。</p>
+</li>
+<li><p>Redis 较难支持在线扩容，在集群容量达到上限时在线扩容会变得很复杂；</p>
+</li>
+</ul>
+<h3 id="Sentinel（哨兵）模式"><a href="#Sentinel（哨兵）模式" class="headerlink" title="Sentinel（哨兵）模式"></a><strong>Sentinel</strong>（哨兵）<strong>模式</strong></h3><p>哨兵模式的作用:通过发送命令，让 Redis 服务器返回监控其运行状态，包括主服务器和从服务器；当哨兵监测到 master 宕机，会自动将 slave 切换成 master ，然后通过发布订阅模式通知其他的从服务器，修改配置文件，让它们切换主机；一个哨兵进程对Redis服务器进行监控，也可能会出现问题，为此，我们可以使用多个哨兵进行监控。各个哨兵之间还会进行监控，这样就形成了多哨兵模式。</p>
+<p><strong>故障切换的过程</strong></p>
+<p>假设主服务器宕机，哨兵1先检测到这个结果，系统并不会马上进行 failover 过程，仅仅是哨兵1主观的认为主服务器不可用，这个现象成为<strong>主观下线</strong>。当后面的哨兵也检测到主服务器不可用，并且数量达到一定值时，那么哨兵之间就会进行一次投票，投票的结果由一个哨兵发起，进行 failover 操作。切换成功后，就会通过发布订阅模式，让各个哨兵把自己监控的从服务器实现切换主机，这个过程称为<strong>客观下线</strong>。这样对于客户端而言，一切都是透明的。</p>
+<p><strong>哨兵模式的优缺点</strong></p>
+<ul>
+<li><p>优点：</p>
 <p> 哨兵模式是基于主从模式的，所有主从的优点，哨兵模式都具有。</p>
 <p> 主从可以自动切换，系统更健壮，可用性更高(可以看作自动版的主从复制)。</p>
-<p>*<strong>*<em><em><strong><strong>缺点：*</strong></strong></em>*</em></strong></p>
+</li>
+<li><p>缺点：</p>
 <p> Redis较难支持在线扩容，在集群容量达到上限时在线扩容会变得很复杂。</p>
-<p>*<strong>*Cluster*</strong> ***集群模式（***<em><strong>Redis*<em><strong><strong>官方）*</strong></strong></em>*</strong></em></p>
-<p>实现了 Redis 的分布式存储，*******<em><strong>也就是说每台*</strong> <em><strong>Redis*</strong> <em><strong>节点上存储不同的内容*</strong></em></em></em>****。</p>
-<p>*<strong>*<em><em><strong><strong>集群的数据分片*</strong></strong></em>*</em></strong></p>
+</li>
+</ul>
+<h3 id="Cluster-集群模式（Redis官方）"><a href="#Cluster-集群模式（Redis官方）" class="headerlink" title="Cluster 集群模式（Redis官方）"></a>Cluster <strong>集群模式</strong>（Redis官方）</h3><p>实现了 Redis 的分布式存储，也就是说每台Redis节点上存储不同的内容。</p>
+<p>集群的数据分片</p>
 <p>Redis 集群没有使用一致性 hash，而是引入了哈希槽【hash slot】的概念。</p>
 <p>Redis 集群有16384 个哈希槽，每个 key 通过 CRC16 校验后对 16384 取模来决定放置哪个槽。集群的每个节点负责一部分hash槽，举个例子，比如当前集群有3个节点，那么：</p>
-<p> 节点 A 包含 0 到 5460 号哈希槽</p>
-<p> 节点 B 包含 5461 到 10922 号哈希槽</p>
-<p> 节点 C 包含 10923 到 16383 号哈希槽</p>
-<p><em><strong>*Redis*</strong> <em><strong>集群的主从复制模型*</strong></em></em><em>*</em>**</p>
+<ul>
+<li><p>节点 A 包含 0 到 5460 号哈希槽</p>
+</li>
+<li><p>节点 B 包含 5461 到 10922 号哈希槽</p>
+</li>
+<li><p>节点 C 包含 10923 到 16383 号哈希槽</p>
+</li>
+</ul>
+<p><strong>Redis</strong>集群的主从复制模型</p>
 <p>为了保证高可用，redis-cluster集群引入了主从复制模型，一个主节点对应一个或者多个从节点，当主节点宕机的时候，就会启用从节点。当其它主节点 ping 一个主节点 A 时，如果半数以上的主节点与 A 通信超时，那么认为主节点 A 宕机了。如果主节点 A 和它的从节点 A1 都宕机了，那么该集群就无法再提供服务了。</p>
 <p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844904178154897415">https://juejin.cn/post/6844904178154897415</a></p>
-<h2 id="持久化机制"><a href="#持久化机制" class="headerlink" title="持久化机制"></a>持久化机制</h2><img src="/2024/04/05/redis/clip_image054.jpg" class="" title="img">
+<h2 id="持久化机制"><a href="#持久化机制" class="headerlink" title="持久化机制"></a>持久化机制</h2><img src="/2024/04/05/redis/clip_image054.jpg" class="">
 
 <p>怎样保证子进程持久化的时候主进程会处理新的写请求时持久化不会乱：copyandwrite机制，主进程不会直接操作父子共享内存，而是数据复制出来执行，确保子进程是5:00的数据而不是5:01的数据</p>
-<img src="/2024/04/05/redis/clip_image055.jpg" class="" title="img">
+<img src="/2024/04/05/redis/clip_image055.jpg" class="">
 
-<img src="/2024/04/05/redis/clip_image056.jpg" class="" title="img">
+<img src="/2024/04/05/redis/clip_image056.jpg" class="">
 
-<img src="/2024/04/05/redis/clip_image057.jpg" class="" title="img">
+<img src="/2024/04/05/redis/clip_image057.jpg" class="">
 
 <h2 id="内存淘汰机制"><a href="#内存淘汰机制" class="headerlink" title="内存淘汰机制"></a>内存淘汰机制</h2><p>通过定期删除和惰性删除并不能删掉redis中全部的过期key，所以需要通过另外的机制来确保内存的可用性</p>
 <img src="/2024/04/05/redis/clip_image059.jpg" class="">
@@ -715,34 +779,43 @@ String底层实现：
 <img src="/2024/04/05/redis/clip_image061.jpg" class="" width="">
 
 <h2 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h2><p>redis可以通过MULTI,EXEC,DISCARD,WATCH等命令来实现事务</p>
-<img src="/2024/04/05/redis/clip_image063.jpg" class="" title="亻 吏 用 MULT 丨 命 令 后 可 以 输 入 多 个 命 令 。 Redis 不 会 立 即 执 行 这 些 命 令 ， 而 是 将 它 们 放 到 队 列 ， 当  调 用 了 EXEC 命 令 将 执 行 所 有 命 令 。">
+<img src="/2024/04/05/redis/clip_image063.jpg" class="" width="">
 
 <p>Redis 是不⽀持 roll back 的，因⽽不满⾜原⼦性的（⽽且不满⾜持性）。</p>
-<img src="/2024/04/05/redis/clip_image065.jpg" class="" title="你 可 以 将 Redis 中 的 事 务 就 理 解 为 S-Redis 事 务 提 供 了 厂 种 将 多 个 命 令 请 求 打 包 的 功 能 。 ． ． 燃 后  再 按 顺 序 执 行 打 包 的 所 有 命 令 ， 并 且 不 会 被 中 途 打 断 0">
+<img src="/2024/04/05/redis/clip_image065.jpg" class="">
 
 <h1 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h1><h2 id="缓存雪崩"><a href="#缓存雪崩" class="headerlink" title="缓存雪崩"></a><strong>缓存雪崩</strong></h2><p>缓存在某一个时刻出现大规模的key失效，大量的请求打在了数据库上面</p>
 <p><strong>问题分析：</strong></p>
 <p>两种可能：第一种是Redis宕机，第二种可能就是采用了相同的过期时间。</p>
 <p>解决方案：</p>
-<p>（1）事前：</p>
+<ol>
+<li><p>事前：</p>
 <p>① 均匀过期：设置不同的过期时间，让缓存失效的时间尽量均匀，避免相同的过期时间导致缓存雪崩，造成大量数据库的访问。</p>
 <p>② 分级缓存：第一级缓存失效的基础上，访问二级缓存，每一级缓存的失效时间都不同。</p>
 <p>③ 热点数据缓存永远不过期。</p>
 <p>永不过期实际包含两层意思：</p>
-<p>物理不过期，针对热点key不设置过期时间</p>
-<p>逻辑过期，把过期时间存在key对应的value里，如果发现要过期了，通过一个后台的异步线程进行缓存的构建</p>
+<p>​	物理不过期，针对热点key不设置过期时间</p>
+<p>​	逻辑过期，把过期时间存在key对应的value里，如果发现要过期了，通过一个后台的异步线程进行缓存的构建</p>
 <p>④ 保证Redis缓存的高可用，防止Redis宕机导致缓存雪崩的问题。可以使用 主从+ 哨兵，Redis集群来避免 Redis 全盘崩溃的情况。</p>
-<p>（2）事中：</p>
+</li>
+<li><p>事中：</p>
 <p>① 互斥锁：在缓存失效后，通过互斥锁或者队列来控制读数据写缓存的线程数量，比如某个key只允许一个线程查询数据和写缓存，其他线程等待。这种方式会阻塞其他的线程，此时系统的吞吐量会下降,那么我们可以在第一个查询数据的请求上使用一个 互斥锁来锁住它。其他的线程走到这一步拿不到锁就等着，等第一个线程查询到了数据，然后做缓存。后面的线程进来发现已经有缓存了，就直接走缓存。</p>
 <p>② 使用熔断机制，限流降级。当流量达到一定的阈值，直接返回“系统拥挤”之类的提示，防止过多的请求打在数据库上将数据库击垮，至少能保证一部分用户是可以正常使用，其他用户多刷新几次也能得到结果。</p>
-<p>（3）事后：</p>
+</li>
+<li><p>事后：</p>
 <p>① 开启Redis持久化机制，尽快恢复缓存数据，一旦重启，就能从磁盘上自动加载数据恢复内存中的数据。</p>
+</li>
+</ol>
 <h2 id="缓存击穿"><a href="#缓存击穿" class="headerlink" title="缓存击穿"></a><strong>缓存击穿</strong></h2><p>缓存击穿是某个热点的key失效</p>
 <p><strong>问题分析：</strong></p>
 <p>两个方面解决，第一是否可以考虑热点key不设置过期时间，第二是否可以考虑降低打在数据库上的请求数量。</p>
 <p>解决方案：</p>
-<p>热点数据缓存永远不过期。</p>
-<p>互斥锁：在缓存失效后，通过互斥锁或者队列来控制读数据写缓存的线程数量，比如某个key只允许一个线程查询数据和写缓存，其他线程等待。这种方式会阻塞其他的线程，此时系统的吞吐量会下降</p>
+<ul>
+<li><p>热点数据缓存永远不过期。</p>
+</li>
+<li><p>互斥锁：在缓存失效后，通过互斥锁或者队列来控制读数据写缓存的线程数量，比如某个key只允许一个线程查询数据和写缓存，其他线程等待。这种方式会阻塞其他的线程，此时系统的吞吐量会下降</p>
+</li>
+</ul>
 <h2 id="缓存穿透"><a href="#缓存穿透" class="headerlink" title="缓存穿透"></a><strong>缓存穿透</strong></h2><p>用户请求的数据在缓存中不存在即没有命中，同时在数据库中也不存在，导致用户每次请求该数据都要去数据库中查询一遍。</p>
 <p><strong>问题分析：</strong></p>
 <p>缓存穿透的关键在于在Redis中查不到key值，它和缓存击穿的根本区别在于传进来的key在Redis中是不存在的。</p>
@@ -757,13 +830,13 @@ String底层实现：
 <p>（3）数据量太大的时候，优先保证热点数据进行提前加载到缓存。</p>
 <h2 id="缓存降级"><a href="#缓存降级" class="headerlink" title="缓存降级"></a><strong>缓存降级</strong></h2><p>缓存降级是指缓存失效或缓存服务器挂掉的情况下，不去访问数据库，直接返回默认数据或访问服务的内存数据。</p>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/a745233700/article/details/88088669">https://blog.csdn.net/a745233700/article/details/88088669</a></p>
-<h2 id="如何保证Redis和数据库的数据一致"><a href="#如何保证Redis和数据库的数据一致" class="headerlink" title="如何保证Redis和数据库的数据一致"></a><strong>如何保证Redis和数据库的数据一致</strong></h2><img src="/2024/04/05/redis/clip_image067.jpg" class="" title="img">
+<h2 id="如何保证Redis和数据库的数据一致"><a href="#如何保证Redis和数据库的数据一致" class="headerlink" title="如何保证Redis和数据库的数据一致"></a><strong>如何保证Redis和数据库的数据一致</strong></h2><img src="/2024/04/05/redis/clip_image067.jpg" class="">
 
-<img src="/2024/04/05/redis/clip_image069.jpg" class="" title="img">
+<img src="/2024/04/05/redis/clip_image069.jpg" class="">
 
-<p><em><strong>*删缓存失败了怎么办：重试机制*</strong></em></p>
+<p>删缓存失败了怎么办：重试机制</p>
 <p>方案1：</p>
-<img src="/2024/04/05/redis/clip_image071.jpg" class="" title="需 要 删 除 的  消 息 队 列  3 、 需 要 删 的 key  （ * ） 2 、 删 除 缓 存 失 败  缓 存  业 务 代 码  5 、 重 试 删 除 操 作  1 、 更 新 数 据 库  数 据 库">
+<img src="/2024/04/05/redis/clip_image071.jpg" class="" width="">
 
 <p>流程如下所示</p>
 <p>（1）更新数据库数据；</p>
@@ -772,7 +845,7 @@ String底层实现：
 <p>（4）自己消费消息，获得需要删除的 key</p>
 <p>（5）继续重试删除操作，直到成功</p>
 <p>方案2：</p>
-<img src="/2024/04/05/redis/clip_image073.jpg" class="" title="消 息 队 列  7 、 操 作 的 数 据 以 及  （ 8 ） 5 、 删 除 缓 存 失 败  菲 业 务 代 码  、 操 作 的 数 据 以 及  8 、 重 试 删 除 操 作  4 、 提 取 出 操 作 的 数 据 以 及 key  订 Nbinlog  程 序  3 、 产 生 b og 操 作 日 志  binloga  志  2 、 写 入 binlo  缓 存  业 务 代 码  1 、 更 新 数 据 库  数 据 库">
+<img src="/2024/04/05/redis/clip_image073.jpg" class="" width="">
 
 <p>流程如下图所示：</p>
 <p>（1）更新数据库数据</p>
@@ -784,33 +857,38 @@ String底层实现：
 <p>（7）重新从消息队列中获得该数据，重试操作。</p>
 <p><a target="_blank" rel="noopener" href="https://xie.infoq.cn/article/47241d099404a1565e168fad4">https://xie.infoq.cn/article/47241d099404a1565e168fad4</a></p>
 <p><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000037611692%E5%8F%A6%E4%B8%80%E7%A7%8D%E6%80%9D%E8%B7%AF">https://segmentfault.com/a/1190000037611692另一种思路</a></p>
-<p>第三种方案：异步更新缓存(基于订阅binlog的同步机制)</p>
+<p>方案3：异步更新缓存(基于订阅binlog的同步机制)</p>
 <p>技术整体思路：</p>
 <p>MySQL binlog增量订阅消费+消息队列+增量数据更新到redis</p>
-<p>1）读Redis：热数据基本都在Redis</p>
-<p>2）写MySQL:增删改都是操作MySQL</p>
-<p>3）更新Redis数据：MySQ的数据操作binlog，来更新到Redis</p>
-<p>3.1）数据操作主要分为两大块：</p>
-<p>一个是全量(将全部数据一次写入到redis)</p>
-<p>一个是增量（实时更新）</p>
-<p>这里说的是增量,指的是mysql的update、insert、delate变更数据。</p>
-<p>3.2）读取binlog后分析 ，利用消息队列,推送更新各台的redis缓存数据。</p>
+<ol>
+<li><p>读Redis：热数据基本都在Redis</p>
+</li>
+<li><p>写MySQL:增删改都是操作MySQL</p>
+</li>
+<li><p>更新Redis数据：MySQ的数据操作binlog，来更新到Redis</p>
+<p>3.1 数据操作主要分为两大块：</p>
+<p>​	一个是全量(将全部数据一次写入到redis)</p>
+<p>​	一个是增量（实时更新）</p>
+<p>​	这里说的是增量,指的是mysql的update、insert、delate变更数据。</p>
+<p>3.2 读取binlog后分析 ，利用消息队列,推送更新各台的redis缓存数据。</p>
 <p>这样一旦MySQL中产生了新的写入、更新、删除等操作，就可以把binlog相关的消息推送至Redis，Redis再根据binlog中的记录，对Redis进行更新。</p>
 <p>其实这种机制，很类似MySQL的主从备份机制，因为MySQL的主备也是通过binlog来实现的数据一致性。</p>
 <p>使用实例：canel</p>
-<h2 id="设计一个分布式锁"><a href="#设计一个分布式锁" class="headerlink" title="设计一个分布式锁"></a><strong>设计一个分布式锁</strong></h2><img src="/2024/04/05/redis/clip_image074.jpg" class="" title="img">
+</li>
+</ol>
+<h2 id="设计一个分布式锁"><a href="#设计一个分布式锁" class="headerlink" title="设计一个分布式锁"></a><strong>设计一个分布式锁</strong></h2><img src="/2024/04/05/redis/clip_image074.jpg" class="">
 
-<img src="/2024/04/05/redis/clip_image075.jpg" class="" title="img">
+<img src="/2024/04/05/redis/clip_image075.jpg" class="">
 
-<img src="/2024/04/05/redis/clip_image076.jpg" class="" title="img">
+<img src="/2024/04/05/redis/clip_image076.jpg" class="">
 
-<img src="/2024/04/05/redis/clip_image077.jpg" class="" title="img">
+<img src="/2024/04/05/redis/clip_image077.jpg" class="">
 
-<img src="/2024/04/05/redis/clip_image078.jpg" class="" title="img">
+<img src="/2024/04/05/redis/clip_image078.jpg" class="">
 
-<img src="/2024/04/05/redis/clip_image079.jpg" class="" title="img">
+<img src="/2024/04/05/redis/clip_image079.jpg" class="">
 
-<h2 id="如何配置key的过期时间，实现原理是什么"><a href="#如何配置key的过期时间，实现原理是什么" class="headerlink" title="如何配置key的过期时间，实现原理是什么"></a>如何配置key的过期时间，实现原理是什么</h2><img src="/2024/04/05/redis/clip_image080.jpg" class="" title="img">
+<h2 id="如何配置key的过期时间，实现原理是什么"><a href="#如何配置key的过期时间，实现原理是什么" class="headerlink" title="如何配置key的过期时间，实现原理是什么"></a>如何配置key的过期时间，实现原理是什么</h2><img src="/2024/04/05/redis/clip_image080.jpg" class="">
 
 <p>SETEX KEY_NAME TIMEOUT VALUE</p>
 <p><strong>原理：时间事件</strong></p>
@@ -826,32 +904,35 @@ String底层实现：
 <li>timeProc：时间处理器，一个函数。当时间事件到达时，服务器就会调用相应的处理器来处理事件。<br>     服务器将所有时间都放在一个无序列表中，每当时间事件执行器运行时，它遍历整个链表查找所有已到达的时间事件，并调用相应的时间处理器。<br>     无序指的是不按照when属性值进行排序，由于新创建的时间事件是插入到链表的表头，所以链表中时间事件是按照id属性降序排序的。</li>
 </ol>
 <p>一个保存了三个时间事件链表的例子：</p>
-<img src="/2024/04/05/redis/clip_image082.jpg" class="" title="time event  1385877600030  events  time Proc  handler 3  t ime event  1385877600000  q)  handler 2  time event  hen 1385877600010 handier 1 %}
+<img src="/2024/04/05/redis/clip_image082.jpg" class="" width="">
 
-&lt;p&gt;注： 由于没有按照执行时间进行排序，所以时间事件执行器运行时，它必须遍历链表中的所有时间事件，这样才能确保服务器中所有已到达的时间事件都会被处理。&lt;&#x2F;p&gt;
-&lt;h1 id&#x3D;开放性问题&quot;&gt;&lt;a href&#x3D;#开放性问题 class&#x3D;headerlink title&#x3D;开放性问题&gt;&lt;&#x2F;a&gt;开放性问题&lt;&#x2F;h1&gt;&lt;h2 id&#x3D;为什么性能非常高&gt;&lt;a href&#x3D;#为什么性能非常高 class&#x3D;headerlink title&#x3D;为什么性能非常高&gt;&lt;&#x2F;a&gt;&lt;strong&gt;为什么性能非常高&lt;&#x2F;strong&gt;&lt;&#x2F;h2&gt;&lt;p&gt;Redis性能非常高的原因主要有以下几点：&lt;&#x2F;p&gt; &lt;p&gt;- 内存存储：Redis是使用内存(in-memeroy)存储,没有磁盘IO上的开销&lt;&#x2F;p&gt; &lt;p&gt;- 单线程实现：Redis使用单个线程处理请求，避免了多个线程之间线程切换和锁资源争用的开销&lt;&#x2F;p&gt; &lt;p&gt;- 非阻塞IO：Redis使用多路复用IO技术，在poll，epool，kqueue选择最优IO实现&lt;&#x2F;p&gt; &lt;p&gt;- 优化的数据结构：Redis有诸多可以直接应用的优化数据结构的实现，应用层可以直接使用原生的数据结构提升性能&lt;&#x2F;p&gt; &lt;p&gt;&lt;a href&#x3D;https:&#x2F;&#x2F;segmentfault.com&#x2F;a&#x2F;1190000022088928&gt;https:&#x2F;&#x2F;segmentfault.com&#x2F;a&#x2F;1190000022088928&lt;&#x2F;a&gt;&lt;&#x2F;p&gt; {% asset_img clip_image083.jpg img">
+<p>注： 由于没有按照执行时间进行排序，所以时间事件执行器运行时，它必须遍历链表中的所有时间事件，这样才能确保服务器中所有已到达的时间事件都会被处理。</p>
+<h1 id="开放性问题"><a href="#开放性问题" class="headerlink" title="开放性问题"></a>开放性问题</h1><h2 id="为什么性能非常高"><a href="#为什么性能非常高" class="headerlink" title="为什么性能非常高"></a><strong>为什么性能非常高</strong></h2><p>Redis性能非常高的原因主要有以下几点：</p>
+<p>- 内存存储：Redis是使用内存(in-memeroy)存储,没有磁盘IO上的开销</p>
+<p>- 单线程实现：Redis使用单个线程处理请求，避免了多个线程之间线程切换和锁资源争用的开销</p>
+<p>- 非阻塞IO：Redis使用多路复用IO技术，在poll，epool，kqueue选择最优IO实现</p>
+<p>- 优化的数据结构：Redis有诸多可以直接应用的优化数据结构的实现，应用层可以直接使用原生的数据结构提升性能</p>
+<p><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000022088928">https://segmentfault.com/a/1190000022088928</a></p>
+<img src="/2024/04/05/redis/clip_image083.jpg" class="">
 
-<img src="/2024/04/05/redis/clip_image084.jpg" class="" title="img">
+<img src="/2024/04/05/redis/clip_image084.jpg" class="">
 
 <p>时间处理器：看是读事件还是写事件</p>
-<img src="/2024/04/05/redis/clip_image085.jpg" class="" title="img">
+<img src="/2024/04/05/redis/clip_image085.jpg" class="">
 
-<p>并发量数据</p>
-<p>单机压测</p>
-<p>我本地试了一下</p>
+<h3 id="并发量数据"><a href="#并发量数据" class="headerlink" title="并发量数据"></a>并发量数据</h3><p>单机压测</p>
 <p>环境：windows10 64位、i5 8250U + 8G 内存。 redis单实例</p>
-<p>1、先打开redis， 执行以下命令</p>
+<p>先打开redis， 执行以下命令</p>
 <p>.&#x2F;redis-benchmark -r 1000000 -n 2000000 -t get,set,lpush,lpop -P 16 -q</p>
-<img src="/2024/04/05/redis/clip_image087.jpg" class="" title="å¨è¿éæå¥å¾çæè¿°">
+<img src="/2024/04/05/redis/clip_image087.jpg" class="">
 
 <p>14万左右并发</p>
 <p>截一张官网的测试结果：</p>
-<img src="/2024/04/05/redis/clip_image089.jpg" class="" title="å¨è¿éæå¥å¾çæè¿°">
+<img src="/2024/04/05/redis/clip_image089.jpg" class="">
 
 <p>55万并发</p>
-<p>看来是我的电脑垃圾了…</p>
 <p>原文链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/sishenhzy/article/details/100918712">https://blog.csdn.net/sishenhzy/article/details/100918712</a></p>
-<h2 id="海量数据下如何快速查找一条记录"><a href="#海量数据下如何快速查找一条记录" class="headerlink" title="海量数据下如何快速查找一条记录"></a><strong>海量数据下如何快速查找一条记录</strong></h2><img src="/2024/04/05/redis/clip_image091.gif" class="" title="img">
+<h2 id="海量数据下如何快速查找一条记录"><a href="#海量数据下如何快速查找一条记录" class="headerlink" title="海量数据下如何快速查找一条记录"></a><strong>海量数据下如何快速查找一条记录</strong></h2><img src="/2024/04/05/redis/clip_image091.gif" class="">
 
 <h2 id="为什么使用缓存？"><a href="#为什么使用缓存？" class="headerlink" title="为什么使用缓存？"></a>为什么使用缓存？</h2><p>高性能</p>
 <p>对于更新频率不高并且读取频率比较大的数据，没必要每次都读取数据库。第一次读取以后，将数据放入缓存，后面再读取数据则直接从缓存获取，提高系统性能。</p>
@@ -865,7 +946,7 @@ String底层实现：
 <p>缓存雪崩、缓存穿透</p>
 <p>缓存并发竞争</p>
 <p>来自 <a target="_blank" rel="noopener" href="https://blog.csdn.net/sishenhzy/article/details/101029114?spm=1001.2014.3001.5501">https://blog.csdn.net/sishenhzy/article/details/101029114?spm=1001.2014.3001.5501</a></p>
-<h2 id="Memcached？"><a href="#Memcached？" class="headerlink" title="Memcached？"></a>Memcached？</h2><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/aspnethot/articles/1861336.html"><strong>什么是<strong><strong>Memcached</strong></strong>？</strong></a></p>
+<h2 id="Memcached？"><a href="#Memcached？" class="headerlink" title="Memcached？"></a>Memcached？</h2><p>什么是Memcached</p>
 <p>先看看下面几个概念：</p>
 <p><strong>Memory</strong>：内存存储，不言而喻，速度快，对于内存的要求高，不指出的话所缓存的内容非持久化。对于CPU要求很低，所以常常采用将Memcached服务端和一些CPU高消耗Memory低消耗应用部属在一起。</p>
 <p><strong>Cache</strong>：在ASP.NET中已经可以实现对页面局部进行缓存，而使用Memcached的缓存比 ASP.NET的局部缓存更加灵活，可以缓存任意的对象，不管是否在页面上输出。ASP.NET的缓存是基于本地（单机）的，受到服务器空闲内存空间的限制，以及多台web服务器本地缓存的同步，但是没有网络存取的延迟。而Memcached最大的优点是可以分布式的部署，这对于大规模应用来 说 也是必不可少的要求。最初的缓存做法是在线程内对对象进行缓存，但这样进程间就无法共享缓存，命中率非常低，导致缓存效率极低。后来出现了共享内存的缓 存，多个进程或者线程共享同一块缓存，但毕竟还是只能局限在一台机器上，多台机器做相同的缓存同样是一种资源的浪费，而且命中率也比较低。</p>
@@ -876,43 +957,57 @@ String底层实现：
 <p>Memcached的机制就是一个很简单的Cache，把东西放进去，然后可以取出来，如果发现所提供的Key没有命中，那么就很直白的告诉你，你这个key没有任何对应的东西在缓存里，去数据库或者其他地方取，当你在外部数据源取到的时候，可以直接将内容置入到Cache中，这样下次就可以命中了。这里会提到怎么去同步这些数据，两种方式，一种就是在你修改了以后立刻更新Cache内容，这样就会即时生效。另一种是说容许有失效时间，到了失效时间，自然就会将内容删除，此时再去去的时候就会命中不了，然后再次将内容置入Cache，用来更新内容。后者用在一些时时性要求不高，写入不频繁的情况。刚才我们提到Memcached 的传输协议，因此传输的数据必须序列化，C# class里使用[Serializable]标示，并且为了性能，Memcached Client采用了压缩的机制使传输的数据更小。其实Memcached服务端本身是单实例的，只是在客户端实现过程中可以根据存储的主键作分区存储，而这个区就是Memcached服务端的一个或者多个实例</p>
 <p>内存分配机制：首先要说明的是Memcached支持最大的存储对象为1M。它的内存分配比较特殊，但是这样的分配方式其实也是对于性能考虑的，简单的分配机制可以更容易回收再分配，节省对于CPU的使用。这里用一个酒窖比喻来说明这种内存分配机制，首先在Memcached起来的时候可以通过参数设置使用的总共的Memory，当你第一次往Memcached存储数据时, Memcached会去申请1MB的内存, 把该块内存称为一个slab, 也称为一个page, 如果可以存储这个数据的最佳的chunk大小为128B,那么Memcached会把刚申请的slab以128B为单位进行分割成8192块. 当这页slab的所有chunk都被用完时,并且继续有数据需要存储在128B的chunk里面时,如果已经申请的内存小于最大可申请内存10MB 时, Memcached继续去申请1M内存,继续以128B为单位进行分割再进行存储;如果已经无法继续申请内存,那么Memcached会先根据LRU 算法把队列里面最久没有被使用到的chunk进行释放后,再将该chunk用于存储. 这个就是建造一个酒窖，然后在有酒进入的时候，首先申请（通常是1M）的空间，用来建酒架，酒架根据这个酒瓶的大小分割酒架为多个小格子安放酒瓶，将同样大小范围内的酒瓶都放置在一类酒架上面。例如20cm半径的酒瓶放置在可以容纳20-25cm的酒架A上，30cm半径的酒瓶就放置在容纳25-30cm的酒架B上。回收机制也很简单，首先新酒入库，看看酒架是否有可以回收的地方，如果有直接使用，如果没有申请新的地方，如果申请不到，采用配置的过期策略。这个特点来看，如果要放的内容大小十分离散，同时大小比例相差梯度很明显，那么可能对于使用空间来说不好，可能在酒架A上就放了一瓶酒，但占用掉了一个酒架的位置。</p>
 <p>为了避免使用Memcached时出现异常, 使用Memcached的项目需要注意:</p>
-<p>\1. 不能往Memcached存储一个大于1MB的数据.</p>
-<p>\2. 往Memcached存储的所有数据,如果数据的大小分布于各种chunk大小区间,从64B到1MB都有,可能会造成内存的极大浪费以及Memcached的异常.</p>
+<ol>
+<li><p>不能往Memcached存储一个大于1MB的数据.</p>
+</li>
+<li><p>往Memcached存储的所有数据,如果数据的大小分布于各种chunk大小区间,从64B到1MB都有,可能会造成内存的极大浪费以及Memcached的异常.</p>
 <p>举个例子:</p>
 <p>Memcached最大可申请内存为2M, 你第一次存储一个10B的数据,那么Memcached会申请1MB的内存,以64B进行分割然后存储该数据, 第二次存储一个90B的数据,那么Memcached会继续申请1M的内存,以128B进行分割然后存储该数据, 第三次如果你想存储一个150B的数据, 如果可以继续申请内存, Memcached会申请1M内存以256B的大小进行分割, 但是由于最大可申请仅仅为2MB,所以会导致该数据无法存储.</p>
-<p>数据过期方式</p>
-<p>• Lazy Expiration</p>
-<p>Memcached内部不会监视记录是否过期，而是在get时查看记录的时间戳，检查记录是否过</p>
-<p>期。这种技术被称为lazy（惰性）expiration。因此，Memcached不会在过期监视上耗费</p>
-<p>CPU时间。</p>
-<p>• LRU</p>
-<p>Memcached会优先使用已超时的记录的空间，但即使如此，也会发生追加新记录时空间不</p>
-<p>足的情况，此时就要使用名为 Least Recently Used（LRU）机制来分配空间。顾名思</p>
-<p>义，这是删除“最近最少使用”的记录的机制。因此，当Memcached的内存空间不足时</p>
-<p>（无法从slab class 获取到新的空间时），就从最近未被使用的记录中搜索，并将其空</p>
-<p>间分配给新的记录。从缓存的实用角度来看，该模型十分理想。</p>
-<p>分布式</p>
+</li>
+</ol>
+<p><strong>数据过期方式</strong></p>
+<ul>
+<li><p>Lazy Expiration</p>
+<p>Memcached内部不会监视记录是否过期，而是在get时查看记录的时间戳，检查记录是否过期。这种技术被称为lazy（惰性）expiration。因此，Memcached不会在过期监视上耗费CPU时间。</p>
+</li>
+<li><p>LRU</p>
+<p>Memcached会优先使用已超时的记录的空间，但即使如此，也会发生追加新记录时空间不足的情况，此时就要使用名为 Least Recently Used（LRU）机制来分配空间。顾名思义，这是删除“最近最少使用”的记录的机制。因此，当Memcached的内存空间不足时（无法从slab class 获取到新的空间时），就从最近未被使用的记录中搜索，并将其空间分配给新的记录。从缓存的实用角度来看，该模型十分理想。</p>
+</li>
+<li><p>分布式</p>
 <p>假设有3个客户端1, 2, 3，3台Memcached A, B, C：</p>
 <p>Client 1想把数据”barbaz”以key “foo”存储。Client 1首先参考节点列表（A, B, C），计算key “foo”的哈希值，假设Memcached B被选中。接着，Client 1直接connect到Memcached B，通过key “foo”把数据”barbaz”存储进去。Client 2使用与Client 1相同的客户端库（意味着key的哈希算法相同），也拥有同样的Memcached列表（A, B, C）。于是，经过相同的哈希计算，Client 2计算出key “foo”在Memcached B上，然后它直接请求Memcached B，得到数据”barbaz”。</p>
-<p><strong>Memcached****的使用场合</strong></p>
+</li>
+</ul>
+<p><strong>Memcached</strong>的使用场合</p>
 <p>当运行在单独的Web服务器上，你可以很容易地清除一个已经确认被改变了的缓存。可惜，ASP.NET没有一个很好的方法来支持多服务器。每个服务器上的缓存都对其他缓存的改变一无所知。ASP.NET允许通过基于文件系统和数据库表的触发器取消一个缓存。然而，这也存在问题，比如数据库触发器需要使用昂贵的轮询，以及触发器本身冗长的编程。好像.NET4.0有了新的解决方法。我们还有别的选择，Memcached就一种。但是Memcached不是万能的，它也不是适用在所有场合。 Memcached是“分布式”的内存对象缓存系统，那么就是说，那些不需要“分布”的，不需要共享的，或者干脆规模小到只有一台服务器的应用， Memcached不会带来任何好处，相反还会拖慢系统效率，因为网络连接同样需要资源，即使是UNIX本地连接也一样。Memcached本地读写速度要比直接ASP.NET缓存(IIS进程)内存慢很多倍，请看下面的测试数据。可见，如果只是 本地级缓存，使用Memcached是非常不划算的。Memcached在很多时候都是作为数据库前端cache使用的。因为它比数据库少了很多SQL解析、磁盘操作等开销，而且它是使用内存来管理数据的， 所以它可以提供比直接读取数据库更好的性能，在大型系统中，访问同样的数据是很频繁的，Memcached可以大大降低数据库压力，使系统执行效率提升。Memcached也经常作为服务器之间数据共享的存储媒介，存储一些系统的共享数据。</p>
 <p>需要注意的是，Memcached使用内存管理数据，所以它是易失的，当服务器重启，或者Memcached进程中止，数据便会丢失，所以 Memcached不能用来持久保存数据。很多人的错误理解，Memcached的性能非常好，好到了内存和硬盘的对比程度，它的实际瓶颈在于网络连接，它和使用磁盘的数据库系统相比，好处在于它本身非常“轻”，因为没有过多的开销和直接 的读写方式，它可以轻松应付非常大的数据交换量，，Memcached进程本身并不占用多少CPU资源的情况。如果web系统采用ASP.NET缓存 + Memcached的方式。性能将会有个不错的提升。</p>
 <p>ASP.NET缓存：本地的，速度更快，一般将highly  common的数据或者程序控制数据用ASP.NET缓存。</p>
 <p>Memcached：存一些来自数据库的数据或者web服务器的共享数据。</p>
-<h2 id="redis-和-memcached-有啥区别？"><a href="#redis-和-memcached-有啥区别？" class="headerlink" title="redis 和 memcached 有啥区别？"></a>redis 和 memcached 有啥区别？</h2><p>redis 支持复杂的数据结构</p>
+<h2 id="redis-和-memcached-有啥区别？"><a href="#redis-和-memcached-有啥区别？" class="headerlink" title="redis 和 memcached 有啥区别？"></a>redis 和 memcached 有啥区别？</h2><ul>
+<li><p>redis 支持复杂的数据结构</p>
 <p>redis 相比 memcached 来说，拥有更多的数据结构，能支持更丰富的数据操作。如果需要缓存能够支持更复杂的结构和操作， redis 会是不错的选择。</p>
-<p>redis 原生支持集群模式</p>
+</li>
+<li><p>redis 原生支持集群模式</p>
 <p>在 redis3.x 版本中，便能支持 cluster 模式，而 memcached 没有原生的集群模式，需要依靠客户端来实现往集群中分片写入数据。</p>
-<p>性能对比</p>
+</li>
+<li><p>性能对比</p>
 <p>由于 redis 只使用单核，而 memcached 可以使用多核，所以平均每一个核上 redis 在存储小数据时比 memcached 性能更高。而在 100k 以上的数据中，memcached 性能要高于 redis。虽然 redis 最近也在存储大数据的性能上进行优化，但是比起 memcached，还是稍有逊色。</p>
 <p>原文链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/sishenhzy/article/details/101061787">https://blog.csdn.net/sishenhzy/article/details/101061787</a></p>
-<h1 id="Redis实际应用场景"><a href="#Redis实际应用场景" class="headerlink" title="Redis实际应用场景"></a><strong>Redis</strong>实际应用场景</h1><p>最新的项目列表：</p>
-<p>一个队列，左进右出，放的永远是最新的一个数据</p>
-<p>排行榜应用，取TOP N操作</p>
-<p>   这个需求与上面需求的不同之处在于，取最新N个数据的操作以时间为权重，这个是以某个条件为权重，比如按顶的次数排序，这时候就需要我们的sorted set出马了，将你要排序的值设置成sorted set的score，将具体的数据设置成相应的value，每次只需要执行一条ZADD命令即可。</p>
-<p>计数：点击次数</p>
-<p>分布式锁（string）：setnx</p>
-<p>消息队列（list）：在list里面一边进，一边出即可</p>
+</li>
+</ul>
+<h1 id="Redis实际应用场景"><a href="#Redis实际应用场景" class="headerlink" title="Redis实际应用场景"></a><strong>Redis</strong>实际应用场景</h1><ul>
+<li><p>最新的项目列表：一个队列，左进右出，放的永远是最新的一个数据</p>
+</li>
+<li><p>排行榜应用，取TOP N操作</p>
+<p>这个需求与上面需求的不同之处在于，取最新N个数据的操作以时间为权重，这个是以某个条件为权重，比如按顶的次数排序，这时候就需要我们的sorted set出马了，将你要排序的值设置成sorted set的score，将具体的数据设置成相应的value，每次只需要执行一条ZADD命令即可。</p>
+</li>
+<li><p>计数：点击次数</p>
+</li>
+<li><p>分布式锁（string）：setnx</p>
+</li>
+<li><p>消息队列（list）：在list里面一边进，一边出即可</p>
+</li>
+</ul>
 
                 
             </div>
@@ -1351,7 +1446,7 @@ String底层实现：
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">153.7k</span>
+                        class="white-color">156k</span>
             
             
             

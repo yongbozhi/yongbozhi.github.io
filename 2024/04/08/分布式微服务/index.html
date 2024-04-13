@@ -433,18 +433,18 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="分布式系统的设计目标"><a href="#分布式系统的设计目标" class="headerlink" title="分布式系统的设计目标"></a>分布式系统的设计目标</h1><img src="/2024/04/08/%E5%88%86%E5%B8%83%E5%BC%8F%E5%BE%AE%E6%9C%8D%E5%8A%A1/clip_image002.jpg" class="" title="img">
+                <h1 id="分布式系统的设计目标"><a href="#分布式系统的设计目标" class="headerlink" title="分布式系统的设计目标"></a>分布式系统的设计目标</h1><img src="/2024/04/08/%E5%88%86%E5%B8%83%E5%BC%8F%E5%BE%AE%E6%9C%8D%E5%8A%A1/clip_image002.jpg" class="">
 
 <p>无状态：比如说session存储在一台机器上，用户访问的时候若是第一台则显示登陆，若是第二台则显示不登录，这样是不行的</p>
 <p>可管理：有一条调用链，A调用B，B调用C，哪一个服务出现了问题应该能快速发现问题所在</p>
-<h1 id="分布式系统中常用的缓存方案"><a href="#分布式系统中常用的缓存方案" class="headerlink" title="分布式系统中常用的缓存方案"></a>分布式系统中常用的缓存方案</h1><img src="/2024/04/08/%E5%88%86%E5%B8%83%E5%BC%8F%E5%BE%AE%E6%9C%8D%E5%8A%A1/clip_image004.jpg" class="" title="img">
+<h1 id="分布式系统中常用的缓存方案"><a href="#分布式系统中常用的缓存方案" class="headerlink" title="分布式系统中常用的缓存方案"></a>分布式系统中常用的缓存方案</h1><img src="/2024/04/08/%E5%88%86%E5%B8%83%E5%BC%8F%E5%BE%AE%E6%9C%8D%E5%8A%A1/clip_image004.jpg" class="">
 
 <p>nginx会存一些css，js</p>
 <p>服务器端：本地缓存：map，list</p>
 <p>外部缓存：redis</p>
-<h1 id="CAP理论，BASE理论"><a href="#CAP理论，BASE理论" class="headerlink" title="CAP理论，BASE理论"></a>CAP理论，BASE理论</h1><img src="/2024/04/08/%E5%88%86%E5%B8%83%E5%BC%8F%E5%BE%AE%E6%9C%8D%E5%8A%A1/clip_image005.jpg" class="" title="img">
+<h1 id="CAP理论，BASE理论"><a href="#CAP理论，BASE理论" class="headerlink" title="CAP理论，BASE理论"></a>CAP理论，BASE理论</h1><img src="/2024/04/08/%E5%88%86%E5%B8%83%E5%BC%8F%E5%BE%AE%E6%9C%8D%E5%8A%A1/clip_image005.jpg" class="">
 
-<img src="/2024/04/08/%E5%88%86%E5%B8%83%E5%BC%8F%E5%BE%AE%E6%9C%8D%E5%8A%A1/clip_image006.jpg" class="" title="img">
+<img src="/2024/04/08/%E5%88%86%E5%B8%83%E5%BC%8F%E5%BE%AE%E6%9C%8D%E5%8A%A1/clip_image006.jpg" class="">
 
 <h1 id="服务熔断和降级"><a href="#服务熔断和降级" class="headerlink" title="服务熔断和降级"></a>服务熔断和降级</h1><h2 id="服务降级-系统有限的资源的合理协调"><a href="#服务降级-系统有限的资源的合理协调" class="headerlink" title="服务降级:系统有限的资源的合理协调"></a>服务降级:系统有限的资源的合理协调</h2><ul>
 <li>概念：服务降级一般是指在服务器压力剧增的时候，根据实际业务使用情况以及流量，对一些服务和页面有策略的不处理或者用一种简单的方式进行处理，从而释放服务器资源的资源以保证核心业务的正常高效运行。</li>
@@ -482,7 +482,7 @@
 <li>熔断：依赖的下游服务故障触发熔断，避免引发本系统崩溃；系统自动执行和恢复</li>
 </ul>
 <p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/341939685">https://zhuanlan.zhihu.com/p/341939685</a></p>
-<img src="/2024/04/08/%E5%88%86%E5%B8%83%E5%BC%8F%E5%BE%AE%E6%9C%8D%E5%8A%A1/clip_image007.jpg" class="" title="img">
+<img src="/2024/04/08/%E5%88%86%E5%B8%83%E5%BC%8F%E5%BE%AE%E6%9C%8D%E5%8A%A1/clip_image007.jpg" class="">
 
 <p><a target="_blank" rel="noopener" href="https://www.infoq.cn/article/uhixhowebu_tyjewjwcl">https://www.infoq.cn/article/uhixhowebu_tyjewjwcl</a></p>
 <h1 id="限流策略"><a href="#限流策略" class="headerlink" title="限流策略"></a>限流策略</h1><p>「两窗两桶」。两窗就是：固定窗口、滑动窗口，两桶就是：漏桶、令牌桶。</p>
@@ -506,18 +506,18 @@
 <p>目前任何分布式系统都没办法同时满足3个，只能3选其2，分布式系统之所以叫分布式，都是分散在不同的服务器，P是必须要满足的，所以只能选择A或者C了</p>
 <p>在很多的公司以及业务场景，很多会选择保持数据的一致性，在京东&#x2F;双十一这样的情况，只能保证AP，不能保证CP。但也有高可用的.比如某米公司，一次在进行手机抢购的时候，牺牲了数据的一致性，当添加到购物车，然后付款，却发现没有库存了，他保证了服务高可用，但牺牲了数据的一致性 </p>
 <h1 id="一致性Hash"><a href="#一致性Hash" class="headerlink" title="一致性Hash"></a>一致性Hash</h1><p>对2的32次方取模</p>
-<img src="/2024/04/08/%E5%88%86%E5%B8%83%E5%BC%8F%E5%BE%AE%E6%9C%8D%E5%8A%A1/clip_image009.jpg" class="" title="img">
+<img src="/2024/04/08/%E5%88%86%E5%B8%83%E5%BC%8F%E5%BE%AE%E6%9C%8D%E5%8A%A1/clip_image009.jpg" class="">
 
 <p>*<strong>*<em><em><strong><strong>容错性：一台宕机了只用移动部分数据*</strong></strong></em>*</em></strong></p>
 <p>*<strong>*<em><em><strong><strong>可扩展性：增加一台只用移动部分数据*</strong></strong></em>*</em></strong></p>
 <p>*<strong>*<em><em><strong><strong>数据倾斜问题：虚拟节点机制*</strong></strong></em>*</em></strong></p>
 <p>一致性Hash算法引入了虚拟节点机制，即对每一个服务器节点计算多个哈希，每个计算结果位置都放置一个此服务节点，称为虚拟节点。具体操作可以为服务器IP或主机名后加入编号来实现。</p>
-<img src="/2024/04/08/%E5%88%86%E5%B8%83%E5%BC%8F%E5%BE%AE%E6%9C%8D%E5%8A%A1/clip_image011.jpg" class="" title="img">
+<img src="/2024/04/08/%E5%88%86%E5%B8%83%E5%BC%8F%E5%BE%AE%E6%9C%8D%E5%8A%A1/clip_image011.jpg" class="">
 
-<img src="/2024/04/08/%E5%88%86%E5%B8%83%E5%BC%8F%E5%BE%AE%E6%9C%8D%E5%8A%A1/clip_image013.jpg" class="" title="img">
+<img src="/2024/04/08/%E5%88%86%E5%B8%83%E5%BC%8F%E5%BE%AE%E6%9C%8D%E5%8A%A1/clip_image013.jpg" class="">
 
 <h1 id="分布式ID"><a href="#分布式ID" class="headerlink" title="分布式ID"></a>分布式ID</h1><h2 id="分布式ID方案总结"><a href="#分布式ID方案总结" class="headerlink" title="分布式ID方案总结"></a><strong>分布式ID方案总结</strong></h2><p>ID是数据的唯一标识，传统的做法是利用UUID和数据库的自增ID，在互联网企业中，大部分公司使用的都是Mysql，并且因为需要事务支持，所以通常会使用Innodb存储引擎，UUID太长以及无序，所以并不适合在Innodb中来作为主键，自增ID比较合适，但是随着公司的业务发展，数据量将越来越大，需要对数据进行分表，而分表后，每个表中的数据都会按自己的节奏进行自增，很有可能出现ID冲突。这时就需要一个单独的机制来负责生成唯一ID，生成出来的ID也可以叫做<strong>分布式ID</strong>，或<strong>全局ID</strong>。下面来分析各个生成分布式ID的机制。</p>
-<img src="/2024/04/08/%E5%88%86%E5%B8%83%E5%BC%8F%E5%BE%AE%E6%9C%8D%E5%8A%A1/clip_image015.gif" class="" title="img">
+<img src="/2024/04/08/%E5%88%86%E5%B8%83%E5%BC%8F%E5%BE%AE%E6%9C%8D%E5%8A%A1/clip_image015.gif" class="">
 
 <p>这篇文章并不会分析的特别详细，主要是做一些总结，以后再出一些详细某个方案的文章。</p>
 <h3 id="数据库自增ID"><a href="#数据库自增ID" class="headerlink" title="数据库自增ID"></a><strong>数据库自增ID</strong></h3><p>第一种方案仍然还是基于数据库的自增ID，需要单独使用一个数据库实例，在这个实例中新建一个单独的表：</p>
@@ -563,7 +563,7 @@
 <p>我们可以换个角度来对分布式ID进行思考，只要能让负责生成分布式ID的每台机器在每毫秒内生成不一样的ID就行了。</p>
 <p>snowflake是twitter开源的分布式ID生成算法，是一种算法，所以它和上面的三种生成分布式ID机制不太一样，它不依赖数据库。</p>
 <p>核心思想是：分布式ID固定是一个long型的数字，一个long型占8个字节，也就是64个bit，原始snowflake算法中对于bit的分配如下图：</p>
-<img src="/2024/04/08/%E5%88%86%E5%B8%83%E5%BC%8F%E5%BE%AE%E6%9C%8D%E5%8A%A1/clip_image017.gif" class="" title="img">
+<img src="/2024/04/08/%E5%88%86%E5%B8%83%E5%BC%8F%E5%BE%AE%E6%9C%8D%E5%8A%A1/clip_image017.gif" class="">
 
 <ul>
 <li><ul>
@@ -605,7 +605,7 @@
 <p> 如果自己不是当前活着的节点中 ID 最大的，则向比自己 ID 大的所有节点发送 Election 消息，并等待其他节点的回复；</p>
 <p> 若在给定的时间范围内，本节点没有收到其他节点回复的 Alive 消息，则认为自己成为主节点，并向其他节点发送 Victory 消息，宣誓自己成为主节点；若接收到来自比自己 ID 大的节点的 Alive 消息，则等待其他节点发送 Victory 消息；</p>
 <p> 若本节点收到比自己 ID 小的节点发送的 Election 消息，则回复一个 Alive 消息，告知其他节点，我比你大，重新选举。</p>
-<img src="/2024/04/08/%E5%88%86%E5%B8%83%E5%BC%8F%E5%BE%AE%E6%9C%8D%E5%8A%A1/clip_image061.gif" class="" title="img">
+<img src="/2024/04/08/%E5%88%86%E5%B8%83%E5%BC%8F%E5%BE%AE%E6%9C%8D%E5%8A%A1/clip_image061.gif" class="">
 
 <p>目前已经有很多开源软件采用了 Bully 算法进行选主，比如 MongoDB 的副本集故障转移功能。MongoDB 的分布式选举中，采用节点的最后操作时间戳来表示 ID，时间戳最新的节点其 ID 最大，也就是说时间戳最新的、活着的节点是主节点。</p>
 <p>小结一下。Bully 算法的选择特别霸道和简单，谁活着且谁的 ID 最大谁就是主节点，其他节点必须无条件服从。这种算法的优点是，选举速度快、算法复杂度低、简单易实现。但这种算法的缺点在于，需要每个节点有全局的节点信息，因此额外信息存储较多；其次，任意一个比当前主节点 ID 大的新节点或节点故障后恢复加入集群的时候，都可能会触发重新选举，成为新的主节点，如果该节点频繁退出、加入集群，就会导致频繁切主。</p>
@@ -620,7 +620,7 @@
 <p> 若发起选举请求的节点获得超过一半的投票，则成为主节点，其状态转化为 Leader，其他节点的状态则由 Candidate 降为 Follower。Leader 节点与 Follower 节点之间会定期发送心跳包，以检测主节点是否活着。</p>
 <p> 当 Leader 节点的任期到了，即发现其他服务器开始下一轮选主周期时，Leader 节点的状态由 Leader 降级为 Follower，进入新一轮选主。</p>
 <p>节点的状态迁移如下所示（图中的 term 指的是选举周期）：</p>
-<img src="/2024/04/08/%E5%88%86%E5%B8%83%E5%BC%8F%E5%BE%AE%E6%9C%8D%E5%8A%A1/clip_image063.gif" class="" title="img">
+<img src="/2024/04/08/%E5%88%86%E5%B8%83%E5%BC%8F%E5%BE%AE%E6%9C%8D%E5%8A%A1/clip_image063.gif" class="">
 
 <p>请注意，每一轮选举，每个节点只能投一次票。这种选举就类似人大代表选举，正常情况下每个人大代表都有一定的任期，任期到后会触发重新选举，且投票者只能将自己手里唯一的票投给其中一个候选者。对应到 Raft 算法中，选主是周期进行的，包括选主和任值两个时间段，选主阶段对应投票阶段，任值阶段对应节点成为主之后的任期。但也有例外的时候，如果主节点故障，会立马发起选举，重新选出一个主节点。</p>
 <p>Google 开源的 Kubernetes，擅长容器管理与调度，为了保证可靠性，通常会部署 3 个节点用于数据备份。这 3 个节点中，有一个会被选为主，其他节点作为备。Kubernetes 的选主采用的是开源的 etcd 组件。而，etcd 的集群管理器 etcds，是一个高可用、强一致性的服务发现存储仓库，就是采用了 Raft 算法来实现选主和一致性的。</p>
@@ -636,10 +636,10 @@
 <p>投票过程中，每个节点都有一个唯一的三元组 (server_id, server_zxID, epoch)，其中 server_id 表示本节点的唯一 ID；server_zxID 表示本节点存放的数据 ID，数据 ID 越大表示数据越新，选举权重越大；epoch 表示当前选取轮数，一般用逻辑时钟表示。</p>
 <p>ZAB 选举算法的核心是“少数服从多数，ID 大的节点优先成为主”，因此选举过程中通过 (vote_id, vote_zxID) 来表明投票给哪个节点，其中 vote_id 表示被投票节点的 ID，vote_zxID 表示被投票节点的服务器 zxID。ZAB 算法选主的原则是：server_zxID 最大者成为 Leader；若 server_zxID 相同，则 server_id 最大者成为 Leader。接下来介绍 ZAB 选主的过程。</p>
 <p>第一步：当系统刚启动时，3 个服务器当前投票均为第一轮投票，即 epoch&#x3D;1，且 zxID 均为 0。此时每个服务器都推选自己，并将选票信息 &lt;epoch, vote_id, vote_zxID&gt; 广播出去。</p>
-<img src="/2024/04/08/%E5%88%86%E5%B8%83%E5%BC%8F%E5%BE%AE%E6%9C%8D%E5%8A%A1/clip_image065.gif" class="" title="img">
+<img src="/2024/04/08/%E5%88%86%E5%B8%83%E5%BC%8F%E5%BE%AE%E6%9C%8D%E5%8A%A1/clip_image065.gif" class="">
 
 <p>第二步：根据判断规则，由于 3 个 Server 的 epoch、zxID 都相同，因此比较 server_id，较大者即为推选对象，因此 Server 1 和 Server 2 将 vote_id 改为 3，更新自己的投票箱并重新广播自己的投票。</p>
-<img src="/2024/04/08/%E5%88%86%E5%B8%83%E5%BC%8F%E5%BE%AE%E6%9C%8D%E5%8A%A1/clip_image067.jpg" class="" title="img">
+<img src="/2024/04/08/%E5%88%86%E5%B8%83%E5%BC%8F%E5%BE%AE%E6%9C%8D%E5%8A%A1/clip_image067.jpg" class="">
 
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/yezonggang/article/details/106343806">https://blog.csdn.net/yezonggang/article/details/106343806</a></p>
 <h3 id="分布式评价维度"><a href="#分布式评价维度" class="headerlink" title="分布式评价维度"></a>分布式评价维度</h3><p>分布式的三围：性能（Performance）资源占用（Resource Usage）可用性（Availability）可扩展性（Scalability）</p>
@@ -862,12 +862,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/java%E9%9D%A2%E8%AF%95/">
-                        <span class="chip bg-color">java面试</span>
-                    </a>
-                    
-                    <a href="/tags/linux%E5%91%BD%E4%BB%A4/">
-                        <span class="chip bg-color">linux命令</span>
+                    <a href="/tags/java%E9%9D%A2%E8%AF%95-linux%E5%91%BD%E4%BB%A4/">
+                        <span class="chip bg-color">java面试,linux命令]</span>
                     </a>
                     
                 </div>
@@ -1114,7 +1110,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">153.7k</span>
+                        class="white-color">156k</span>
             
             
             

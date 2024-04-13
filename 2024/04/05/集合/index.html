@@ -434,16 +434,16 @@ HashMapJDK7HashMap在JDK7中其底层是由数组+链表构成，数组被分成
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h1><img src="/2024/04/05/%E9%9B%86%E5%90%88/clip_image002.gif" class="" title="img">
+                <h1 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h1><img src="/2024/04/05/%E9%9B%86%E5%90%88/clip_image002.gif" class="">
 
-<h2 id="常用的数据结构"><a href="#常用的数据结构" class="headerlink" title="常用的数据结构"></a>常用的数据结构</h2><img src="/2024/04/05/%E9%9B%86%E5%90%88/clip_image004.gif" class="" title="Linear  Data Structure  Non-linear  Data Structure  (Array)  (Linked List)  (Stack)  (Queue)  (Tree)  (Heap)  (Hashing)  (Graph)">
+<h2 id="常用的数据结构"><a href="#常用的数据结构" class="headerlink" title="常用的数据结构"></a>常用的数据结构</h2><img src="/2024/04/05/%E9%9B%86%E5%90%88/clip_image004.gif" class="" width="">
 
 <p>详细见 链接  <a target="_blank" rel="noopener" href="https://blog.csdn.net/QLeelq/article/details/113694455">https://blog.csdn.net/QLeelq/article/details/113694455</a></p>
 <h2 id="HashMap"><a href="#HashMap" class="headerlink" title="HashMap"></a>HashMap</h2><h3 id="JDK7HashMap"><a href="#JDK7HashMap" class="headerlink" title="JDK7HashMap"></a>JDK7HashMap</h3><p>在JDK7中其底层是由<strong>数组+链表</strong>构成，数组被分成一个个桶(bucket)，通过哈希值决定了键值对在这个数组中的位置。哈希值相同的键值对，会以链表形式进行存储。每一个键值对会以一个Entry实例进行封装，内部存在四个属性：key，value，hash值，和用于单向链表的next。</p>
-<img src="/2024/04/05/%E9%9B%86%E5%90%88/clip_image006.gif" class="" title="entry  key,value,hash  entry  key,value,hash  entry  key,value,hash  entry  key,value,hash  entry  key,value,hash  entry  key,value,hash  entry  key,value,hash  entry  key,value,hash">
+<img src="/2024/04/05/%E9%9B%86%E5%90%88/clip_image006.gif" class="" width="">
 
 <p>当对HashMap初始化时，其构造函数中需要传入两个参数：<strong>initialCapacity</strong>、<strong>loadFactor</strong></p>
-<img src="/2024/04/05/%E9%9B%86%E5%90%88/clip_image008.gif" class="" title="public HashMap(int  initialCapacitv ,  float  0.75  toadFactor) {">
+<img src="/2024/04/05/%E9%9B%86%E5%90%88/clip_image008.gif" class="" width="">
 
 <p>hashMap中还有一个变量：<strong>threshold</strong>（扩容阈值。计算公式：<strong>capacity * load factor</strong>）</p>
 <p>添加数据过程（put）</p>
@@ -466,7 +466,7 @@ HashMapJDK7HashMap在JDK7中其底层是由数组+链表构成，数组被分成
 <p>由<strong>数组+链表+红黑树</strong>组成。这么做的原因是因为：之前查找元素需要遍历链表，时间复杂度取决于链表的长度。</p>
 <p>为了优化这部分的开销，在JDK中，如果链表中元素大于等于8个，则将链表转换为红黑树（前提是桶的大小达到64，否则会先对桶进行扩容）；当红黑树中元素小于等于6个，则将红黑树转为链表。从而降低查询与添加的时间复杂度。</p>
 <p>put流程</p>
-<img src="/2024/04/05/%E9%9B%86%E5%90%88/clip_image012.gif" class="" title="HashMap put 容">
+<img src="/2024/04/05/%E9%9B%86%E5%90%88/clip_image012.gif" class="" width="">
 
 <p>即使不会出现死循环，但是通过源码看到put&#x2F;get方法都没有加同步锁，多线程情况最容易出现的就是：无法保证上一秒put的值，下一秒get的时候还是原值，所以线程安全还是无法保证。</p>
 <p>1、put的时候导致的多线程数据不一致。</p>
@@ -508,13 +508,14 @@ HashMapJDK7HashMap在JDK7中其底层是由数组+链表构成，数组被分成
 <p>链地址法：第一次定位数组中的位置，第二次去到链表中，调用链表的查找方法进行查找</p>
 <h2 id="ConcurrentHashMap"><a href="#ConcurrentHashMap" class="headerlink" title="ConcurrentHashMap"></a>ConcurrentHashMap</h2><p>ConcurrentHashMap是一个线程安全且高效的HashMap。在并发下，推荐使用其替换HashMap。对于它的使用也非常的简单，除了提供了线程安全的get和put之外，它还提供了一个非常有用的方法<strong>putIfAbsent</strong>，如果传入的键值对已经存在，则返回存在的value，不进行替换； 如果不存在，则添加键值对，返回null。</p>
 <h3 id="JDK7的ConcurrentHashMap"><a href="#JDK7的ConcurrentHashMap" class="headerlink" title="JDK7的ConcurrentHashMap"></a>JDK7的ConcurrentHashMap</h3><p>基础结构</p>
-<p>![next  Segment<a href="%E9%9B%86%E5%90%88/clip_image014.gif">OJ  Segment[l ]  Segment[2]  Segment[3]  Segment[4]  Segment[14]  Segment[15]  next  next  next  next  next </a></p>
+<img src="/2024/04/05/%E9%9B%86%E5%90%88/clip_image014.gif" class="" width="">
+
 <p>一个ConcurrentHashMap里包含一个Segment数组，结构与HashMap类似（数组+链表）。一个Segment中包含一个HashEntry数组，每个HashEntry就是链表的元素。</p>
 <p>​    Segment是ConcurrentHashMap实现的很核心的存在，Segment翻译过来就是一段，一般把它称之为<strong>分段锁</strong>。它继承了ReentrantLock，在ConcurrentHashMap中相当于锁的角色，在多线程下，不同的线程操作不同的segment。只要锁住一个 segment，其他剩余的Segment依然可以操作。这样只要保证每个 Segment 是线程安全的，我们就实现了全局的线程安全。</p>
 <p>构造方法和初始化</p>
-<img src="/2024/04/05/%E9%9B%86%E5%90%88/clip_image016.gif" class="" title="* Creates a new, empty map with a default initial capacity (16),  * toad factor (0.75) and concurrencyLevet (16) .  public ConcurrentHashMap() {">
+<img src="/2024/04/05/%E9%9B%86%E5%90%88/clip_image016.gif" class="">
 
-<img src="/2024/04/05/%E9%9B%86%E5%90%88/clip_image018.gif" class="" title="public ConcurrentHashMap(int initiatCapacity,  float toadFactor, int concurrencyLevet) {  if (toadFactor &gt; O) Il initiatCapacity &lt; @ Il concurrencyLevet O)">
+<img src="/2024/04/05/%E9%9B%86%E5%90%88/clip_image018.gif" class="" width="">
 
 <p>​    根据其构造函数可知，map的容量默认为16，负载因子为0.75。这两个都与原HashMap相同，但不同的在于，其多个参数**concurrencyLevel(<strong><strong>并发级别</strong></strong>)**，通过该参数可以用来确定Segment数组的长度并且不允许扩容，默认为16。</p>
 <p>​    并发度设置过小会带来严重的锁竞争问题；如果过大，原本位于一个segment内的访问会扩散到不同的segment中，导致查询命中率降低，引起性能下降。</p>
@@ -544,7 +545,7 @@ HashMapJDK7HashMap在JDK7中其底层是由数组+链表构成，数组被分成
 <p>TreeBin类：负责TreeNode节点包装，它代替了TreeNode的根节点，也就是说在实际的数组中存放的是TreeBin对象，而不是TreeNode对象。</p>
 <p>sizeCtl属性：用于控制table的初始化和扩容。-1表示正在初始化，-N表示由N-1个线程正在进行扩容，0为默认值表示table还没被初始化，正数表示初始化大小或Map中的元素达到这个数量时，则需要扩容了。</p>
 <p>get()</p>
-<img src="/2024/04/05/%E9%9B%86%E5%90%88/clip_image022.gif" class="" title="public V get(Object key) {  Node&lt;K, tab; Node&lt;K,V&gt; e, p; int n, eh; K ek;  &#x3D; spread(key . hashCode()) ; itÄhashfÄ  int h  tab. length) &gt; @ fifihash{ÄfiäküN  if ( (tab  &#x3D; table) (n &#x3D;  (e &#x3D; tabAt(tab,  i" alt="(n - 1) &amp; h)) null) {  if ( (eh  &#x3D; e. hash)  if ( (ek  -z key Il (ek !&#x3D; null &amp;&amp; key . equals(ek)))  return e. vat;  else if (eh &lt; O)  return (p  &#x3D; e. find(h, key)) !&#x3D; null ? p. vat : null;  _ &#x3D; e.next) null) {  while ( (e  if (e. hash h &amp;&amp;  return e. vat;  return null;  -z key Il (ek !&#x3D; null &amp;&amp; key . equals(ek))))">
+<img src="/2024/04/05/%E9%9B%86%E5%90%88/clip_image022.gif" class="">
 
 <p>put()</p>
 <p>如果table为空，初始化table</p>
@@ -562,7 +563,7 @@ HashMapJDK7HashMap在JDK7中其底层是由数组+链表构成，数组被分成
 <p>议使用。</p>
 <p>另外，ArrayList和Vector的区别是：ArrayList是线程不安全的，当多条线程访问同一个ArrayList集合时，程序需要手动保证该集合的同步性，而Vector则是线程安全的。</p>
 <p>4）ArrayList和Collection的关系：</p>
-<img src="/2024/04/05/%E9%9B%86%E5%90%88/clip_image024.gif" class="" title="LteraL0r I  {List Iteratorl  LCoIIectionl  List I  AbstractL ist  ArrayList  AbstraetColleetion">
+<img src="/2024/04/05/%E9%9B%86%E5%90%88/clip_image024.gif" class="" width="">
 
 <p>数据结构</p>
 <p>底层的数据结构就是数组，数组元素类型为Object类型，即可以存放所有类型数据。我们对ArrayList类的实例的所有的操作底层都是基于数组的。</p>
@@ -642,7 +643,7 @@ HashMapJDK7HashMap在JDK7中其底层是由数组+链表构成，数组被分成
 </tr>
 </tbody></table>
 <p>数据结构</p>
-<img src="/2024/04/05/%E9%9B%86%E5%90%88/clip_image026.gif" class="" title="first  last">
+<img src="/2024/04/05/%E9%9B%86%E5%90%88/clip_image026.gif" class="" width="">
 
 <p>LinkedList底层使用的双向链表结构，有一个头结点和一个尾结点，双向链表意味着我们可以从头开始正向遍历，或者是从尾开始逆向遍历，并且可以针对头部和尾部进行相应的操作。</p>
 <p>特性</p>
@@ -747,7 +748,7 @@ HashMapJDK7HashMap在JDK7中其底层是由数组+链表构成，数组被分成
 <p>5）内部结点中的key都按照从小到大的顺序排列，对于内部结点中的一个key，左树中的所有key都小于它，右子树中的key都大于等于它。叶子结点中的数据也按照key的大小排列。</p>
 <p>6）<strong>每个叶子结点都存有相邻叶子结点的指针</strong>，叶子结点本身依关键字的大小自小而</p>
 <p>大顺序链接。</p>
-<img src="/2024/04/05/%E9%9B%86%E5%90%88/clip_image038.gif" class="" title="索 引 节 点 ， 只 含 有 key  不 含 数 *Édata  ta data d  叶 子 节 点 ，  含 有 key ， 又  含 有 数 *Édata  根 节 点 ， 可 以 有 一 个 key  叶 子 节 点 采 用  链 表 形 式 链 接  data d">
+<img src="/2024/04/05/%E9%9B%86%E5%90%88/clip_image038.gif" class="">
 
 <p>特点</p>
 <p>1）索引节点的key值均会出现在叶子节点中。</p>
@@ -1265,7 +1266,7 @@ HashMapJDK7HashMap在JDK7中其底层是由数组+链表构成，数组被分成
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">153.7k</span>
+                        class="white-color">156k</span>
             
             
             

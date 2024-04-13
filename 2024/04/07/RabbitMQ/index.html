@@ -440,85 +440,85 @@
 <p>（4）上游无法知道下游的执行结果，这一点是很致命的</p>
 <h2 id="选型"><a href="#选型" class="headerlink" title="选型?"></a>选型?</h2><p>（1）选RabbitMQ：一方面，erlang语言天生具备高并发的特性，而且他的管理界面用起来十分方便。RabbitMQ的社区十分活跃，可以解决开发过程中遇到的bug。基于AMQP协议来实现。AMQP的主要特征是面向消息、队列、路由（包括点对点和发布&#x2F;订阅）、可靠性、安全。AMQP协议更多用在企业系统内对数据一致性、稳定性和可靠性要求很高的场景。</p>
 <p>（2）排除其他的：数据量没那么大，选消息中间件，应首选功能比较完备的，所以kafka排除，不支持事务，对消息的重复、丢失、错误没有严格要求。不考虑rocketmq的原因是，rocketmq是阿里出品，如果阿里放弃维护rocketmq，中小型公司一般抽不出人来进行rocketmq的定制化开发，因此不推荐。</p>
-<img src="/2024/04/07/RabbitMQ/clip_image001-1712496107528.jpg" class="" title="img">
+<img src="/2024/04/07/RabbitMQ/clip_image001-1712496107528.jpg" class="">
 
-<img src="/2024/04/07/RabbitMQ/clip_image003-1712496107528.jpg" class="" title="Kafka  优 点 ： 吞 吐 量 非 常 大 ， 性 能 非 常 好 ， 集 群 高 可 用 ·  缺 点 ： 会 丢 数 ， 功 能 比 较 单 一  使 用 场 景 ： 日 志 分 析 ． 大 数 据 采 集  RabbitMO  优 点 ： 消 息 可 壶 性 高 ， 功 能 全 面 ·  点 ： 吞 吐 量 比 较 低 ， 消 息 积 累 会 严 甭 影 响 性 能 ． g 刂 g 言 不 好 定 制 ．  使 用 场 景 ： 小 规 模 场 景 。  RocketMQ  优 点 ： 高 吞 吐 、 高 性 能 、 高 可 用 。 功 能 菲 常 全 面 ·  点 ： 分 源 版 功 能 不 如 云 上 商 业 版 · 官 方 文 档 和 周 边 生 态 还 不 够 成 熟 ． 客 户 端 只 攴 持 iava ·  使 用 场 景 ： 是 全 场 景 ·">
+<img src="/2024/04/07/RabbitMQ/clip_image003-1712496107528.jpg" class="">
 
 <h2 id="集群，如何保证消息队列是高可用的？"><a href="#集群，如何保证消息队列是高可用的？" class="headerlink" title="集群，如何保证消息队列是高可用的？"></a>集群，如何保证消息队列是高可用的？</h2><p>集群：</p>
 <p>（1）<strong>普通模式：消息实体在其中一个节点上，消费时同步</strong></p>
 <p>增加更多节点时，能线性的增加性能（CPU、内存）和容量（内存和磁盘）。</p>
-<p><strong>（<strong><strong>2</strong></strong>）镜像模式：消息实体会同步到所有节点上：</strong>把需要的队列做成镜像队列，存在与多个节点属于RabbitMQ的HA（高可用）方案。</p>
+<p><strong>（2）镜像模式：消息实体会同步到所有节点上：</strong>把需要的队列做成镜像队列，存在与多个节点属于RabbitMQ的HA（高可用）方案。</p>
 <p>该模式带来的副作用也很明显，除了降低系统性能外，如果镜像队列数量过多，加之大量的消息进入，集群内部的网络带宽将会被这种同步通讯大大消耗掉。</p>
 <p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/gaopengpy/p/13476371.html%E8%BE%83%E6%80%BB%E7%BB%93">https://www.cnblogs.com/gaopengpy/p/13476371.html较总结</a></p>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/fgf00/article/details/79558498%E8%BE%83%E7%BB%86%E8%8A%82">https://blog.csdn.net/fgf00/article/details/79558498较细节</a></p>
-<img src="/2024/04/07/RabbitMQ/clip_image004-1712496107528.jpg" class="" title="img">
+<img src="/2024/04/07/RabbitMQ/clip_image004-1712496107528.jpg" class="">
 
-<img src="/2024/04/07/RabbitMQ/clip_image005-1712496107528.jpg" class="" title="img">
+<img src="/2024/04/07/RabbitMQ/clip_image005-1712496107528.jpg" class="">
 
-<img src="/2024/04/07/RabbitMQ/clip_image006-1712496107528.jpg" class="" title="img">
+<img src="/2024/04/07/RabbitMQ/clip_image006-1712496107528.jpg" class="">
 
 <p>master的GM收到消息后表明走了一圈又回来了</p>
 <p>GM不直接操作阻塞队列，通过mirror_queue_&#x2F;操作</p>
 <p>Queue是负责操作的，真正存数据时阻塞队列</p>
 <h2 id="消息不被重复消费（消息队列的幂等性）"><a href="#消息不被重复消费（消息队列的幂等性）" class="headerlink" title="消息不被重复消费（消息队列的幂等性）?"></a>消息不被重复消费（消息队列的幂等性）?</h2><p>正常情况下，消费者在消费消息时候，消费完毕后，会发送一个确认信息给消息队列，消息队列就知道该消息被消费了，就会将该消息从消息队列中删除。只是不同的消息队列发送的确认信息形式不同,例如RabbitMQ是发送一个ACK确认消息。因为网络传输等等故障，确认信息没有传送到消息队列，导致消息队列不知道自己已经消费过该消息了，再次将该消息分发给其他的消费者。</p>
-<p>（1)若拿到这个消息做数据库的insert操作。那就容易了，给这个消息做一个唯一主键，</p>
+<p>（1)  若拿到这个消息做数据库的insert操作。那就容易了，给这个消息做一个唯一主键。</p>
 <p>（2）若拿到这个消息做redis的set的操作，不用解决，set操作本来就算幂等操作。</p>
 <p>（3）准备一个第三方介质,来做消费记录。以redis为例，给消息分配一个全局id，只要消费过该消息，将&lt;id,message&gt;以K-V形式写入redis。那消费者开始消费前，先去redis中查询有没消费记录即可。</p>
-<h2 id="消息可靠性传输"><a href="#消息可靠性传输" class="headerlink" title="消息可靠性传输?"></a>消息可靠性传输?</h2><p>(1)生产者丢数据：</p>
+<h2 id="消息可靠性传输"><a href="#消息可靠性传输" class="headerlink" title="消息可靠性传输?"></a>消息可靠性传输?</h2><p>(1) 生产者丢数据：</p>
 <p>RabbitMQ提供transaction和confirm模式来确保生产者不丢消息：</p>
-<p>a.transaction机制就是说，发送消息前，开启事物(channel.txSelect())，然后发送消息，如果发送过程中出现什么异常，事物就会回滚(channel.txRollback())，如果发送成功则提交事物(channel.txCommit())。然而缺点就是吞吐量下降了。</p>
-<p>b.生产上用confirm模式的居多。一旦channel进入confirm模式，所有在该信道上面发布的消息都将会被指派一个唯一的ID(从1开始)，一旦消息被投递到所有匹配的队列之后，rabbitMQ就会发送一个Ack给生产者(包含消息的唯一ID)，这就使得生产者知道消息已经正确到达目的队列了.如果rabiitMQ没能处理该消息，则会发送一个Nack消息给你，你可以进行重试操作。</p>
-<p>(2)消息队列丢数据</p>
+<p>a. transaction机制就是说，发送消息前，开启事物(channel.txSelect())，然后发送消息，如果发送过程中出现什么异常，事物就会回滚(channel.txRollback())，如果发送成功则提交事物(channel.txCommit())。然而缺点就是吞吐量下降了。</p>
+<p>b. 生产上用confirm模式的居多。一旦channel进入confirm模式，所有在该信道上面发布的消息都将会被指派一个唯一的ID(从1开始)，一旦消息被投递到所有匹配的队列之后，rabbitMQ就会发送一个Ack给生产者(包含消息的唯一ID)，这就使得生产者知道消息已经正确到达目的队列了.如果rabiitMQ没能处理该消息，则会发送一个Nack消息给你，你可以进行重试操作。</p>
+<p>(2) 消息队列丢数据</p>
 <p>持久化配置可以和confirm机制配合使用，你可以在消息持久化磁盘后，再给生产者发送一个Ack信号。</p>
-<p>(3)消费者丢数据消费者丢数据一般是因为采用了自动确认消息模式。采用手动确认消息即可。完成操作了在回复确认。</p>
+<p>(3) 消费者丢数据消费者丢数据一般是因为采用了自动确认消息模式。采用手动确认消息即可。完成操作了在回复确认。</p>
 <h2 id="消息的顺序性？"><a href="#消息的顺序性？" class="headerlink" title="消息的顺序性？"></a>消息的顺序性？</h2><p>局部有序：多个qq窗口，只要保证一个窗口内的消息有序就行了，多个订单，一个订单有很多处理步骤，只要保证一个订单的处理步骤不乱就行了</p>
 <p>全局有序（mq不保证）：所有窗口的消息之间都要有序</p>
 <p>rabbitMq中就是queue，然后只用一个消费者去消费该队列。观点是保证入队有序就行，出队以后的顺序交给消费者自己去保证，没有固定套路。</p>
 <p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/williamjie/p/9481780.html">https://www.cnblogs.com/williamjie/p/9481780.html</a></p>
-<img src="/2024/04/07/RabbitMQ/clip_image008.jpg" class="" title="ii">
+<img src="/2024/04/07/RabbitMQ/clip_image008.jpg" class="" width="">
 
-<h2 id="高效读写-零拷贝"><a href="#高效读写-零拷贝" class="headerlink" title="高效读写_零拷贝"></a>高效读写_零拷贝</h2><img src="/2024/04/07/RabbitMQ/clip_image009-1712496107528.jpg" class="" title="img">
+<h2 id="高效读写-零拷贝"><a href="#高效读写-零拷贝" class="headerlink" title="高效读写_零拷贝"></a>高效读写_零拷贝</h2><img src="/2024/04/07/RabbitMQ/clip_image009-1712496107528.jpg" class="">
 
-<img src="/2024/04/07/RabbitMQ/clip_image010-1712496107529.jpg" class="" title="img">
+<img src="/2024/04/07/RabbitMQ/clip_image010-1712496107529.jpg" class="">
 
-<img src="/2024/04/07/RabbitMQ/clip_image011-1712496107529.jpg" class="" title="img">
+<img src="/2024/04/07/RabbitMQ/clip_image011-1712496107529.jpg" class="">
 
 <p>用户空间只拿映射：内存地址，长度，要写的大小</p>
-<p><strong>DMA</strong>(Direct Memory Access，直接存储器访问</p>
-<img src="/2024/04/07/RabbitMQ/clip_image012-1712496107529.jpg" class="" title="img">
+<p><strong>DMA</strong>(Direct Memory Access），直接存储器访问</p>
+<img src="/2024/04/07/RabbitMQ/clip_image012-1712496107529.jpg" class="">
 
 <p>使用MQ如何保证分布式事务的最终一致性</p>
-<img src="/2024/04/07/RabbitMQ/clip_image013-1712496107529.jpg" class="" title="img">
+<img src="/2024/04/07/RabbitMQ/clip_image013-1712496107529.jpg" class="">
 
 <p>也可用分布式事务</p>
 <p>最终一致性：不能保证支付完了，同一时刻下单物流完成，只能保证支付完了，下单物流在一定时间内完成</p>
-<img src="/2024/04/07/RabbitMQ/clip_image014-1712496107529.jpg" class="" title="img">
+<img src="/2024/04/07/RabbitMQ/clip_image014-1712496107529.jpg" class="">
 
-<h2 id="分布式MQ的三种语义"><a href="#分布式MQ的三种语义" class="headerlink" title="分布式MQ的三种语义"></a>分布式MQ的三种语义</h2><img src="/2024/04/07/RabbitMQ/clip_image015-1712496107529.jpg" class="" title="img">
+<h2 id="分布式MQ的三种语义"><a href="#分布式MQ的三种语义" class="headerlink" title="分布式MQ的三种语义"></a>分布式MQ的三种语义</h2><img src="/2024/04/07/RabbitMQ/clip_image015-1712496107529.jpg" class="">
 
 <p>at least once: 发送者至少发送一次，没有成功则继续发，消费者也是至少接受一次，失败了则再次接受</p>
 <p>at most once: 只发一次，不管成功没</p>
 <p>exactly once: 刚刚好一次就成功</p>
-<h2 id="让你设计一个MQ，如何设计"><a href="#让你设计一个MQ，如何设计" class="headerlink" title="让你设计一个MQ，如何设计"></a>让你设计一个MQ，如何设计</h2><img src="/2024/04/07/RabbitMQ/clip_image016-1712496107529.jpg" class="" title="img">
+<h2 id="让你设计一个MQ，如何设计"><a href="#让你设计一个MQ，如何设计" class="headerlink" title="让你设计一个MQ，如何设计"></a>让你设计一个MQ，如何设计</h2><img src="/2024/04/07/RabbitMQ/clip_image016-1712496107529.jpg" class="">
 
 <p>实现一个先进先出的队列，要有消息（进行封装，要有什么字段），可扩展（消息多了队列就增长，少了就缩短）</p>
-<h2 id="RabbitMQ架构设计"><a href="#RabbitMQ架构设计" class="headerlink" title="RabbitMQ架构设计"></a>RabbitMQ架构设计</h2><img src="/2024/04/07/RabbitMQ/clip_image017-1712496107529.jpg" class="" title="img">
+<h2 id="RabbitMQ架构设计"><a href="#RabbitMQ架构设计" class="headerlink" title="RabbitMQ架构设计"></a>RabbitMQ架构设计</h2><img src="/2024/04/07/RabbitMQ/clip_image017-1712496107529.jpg" class="">
 
 <p>pull和push模式反了</p>
-<img src="/2024/04/07/RabbitMQ/clip_image018-1712496107529.jpg" class="" title="img">
+<img src="/2024/04/07/RabbitMQ/clip_image018-1712496107529.jpg" class="">
 
-<h2 id="交换机类型"><a href="#交换机类型" class="headerlink" title="交换机类型"></a>交换机类型</h2><img src="/2024/04/07/RabbitMQ/clip_image020-1712496107529.jpg" class="" title="img">
+<h2 id="交换机类型"><a href="#交换机类型" class="headerlink" title="交换机类型"></a>交换机类型</h2><img src="/2024/04/07/RabbitMQ/clip_image020-1712496107529.jpg" class="">
 
-<h2 id="可以直连队列吗"><a href="#可以直连队列吗" class="headerlink" title="可以直连队列吗"></a>可以直连队列吗</h2><img src="/2024/04/07/RabbitMQ/clip_image021-1712496107529.jpg" class="" title="img">
+<h2 id="可以直连队列吗"><a href="#可以直连队列吗" class="headerlink" title="可以直连队列吗"></a>可以直连队列吗</h2><img src="/2024/04/07/RabbitMQ/clip_image021-1712496107529.jpg" class="">
 
-<img src="/2024/04/07/RabbitMQ/clip_image022-1712496107529.jpg" class="" title="img">
+<img src="/2024/04/07/RabbitMQ/clip_image022-1712496107529.jpg" class="">
 
-<img src="/2024/04/07/RabbitMQ/clip_image023-1712496107529.jpg" class="" title="img">
+<img src="/2024/04/07/RabbitMQ/clip_image023-1712496107529.jpg" class="">
 
-<h2 id="持久化机制"><a href="#持久化机制" class="headerlink" title="持久化机制"></a>持久化机制</h2><img src="/2024/04/07/RabbitMQ/clip_image024-1712496107529.jpg" class="" title="img">
+<h2 id="持久化机制"><a href="#持久化机制" class="headerlink" title="持久化机制"></a>持久化机制</h2><img src="/2024/04/07/RabbitMQ/clip_image024-1712496107529.jpg" class="">
 
 <p>删除时：整理左—-中复制到左—–删除中—-整理左—–右到复制左—删除右</p>
-<img src="/2024/04/07/RabbitMQ/clip_image025-1712496107529.jpg" class="" title="img">
+<img src="/2024/04/07/RabbitMQ/clip_image025-1712496107529.jpg" class="">
 
 <h2 id="事务机制"><a href="#事务机制" class="headerlink" title="事务机制"></a>事务机制</h2><p>客户端发送给服务器Tx.Select(开启事务模式)</p>
 <p>服务器端返回Tx.Select-Ok（开启事务模式ok）</p>
@@ -527,9 +527,9 @@
 <p>服务器端返回Tx.Commit-Ok</p>
 <p>生产者开启事务，发送消息到Q2，若发生异常则将Q2中消息删除，若commit了，则将Q2中消息发送到Q1供消费者消费</p>
 <p>消费者方要使用事务应把ack机制置为false，消费方控制队列中的消息是否删除，若异常则不删除，若commit就可删除消息</p>
-<img src="/2024/04/07/RabbitMQ/clip_image026-1712496107529.jpg" class="" title="img">
+<img src="/2024/04/07/RabbitMQ/clip_image026-1712496107529.jpg" class="">
 
-<h2 id="死信队列，延迟队列原理"><a href="#死信队列，延迟队列原理" class="headerlink" title="死信队列，延迟队列原理"></a>死信队列，延迟队列原理</h2><img src="/2024/04/07/RabbitMQ/clip_image028-1712496107529.jpg" class="" title="img">
+<h2 id="死信队列，延迟队列原理"><a href="#死信队列，延迟队列原理" class="headerlink" title="死信队列，延迟队列原理"></a>死信队列，延迟队列原理</h2><img src="/2024/04/07/RabbitMQ/clip_image028-1712496107529.jpg" class="">
 
 <h2 id="消息队列中的数据怎么删除"><a href="#消息队列中的数据怎么删除" class="headerlink" title="消息队列中的数据怎么删除"></a>消息队列中的数据怎么删除</h2><ul>
 <li><ol>
@@ -977,7 +977,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">153.7k</span>
+                        class="white-color">156k</span>
             
             
             

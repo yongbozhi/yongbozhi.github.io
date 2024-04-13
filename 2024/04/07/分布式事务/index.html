@@ -438,13 +438,13 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="分布式事务"><a href="#分布式事务" class="headerlink" title="分布式事务"></a>分布式事务</h1><h2 id="1-两阶段提交"><a href="#1-两阶段提交" class="headerlink" title="1.两阶段提交"></a>1.两阶段提交</h2><img src="/2024/04/07/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/clip_image050.jpg" class="" title="img">
+                <h1 id="分布式事务"><a href="#分布式事务" class="headerlink" title="分布式事务"></a>分布式事务</h1><h2 id="1-两阶段提交"><a href="#1-两阶段提交" class="headerlink" title="1.两阶段提交"></a>1.两阶段提交</h2><img src="/2024/04/07/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/clip_image050.jpg" class="">
 
-<img src="/2024/04/07/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/clip_image052.jpg" class="" title="img">
+<img src="/2024/04/07/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/clip_image052.jpg" class="">
 
-<img src="/2024/04/07/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/clip_image054.jpg" class="" title="img">
+<img src="/2024/04/07/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/clip_image054.jpg" class="">
 
-<img src="/2024/04/07/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/clip_image056.jpg" class="" title="img">
+<img src="/2024/04/07/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/clip_image056.jpg" class="">
 
 <p>两阶段的问题：</p>
 <p>两阶段提交协议的问题在于数据库在提交请求阶段应答后对很多资源处于锁定状态，要等到事务管理器收集齐所有数据库的应答后，才能发commit或者rollback消息结束这种锁定。锁定时间的长度是由最慢的一个数据库制约，如果数据库一直没有应答，所有其他库也需要无休止的锁并等待。并且，如果事务管理器出现故障，被锁定的资源将长时间处于锁定状态。无论是任一数据库或者事务管理器故障，其他数据库都需要永久锁定或者至少长时间锁定。并且，分布式系统中节点越多，存在缓慢网络或者故障节点的概率也就越大，资源被长时间锁定的概率指数上升。</p>
@@ -454,7 +454,7 @@
 <p>如果都正常的话，TCC 分布式事务框架推进执行 Confirm 逻辑，完成整个事务。</p>
 <p>如果某个服务的 Try 逻辑有问题，TCC 分布式事务框架感知到之后就会推进执行各个服务的 Cancel 逻辑，撤销之前执行的各种操作。</p>
 <p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/jajian/p/10014145.html">https://www.cnblogs.com/jajian/p/10014145.html</a></p>
-<img src="/2024/04/07/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/clip_image058.jpg" class="" title="img">
+<img src="/2024/04/07/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/clip_image058.jpg" class="">
 
 <h2 id="3-本地消息表："><a href="#3-本地消息表：" class="headerlink" title="3.本地消息表："></a>3.本地消息表：</h2><p>其基本的设计思想是将远程分布式事务拆分成一系列的本地事务。</p>
 <p>举个经典的跨行转账的例子来描述：</p>
@@ -904,7 +904,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">153.7k</span>
+                        class="white-color">156k</span>
             
             
             

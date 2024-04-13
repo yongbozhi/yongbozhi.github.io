@@ -403,14 +403,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    4.8k
+                    5.2k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    16 分
+                    17 分
                 </div>
                 
 
@@ -433,19 +433,19 @@
                 <h1 id="分布式锁"><a href="#分布式锁" class="headerlink" title="分布式锁"></a>分布式锁</h1><h2 id="分布式锁应用场景"><a href="#分布式锁应用场景" class="headerlink" title="分布式锁应用场景"></a><strong>分布式锁</strong>应用场景</h2><p>将服务器从单机部署升级为多机部署后，则会发现Java提供的原生锁机制在多机部署下失效了。这是因为Java本身提供的锁，他们只对属于自己JVM里面的线程有效，对于其他JVM的线程是无效的。</p>
 <h2 id="场景示例"><a href="#场景示例" class="headerlink" title="场景示例"></a>场景示例</h2><p>​    现在有一个电商系统，此时只通过一台机器进行部署，当用户下单时，首先会检查库存是否足够，只有当库存足够时，才会允许进行下单。</p>
 <p>​    为了提高系统的并发性能，因此会首先将商品库存信息预热到redis中，当用户下单时，会更新redis中的库存信息。</p>
-<img src="/2024/04/07/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/clip_image060.gif" class="" title="Redis  MySQL">
+<img src="/2024/04/07/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/clip_image060.gif" class="">
 
 <p>​    此时在单线程下执行是没有任何问题的，但是假设现在某一商品库存数量为1，且同时有两个线程同时对该商品执行下单操作，线程A和线程B查询库存结果都为1，此时线程A先执行第三步更新mysql将库存数量由1变为0。但是当线程B再来执行第三步更新mysql</p>
 <p>时，库存数量会变为-1，此时库存超卖出现。</p>
-<img src="/2024/04/07/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/clip_image062.gif" class="" title="stock-I  update table set stock—stock-#{number}  stock&#x3D;0  stock&#x3D;l  update table set stock-stock-#{number}  stock">
+<img src="/2024/04/07/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/clip_image062.gif" class="">
 
 <p>​    此时要想解决超卖问题，则可以进行加锁，将2，3，4步利用synchronized或者</p>
 <p>ReentrantLock进行加锁，从而让线程排队，避免超卖问题的出现。</p>
-<img src="/2024/04/07/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/clip_image064.gif" class="" title="ı.F3  ock  zül*  4.sredis  3  Redis  MySQL">
+<img src="/2024/04/07/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/clip_image064.gif" class="" width="">
 
 <p>​    但是当随着并发量的增大，此时单机部署已经无法承受这么大的并发量了，则会将</p>
 <p>系统由单机变为多机部署。</p>
-<img src="/2024/04/07/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/clip_image066.gif" class="" title="1 ． 下 单  秒 杀 系 统  unl  2 查 库 存  4． 更 %edis  1 ． 下 单  lock  秒 杀 系 统  2 ． 检 0 库 存  4.Eredis  3 ． 锁 定 更 新 库 存  Redis  商 品 库 存 信 息  MySQL  3 ． 锁 定 抖 更 新 库 存">
+<img src="/2024/04/07/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/clip_image066.gif" class="" width="">
 
 <p>​    此时假设同时有两个用户进行下单，请求分别进入两台机器中，那么这两个请求是可以同时执行的，则仍然会出现超卖问题。</p>
 <p>​    因为不管synchronized或者ReentrantLock都是只作用于自己机器的JVM中，对其他机</p>
@@ -460,7 +460,7 @@
 <p>- <strong>高性能</strong>：获取锁和释放锁的性能要好。</p>
 <p>- <strong>持久性</strong>：锁按业务需要自动续约&#x2F;自动延期。</p>
 <h2 id="分布式锁的实现"><a href="#分布式锁的实现" class="headerlink" title="分布式锁的实现"></a>分布式锁的实现</h2><h3 id="基于数据库表实现"><a href="#基于数据库表实现" class="headerlink" title="基于数据库表实现"></a><a href="onenote:#分布式锁的实现&section-id={3685743C-702A-48F2-B3FF-3D01808AF522}&page-id={F5CE60B2-981A-40F8-9AAF-B0CF1C91DF08}&object-id={A529F93C-5E1F-40E0-9895-5A708E9FC8B9}&14&base-path=https://d.docs.live.net/73ef43393996c94e/文档/java/畅购.one">基于数据库表实现</a></h3><h3 id="zookeeper实现"><a href="#zookeeper实现" class="headerlink" title="zookeeper实现"></a><a href="onenote:#分布式锁的实现&section-id={3685743C-702A-48F2-B3FF-3D01808AF522}&page-id={F5CE60B2-981A-40F8-9AAF-B0CF1C91DF08}&object-id={4DB8704F-D766-4F09-92A9-0C6CB7D62396}&13&base-path=https://d.docs.live.net/73ef43393996c94e/文档/java/畅购.one">zookeeper实现</a></h3><h3 id="redis实现"><a href="#redis实现" class="headerlink" title="redis实现"></a>r<a href="onenote:#分布式锁的实现&section-id={3685743C-702A-48F2-B3FF-3D01808AF522}&page-id={F5CE60B2-981A-40F8-9AAF-B0CF1C91DF08}&object-id={4DB8704F-D766-4F09-92A9-0C6CB7D62396}&11&base-path=https://d.docs.live.net/73ef43393996c94e/文档/java/畅购.one">edis实现</a></h3><h3 id="基于数据库表实现-1"><a href="#基于数据库表实现-1" class="headerlink" title="基于数据库表实现"></a>基于数据库表实现</h3><p>准备工作：创建tb_program表，用于记录当前哪个程序正在使用数据</p>
-<img src="/2024/04/07/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/clip_image068.jpg" class="" title="CREATE TABLE  program no  NOT NULL,  tb_program• (  varchar(188) CHARACTER SET utf8 COLLATE  PRIMARY KEY USING BTREE  ) ENGINE  InnoDB CHARACTER SET &#x3D; utf8 COLLATE -  utf8_genera1_ci  ROW  SET  FORMAT &#x3D; Dynamic;  FOREIGN KEY CHECKS">
+<img src="/2024/04/07/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/clip_image068.jpg" class="" width="">
 
 <p>实现步骤：</p>
 <ol>
@@ -475,24 +475,35 @@
 </ol>
 <h3 id="基于条件"><a href="#基于条件" class="headerlink" title="基于条件"></a>基于条件</h3><p>​    对于分布式锁的实现，比较常见的一种就是基于MySQL乐观锁方式来完成，这种方式的思想就是利用MySQL的InnoDB引擎的<strong>行锁</strong>机制来完成。</p>
 <p>​    对于乐观锁的实现，又分为两种，分别为<strong>根据条件</strong>和<strong>根据版本号</strong>。</p>
-<img src="/2024/04/07/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/clip_image070.jpg" class="" title="public interface Bookmapper extends {  @Update(update tb book set where id {id} and stock-#{sa1eNum}&gt;&#x3D;e&quot;) void updateNoLock(@Param(id) int id, int saleNum); %}
+<img src="/2024/04/07/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/clip_image070.jpg" class="" width="">
 
-&lt;p&gt;通过Jemeter进行并发测试，可以发现其已经可以保证库存不会被扣减超卖。&lt;&#x2F;p&gt;
-&lt;h3 id&#x3D;基于version版本号&quot;&gt;&lt;a href&#x3D;#基于version版本号 class&#x3D;headerlink title&#x3D;基于version版本号&gt;&lt;&#x2F;a&gt;基于version版本号&lt;&#x2F;h3&gt;&lt;p&gt;​ 有时我们并没有一些特定的条件让我们去进行判断。此时就会在数据表中新增一个字段版本字段version来进行数据并发控制。&lt;&#x2F;p&gt; {% asset_img clip_image072.gif null  varchar  stock  version">
+<p>通过Jemeter进行并发测试，可以发现其已经可以保证库存不会被扣减超卖。</p>
+<h3 id="基于version版本号"><a href="#基于version版本号" class="headerlink" title="基于version版本号"></a>基于version版本号</h3><p>​    有时我们并没有一些特定的条件让我们去进行判断。此时就会在数据表中新增一个字段版本字段version来进行数据并发控制。</p>
+<img src="/2024/04/07/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/clip_image072.gif" class="" width="">
 
-<img src="/2024/04/07/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/clip_image074.jpg" class="" title="@lJpdate(update tb book set version-version+l where {id} and version&#x3D;#{version})  int updateByVersion(@Param(id&quot;)int version); %}
+<img src="/2024/04/07/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/clip_image074.jpg" class="" width="">
 
-&lt;h3 id&#x3D;zookeeer实现&quot;&gt;&lt;a href&#x3D;#zookeeer实现 class&#x3D;headerlink title&#x3D;zookeeer实现&gt;&lt;&#x2F;a&gt;zookeeer实现&lt;&#x2F;h3&gt;&lt;p&gt;对于分布式锁的实现，zookeeper天然携带的一些特性能够很完美的实现分布式锁。其内部主要是利用znode节点特性和watch机制完成。&lt;&#x2F;p&gt; &lt;p&gt;znode节点&lt;&#x2F;p&gt; &lt;p&gt;在zookeeper中节点会分为四类，分别是：&lt;&#x2F;p&gt; &lt;p&gt;- &lt;strong&gt;持久节点：&lt;&#x2F;strong&gt;一旦创建，则永久存在于zookeeper中，除非手动删除。&lt;&#x2F;p&gt; &lt;p&gt;- &lt;strong&gt;持久有序节点：&lt;&#x2F;strong&gt;一旦创建，则永久存在于zookeeper中，除非手动删除。同时每个节点都会默认存在节点序号，每个节点的序号都是有序递增的。如demo000001、demo000002…..demo00000N。&lt;&#x2F;p&gt; &lt;p&gt;- &lt;strong&gt;临时节点：&lt;&#x2F;strong&gt;当节点创建后，一旦服务器重启或宕机，则被自动删除。&lt;&#x2F;p&gt; &lt;p&gt;- &lt;strong&gt;临时有序节点：&lt;&#x2F;strong&gt;当节点创建后，一旦服务器重启或宕机，则被自动删除。同时每个节点都会默认存在节点序号，每个节点的序号都是有序递增的。如&lt;&#x2F;p&gt; &lt;p&gt;demo000001、demo000002…..demo00000N。&lt;&#x2F;p&gt; &lt;p&gt;watch监听机制&lt;&#x2F;p&gt; &lt;p&gt;​ watch监听机制主要用于&lt;strong&gt;监听节点状态变更&lt;&#x2F;strong&gt;，用于后续事件触发，假设当B节点监听A节点时，一旦A节点发生修改、删除、子节点列表发生变更等事件，B节点则会收到A节点改变的通知，接着完成其他额外事情。&lt;&#x2F;p&gt; {% asset_img clip_image076.gif 2)  znodeA  znodeB">
+<h3 id="zookeeer实现"><a href="#zookeeer实现" class="headerlink" title="zookeeer实现"></a>zookeeer实现</h3><p>对于分布式锁的实现，zookeeper天然携带的一些特性能够很完美的实现分布式锁。其内部主要是利用znode节点特性和watch机制完成。</p>
+<p>znode节点</p>
+<p>在zookeeper中节点会分为四类，分别是：</p>
+<p>- <strong>持久节点：</strong>一旦创建，则永久存在于zookeeper中，除非手动删除。</p>
+<p>- <strong>持久有序节点：</strong>一旦创建，则永久存在于zookeeper中，除非手动删除。同时每个节点都会默认存在节点序号，每个节点的序号都是有序递增的。如demo000001、demo000002…..demo00000N。</p>
+<p>- <strong>临时节点：</strong>当节点创建后，一旦服务器重启或宕机，则被自动删除。</p>
+<p>- <strong>临时有序节点：</strong>当节点创建后，一旦服务器重启或宕机，则被自动删除。同时每个节点都会默认存在节点序号，每个节点的序号都是有序递增的。如</p>
+<p>demo000001、demo000002…..demo00000N。</p>
+<p>watch监听机制</p>
+<p>​    watch监听机制主要用于<strong>监听节点状态变更</strong>，用于后续事件触发，假设当B节点监听A节点时，一旦A节点发生修改、删除、子节点列表发生变更等事件，B节点则会收到A节点改变的通知，接着完成其他额外事情。</p>
+<img src="/2024/04/07/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/clip_image076.gif" class="" width="">
 
 <p>实现原理</p>
 <p>其实现思想是当某个线程要对方法加锁时，首先会在zookeeper中创建一个与当前方法对应的父节点，接着每个要获取当前方法的锁的线程，都会在父节点下创建一个<strong>临时有序节点</strong>（临时：避免死锁，持久节点会一直占着锁，有序：获取锁的效率高），因为节点序号是递增的，所以后续要获取锁的线程在zookeeper中的序号也是逐次递增的。根据这个特性，当前序号最小的节点一定是首先要获取锁的线程，因此可以规定<strong>序号最小的节点获得锁</strong>。所以，每个线程再要获取锁时，可以判断自己的节点序号是否是最小的，如果是则获取到锁。当释放锁时，只需将自己的临时有序节点删除即可。</p>
-<img src="/2024/04/07/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/clip_image078.gif" class="" title="methodA  ThreadA000001  ThreadC000003  zookeeper server  methodB  ThreadA000001  ThreadC000003  methodC  ThreadA000001  ThreadC000003">
+<img src="/2024/04/07/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/clip_image078.gif" class="" width="">
 
 <p>根据上图，在并发下，每个线程都会在对应方法节点下创建属于自己的临时节点，且每个节点都是临时且有序的。那么zookeeper又是如何有序的将锁分配给不同线程呢？ 这里就应用到了watch监听机制。每当添加一个新的临时节点时，其都会基于watcher机制监听着它本身的前一个节点等待前一个节点的通知，当前一个节点删除时，就轮到它来持有锁了。然后依次类推。判断是否获取锁，只要判断放弃那节点序号是否是最小的。</p>
-<img src="/2024/04/07/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/clip_image080.gif" class="" title="methodA  ThreadA000001  watch  ThreadB000002  watch  ThreadC000003  watch  zookeeper server  methodB  ThreadA000001  watch  ThreadB000002  watch  ThreadC000003  watch  methodC  ThreadA000001  watch  ThreadB000002  watch  ThreadC000003  watch">
+<img src="/2024/04/07/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/clip_image080.gif" class="">
 
 <p>低效锁思想&amp;实现</p>
-<img src="/2024/04/07/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/clip_image082.gif" class="" title="开 始 事 务  一 当 删 除 一  锁 节 点 已 存 在  不 成 功  监 听 锁 节 点 删 除  获 取 锁  创 建 锁 节 点  类 型 ： 临 时 节 点  如 ： &#x2F;lock  否 创 建 成 功  获 得 锁  放 锁  删 除 锁 节 点">
+<img src="/2024/04/07/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/clip_image082.gif" class="" width="">
 
 <p>此种实现方式，只会存在一个锁节点。当创建锁节点时，如果锁节点不存在，则创建成功，代表当前线程获取到锁，如果创建锁节点失败，代表已经有其他线程获取到锁，则该</p>
 <p>线程会监听锁节点的释放。当锁节点释放后，则继续尝试创建锁节点加锁。</p>
@@ -500,7 +511,7 @@
 <p>这种方案的低效点就在于，只有一个锁节点，其他线程都会监听同一个锁节点，一旦锁节点释放后，其他线程都会收到通知，然后竞争获取锁节点。这种大量的通知操作会严重降低zookeeper性能，对于这种由于一个被watch的znode节点的变化，而造成大量的通知操作，叫做羊群效应。</p>
 <p>高效锁思想&amp;实现 </p>
 <p>为了避免羊群效应的出现，业界内普遍的解决方案就是，让获取锁的线程产生排队，后一个监听前一个，依次排序。推荐使用这种方式实现分布式锁。</p>
-<img src="/2024/04/07/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/clip_image084.gif" class="" title="开 始 务  获 取 锁 功  获 取 锁  刂 断 父 节 三  不 存 在  创 建 临 时 有 序 节 点  创 建 父 节 点  0 燙 韙 00- 。  获 取 锁  判 断 身 是 台 为 序 号  最 小 节  不 是 最 小 节  序 号 一 1 的 节  阝 且 蔗 等 彳 寺 前 置  节 中 删 除 通 知  收 前 置 节 点 剂 令 兰 知  0 过">
+<img src="/2024/04/07/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/clip_image084.gif" class="" width="">
 
 <p>1）定义HighLock类</p>
 <p>1.判断父节点是否存在，父节点不存在，创建持久节点</p>
@@ -540,12 +551,12 @@
 <p>业务执行时间的影响因素太多了，无法确定一个准确值，只能是一个估值。无法百分百保证业务执行期间，锁只能被一个线程占有。</p>
 <p>如想保证的话，可以在创建锁的同时创建一个守护线程，同时定义一个定时任务每隔一段时间去为未释放的锁增加过期时间。当业务执行完，释放锁后，再</p>
 <p>关闭守护线程。 这种实现思想可以用来解决锁续期。</p>
-<img src="/2024/04/07/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/clip_image088.gif" class="" title="业 务 节 中  1 〕 执 行 能  锁 ， 并 设 过  雖 时 河  一 锁 洹 一  疯 行 业 务  4 〕 放 锁  关 0 守 护 线  守 护 线 程  到 创 守 护 线 程  到 定 时 延 长 锁 洹 时 河">
+<img src="/2024/04/07/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/clip_image088.gif" class="" width="">
 
 <p>服务单点&amp;集群问题</p>
 <p>在单点redis虽然可以完成锁操作，可一旦redis服务节点挂掉了，则无法提供锁操作。</p>
 <p>在生产环境下，为了保证redis高可用，会采用<strong>异步复制</strong>方法进行主从部署。当主节点写入数据成功，会异步的将数据复制给从节点，并且当主节点宕机，从节点会被提升为主节点继续工作。假设主节点写入数据成功，在没有将数据复制给从节点时，主节点宕机。则会造成提升为主节点的从节点中是没有锁信息的，其他线程则又可以继续加锁，导致互斥失效。</p>
-<img src="/2024/04/07/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/clip_image090.gif" class="" title="client  redis master  redis slave  data">
+<img src="/2024/04/07/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/clip_image090.gif" class="" width="">
 
 <h1 id=""><a href="#" class="headerlink" title=""></a></h1><h3 id="Redisson实现分布式锁"><a href="#Redisson实现分布式锁" class="headerlink" title="Redisson实现分布式锁"></a>Redisson实现分布式锁</h3><p>redisson是redis官网推荐实现分布式锁的一个第三方类库。其内部完成的功能非常强大，对各种锁都有实现，同时对于使用者来说非常简单，让使用者能够将更多的关</p>
 <p>注点放在业务逻辑上。此处重点利用Redisson解决单机Redis锁产生的两个问题。</p>
@@ -1024,7 +1035,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">153.7k</span>
+                        class="white-color">156k</span>
             
             
             

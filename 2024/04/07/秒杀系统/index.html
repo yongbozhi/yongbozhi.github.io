@@ -407,14 +407,14 @@ SPU &amp;#x3D; Standard Product Unit  （标准产品单位）概念 : SPU 是�
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    9k
+                    9.7k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    31 分
+                    33 分
                 </div>
                 
 
@@ -434,7 +434,7 @@ SPU &amp;#x3D; Standard Product Unit  （标准产品单位）概念 : SPU 是�
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="项目架构"><a href="#项目架构" class="headerlink" title="项目架构"></a>项目架构</h1><img src="/2024/04/07/%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/clip_image002.gif" class="" title="Eureka  gi t hub  ConfigSezveE  ConfigServer  ConfigSecver  Keep alived  N ginx Master  N ginx Backup  Keep alived  Hystrix Dashboard  iJ 3;  MySQL  Eureka  oauth2.  Hyst ix &#x2F;  ff!j  MYSQL  My3QL  Redis  Eureka  Redis  SpringCIoud Bus  Redis">
+                <h1 id="项目架构"><a href="#项目架构" class="headerlink" title="项目架构"></a>项目架构</h1><img src="/2024/04/07/%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/clip_image002.gif" class="">
 
 <p>SPU与SKU</p>
 <p>SPU与SKU概念</p>
@@ -484,7 +484,7 @@ SPU &amp;#x3D; Standard Product Unit  （标准产品单位）概念 : SPU 是�
 <p>效率问题：获取两次键值就是两次请求，慢，导致这种问题的原因就是 Redis 的普通命令没有服务端计算的能力，无法在服务器进行复合命令操作，虽然有 Redis 也提供了 pipeline 的特性，但它需要多个命令的请求和响应之间没有依赖关系。想简化多个相互依赖的命令就只能将数据拉回客户端，由客户端处理后再请求 Redis。</p>
 <p>Lua脚本的执行。</p>
 <p><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000040160105">https://segmentfault.com/a/1190000040160105</a></p>
-<h3 id="多个用户请求的时候怎样保证redis中的数据是准确的"><a href="#多个用户请求的时候怎样保证redis中的数据是准确的" class="headerlink" title="多个用户请求的时候怎样保证redis中的数据是准确的"></a>多个用户请求的时候怎样保证redis中的数据是准确的</h3><img src="/2024/04/07/%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/clip_image008.gif" class="" title="img">
+<h3 id="多个用户请求的时候怎样保证redis中的数据是准确的"><a href="#多个用户请求的时候怎样保证redis中的数据是准确的" class="headerlink" title="多个用户请求的时候怎样保证redis中的数据是准确的"></a>多个用户请求的时候怎样保证redis中的数据是准确的</h3><img src="/2024/04/07/%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/clip_image008.gif" class="">
 
 <h3 id="并发量大加锁的话用户来了并发就会很慢怎么解决："><a href="#并发量大加锁的话用户来了并发就会很慢怎么解决：" class="headerlink" title="并发量大加锁的话用户来了并发就会很慢怎么解决："></a>并发量大加锁的话用户来了并发就会很慢怎么解决：</h3><p>预估机器资源，每个机器最大访问量多少，保证请求响应时间短，不要加特定的锁，成功就成功，失败就失败，多线程下单</p>
 <p>购物车提交订单时要做价格校验，一定以数据库为准</p>
@@ -493,9 +493,9 @@ SPU &amp;#x3D; Standard Product Unit  （标准产品单位）概念 : SPU 是�
 <p>加盐加密：就是人为的通过一组随机字符与用户原密码的组合形成一个新的字符</p>
 <p>服务器端怎样认证令牌正确性：服务端拿到令牌后，使用base64之后的头部的信息和载荷的信息与使用自身的秘钥（私钥）做加盐，在用头部声明的算法加密，与令牌的签名部分做对比，若相同，则说明认证成功</p>
 <p>这一步是直接让队列中的元素出来，并发是没有问题的，因为redis是单线程，不需要用分布式锁来互斥的获取</p>
-<img src="/2024/04/07/%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/clip_image010.jpg" class="" title="img">
+<img src="/2024/04/07/%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/clip_image010.jpg" class="">
 
-<img src="/2024/04/07/%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/clip_image012.jpg" class="" title="img">
+<img src="/2024/04/07/%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/clip_image012.jpg" class="">
 
 <p>没有库存的话直接同步到redis中</p>
 <p>redis中数据和mysql的数据怎么保持一致，redis中没有数据了，但是mysql中有，到底以哪为准，最终的信息以数据库中为准吗</p>
@@ -544,12 +544,12 @@ SPU &amp;#x3D; Standard Product Unit  （标准产品单位）概念 : SPU 是�
 <li>spring拦截 器限流如何实现</li>
 </ol>
 <p>15.验证码从0到1</p>
-<h2 id="表结构说明"><a href="#表结构说明" class="headerlink" title="表结构说明"></a>表结构说明</h2><h3 id="秒杀商品信息表"><a href="#秒杀商品信息表" class="headerlink" title="秒杀商品信息表"></a>秒杀商品信息表</h3><img src="/2024/04/07/%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/clip_image014.jpg" class="" title="CREATE  sup  sku  TABLE (  bigint(2e) NOT NULL AUTO INCREMENT,  id" alt="bigint(28) DEFAULT NULL COWENT  id">
+<h2 id="表结构说明"><a href="#表结构说明" class="headerlink" title="表结构说明"></a>表结构说明</h2><h3 id="秒杀商品信息表"><a href="#秒杀商品信息表" class="headerlink" title="秒杀商品信息表"></a>秒杀商品信息表</h3><img src="/2024/04/07/%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/clip_image014.jpg" class="">
 
-<h3 id="秒杀订单表"><a href="#秒杀订单表" class="headerlink" title="秒杀订单表"></a>秒杀订单表</h3><img src="/2024/04/07/%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/clip_image016.jpg" class="" title="CREATE TABLE (  • id" alt="bigint(2e) NOT NULL COMMENT  seckill bigint(28) DEFAULT NULL COMMENT ,  -money">
+<h3 id="秒杀订单表"><a href="#秒杀订单表" class="headerlink" title="秒杀订单表"></a>秒杀订单表</h3><img src="/2024/04/07/%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/clip_image016.jpg" class="">
 
 <h2 id="秒杀流程"><a href="#秒杀流程" class="headerlink" title="秒杀流程"></a>秒杀流程</h2><p>秒杀技术实现核心思想是运用缓存减少数据库瞬间的访问压力！读取商品详细信息时运用缓存，当用户点击抢购时减少缓存中的库存数量，当库存数为0时或活动期结束时，同步到数据库。 产生的秒杀预订单也不会立刻写到数据库中，而是先写到缓存，当用户付款成功后再写入数据库。</p>
-<img src="/2024/04/07/%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/clip_image018.gif" class="" title="img">
+<img src="/2024/04/07/%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/clip_image018.gif" class="">
 
 <h3 id="秒杀商品压入缓存实现"><a href="#秒杀商品压入缓存实现" class="headerlink" title="秒杀商品压入缓存实现"></a>秒杀商品压入缓存实现</h3><p>秒杀商品列表和秒杀商品详情都是从Redis中取出来的，所以我们首先要将符合参与秒杀的商品定时查询出来，并将数据存入到Redis缓存中。</p>
 <p>数据存储类型我们可以选择Hash类型。</p>
@@ -558,47 +558,56 @@ SPU &amp;#x3D; Standard Product Unit  （标准产品单位）概念 : SPU 是�
 <p>&#x2F;&#x2F; namespace &#x3D; SeckillGoods_20195712</p>
 <p>redisTemplate.boundHashOps(“SeckillGoods_”+extName).put(seckillGood.getId(),seckillGood);</p>
 <p>Redis数据如下：</p>
-<img src="/2024/04/07/%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/clip_image020.gif" class="" title=". oods 2019052422  xAC xED x00 x05t x00 x17Secki11Goods 2019052422  Size:  30 TTL:  Rename  row  2  3  4  5  6  7  8  10  11  12  13  14  15  16  17  18  19  key  value  changgou.  changgou.  changgou.  changgou.  changgou.  changgou.  changgou.  changgou.  changgou.  changgou.  changgou.  changgou.  changgou.  changgou.  changgou.  changgou.  changgou.  changgou.  changgou.  seckill.  seckill.  seckill.  seckill.  seckill.  seckill.  seckill.  seckill.  seckill.  seckill.  seckill.  seckill.  seckill.  seckill.  seckill.  seckill.  seckill.  seckill.  seckill.  • Secki 1 x02  POJ0.  • Secki 1 x02  POJ0.  • Secki 1 x02  POJ0.  • Secki 1 x02  POJ0.  • Secki 1 x02  POJ0.  • Secki 1 x02  POJ0.  • Secki 1 x02  POJ0.  • Secki 1 x02  POJ0.  • Secki 1 x02  POJ0.  • Secki 1 x02  POJ0.  • Secki 1 x02  POJ0.  • Secki 1 x02  POJ0.  • Secki 1 x02  POJ0.  • Secki 1 x02  POJ0.  • Secki 1 x02  POJ0.  • Secki 1 x02  POJ0.  • Secki 1 x02  POJ0.  • Secki 1 x02  POJ0.  • Secki 1 x02  POJ0.">
+<img src="/2024/04/07/%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/clip_image020.gif" class="">
 
 <p>SeckillGoodsCount—在我们对Redis进行操作的时候，很多时候，都是先将数据查询出来，在内存中修改，然后存入到Redis，在并发场景，会出现数据错乱问题，为了控制数量准确，我们单独将商品数量整一个自增键，自增键是线程安全的，所以不担心并发场景的问题。</p>
 <p>SeckillGoodsCountList—防止超卖放id的</p>
-<img src="/2024/04/07/%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/clip_image022.jpg" class="" title="for (Secki llGoods seckillGocn:i : seckillGoods) (  redi gTempIate. boundHashOps( key: . put (gecki I IGood. getld() , secki IIGood)  Longo ids &#x3D; pushlds (seckillGood. getStockCount secki llGood. getld())  redisTemplate. boundListOps( key: getld()) . leftPushAll(ids) ,  redisTempIatc. boundHashOps( key: SeckillGoodsCount-) . increment (seckil IGood. getld , secki IlGood. getStockCount . %}
+<img src="/2024/04/07/%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/clip_image022.jpg" class="">
 
-&lt;p&gt;将秒杀商品从数据库中查询出来，并存入到Redis缓存&lt;&#x2F;p&gt;
-&lt;p&gt;查询活动没结束的所有秒杀商品&lt;&#x2F;p&gt;
-&lt;p&gt;1)计算秒杀时间段&lt;&#x2F;p&gt;
-&lt;p&gt;2)状态必须为审核通过 status&#x3D;1&lt;&#x2F;p&gt;
-&lt;p&gt;3)商品库存个数&gt;0&lt;&#x2F;p&gt;
-&lt;p&gt;4)活动没有结束 endTime&gt;&#x3D;now()&lt;&#x2F;p&gt;
-&lt;p&gt;5)在Redis中没有该商品的缓存&lt;&#x2F;p&gt;
-&lt;p&gt;6)执行查询获取对应的结果集&lt;&#x2F;p&gt;
-&lt;p&gt;将活动没有结束的秒杀商品入库&lt;&#x2F;p&gt;
-{% asset_img clip_image024.jpg&quot; 定 时 任 务 方 法  3 &#x2F; ． 就 就 ？ ： 从 每 分 钟 的 第 3 秒 开 始 执 行 ， 每 过 秒 执 行 一  @Schedu1ed(cron">
+<p>将秒杀商品从数据库中查询出来，并存入到Redis缓存</p>
+<p>查询活动没结束的所有秒杀商品</p>
+<p>1)计算秒杀时间段</p>
+<p>2)状态必须为审核通过 status&#x3D;1</p>
+<p>3)商品库存个数&gt;0</p>
+<p>4)活动没有结束 endTime&gt;&#x3D;now()</p>
+<p>5)在Redis中没有该商品的缓存</p>
+<p>6)执行查询获取对应的结果集</p>
+<p>将活动没有结束的秒杀商品入库</p>
+<img src="/2024/04/07/%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/clip_image024.jpg" class="" width="">
 
 <h3 id="秒杀详情页"><a href="#秒杀详情页" class="headerlink" title="秒杀详情页"></a>秒杀详情页</h3><p>秒杀详情页需要根据商品ID查询商品详情，我们可以在频道页点击秒杀抢</p>
 <p>购的时候将时间和ID一起传到后台，然后根据ID去Redis中查询详情信息。</p>
 <h3 id="用户排队下单"><a href="#用户排队下单" class="headerlink" title="用户排队下单"></a>用户排队下单</h3><p>首先要判断用户是否重复排队：</p>
 <p>用户每次抢单的时候，一旦排队，我们设置一个自增值，让该值的初始值为1，每次进入抢单的时候，对它进行递增，如果值&gt;1，则表明已经排队,不允许重复排队,如果重复排队，则对外抛出异常，并抛出</p>
 <p>异常信息100表示已经正在排队。</p>
-<p>![COverride  public Boolean add (Long id, String time, String username) <a href="file:///C:/Users/zhiyo/AppData/Local/Temp/msohtmlclip1/01/clip_image026.jpg">  Long userQueueCount ¯ redisTemp1ate. boundHashOps( key: “UserQueueCount”) . increment (username,  if (userQueueCount&gt;1) {  h’100:  throw new RuntimeException(String_ valueOf(StatusCode. REPERROR’) </a></p>
+<p><img src="file:///C:/Users/zhiyo/AppData/Local/Temp/msohtmlclip1/01/clip_image026.jpg"></p>
 <p>若没有则进行排队，我们可以采用Redis的队列实现。 排队信息中需要有用户抢单的商品信息，主要包含商品ID，商品抢购时间段，用户登录名。</p>
-<img src="/2024/04/07/%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/clip_image028.jpg" class="" title="Secki11Status secki11Status -  id, time);  new Seckillstatus(username,  new Date(),l,  &#x2F; Redis* , , Listtgæ  redisTemp1ate. boundLis tops ( Seckill OrderQueue ) . leftPush(secki11Status);  multi Thread ingCreateOrder. createorder();">
+<img src="/2024/04/07/%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/clip_image028.jpg" class="" width="">
 
-<h3 id="多线程下单操作"><a href="#多线程下单操作" class="headerlink" title="多线程下单操作"></a>多线程下单操作</h3><img src="/2024/04/07/%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/clip_image030.gif" class="" title="存 储 商 品 完 整 信 息  R e d i s  引 ： k count:2  itle ． 华 为 笔 记 本  定 时 任 务  压 入 队 列 队 列  123  123  创 建 订 单  Reds 中 商 品 个 数 递 臧  队 列 中 0 i 123  good 引 123 商 品  秒 杀 下 单  存 雀  队 列 是  否 存 亡  不 存 亡">
+<h3 id="多线程下单操作"><a href="#多线程下单操作" class="headerlink" title="多线程下单操作"></a>多线程下单操作</h3><img src="/2024/04/07/%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/clip_image030.gif" class="" width="">
 
 <h3 id="防止超卖"><a href="#防止超卖" class="headerlink" title="防止超卖"></a>防止超卖</h3><p>可以利用Redis队列实现，给每件商品创建一个独立的商品个数队列</p>
 <p>每次给用户下单的时候，先从队列中取数据，如果能取到数据，则表明有库存，如果取不到，则表明没有库存。</p>
-<img src="/2024/04/07/%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/clip_image032.gif" class="" title="CAsync  public void createOrder ( ) {  Secki11Status secki11Status  try {  (Secki11Status) redisTemp1ate. boundListOps( key:  Secki11GoodsCountList Seckil 10rderQueue) . rightPop ( ) + secki11Status. getGoodsId ( ) ) . rightPop ( ) Object sgood &#x3D; redisTemp1ate. boundList0ps( key: if (sgood null) { cl earQueue (secki 11 Status) return ; &#x2F;&#x2F;i&#x2F;iiJ&#x2F;X&#x2F;iiJ secki11Status. getTime ( ) String time String username&#x3D;secki IIStatus. getUsername ( ) Long id secki 11 Status. getGoodsId ( ) (Secki11Goods) redisTemp1ate. boundHashOps( key: Secki 1 IGoods goods iT1)t new Secki110rder ( ) Secki 110rder secki 1 IOrder secki 110rder. setld (idWorker. nextld ( ) ) secki 110rder. setSecki111d (id) setMoney (goods. getCostPrice ( ) ) secki 1 IOrder. secki 1 IOrder. setUserId (username) secki110rder. setCreateTime (new Date ( ) ) secki110rder. setStatus (0) Secki 1 IGoods + time). get(id) f&#x2F;JRedi s 1&#x2F;1 redisTemp1ate. boundHash0ps ( key: Secki110rder) . put (username, secki 110rder) Long surplusCount &#x3D; redisTemp1ate. boundHash0ps( key: Secki11GoodsCount) . increment (id, Dj,h} goods. setStockCount (surplusCount. intVa1ue ( ) ) DiJDjÆ} if (surplusCount&lt;&#x3D;0) { 9&#x2F;41 2&#x2F;74!&#x2F;rdUbf&#x2F;JMySQL 1&#x2F;1 secki 1 IGoodsMapper. updateByPr imaryKeySe1 ect i ve (goods) i%V&#x2F;c- if s $4&#x2F;&#x2F;-1&#x2F;1 redisTemp1ate. boundHashOps ( key: Secki11Goods  } else {  QWiffChf&#x2F;JRei ds 1&#x2F;1  redisTemp1ate. boundHash0ps ( key: Secki11Goods secki IIStatus. setStatus (2) secki IIStatus. setOrderId (secki 110rder. getld ( ) ) + time). delete(id)  + time) . put (id, goods)  secki IIStatus. setMoney (secki 110rder. getMoney ( ) . floatVa1ue ( ) )  redisTemp1ate. boundHash0ps ( key: UserQueueStatus&quot;) . put (username, secki IIStatus) catch (Exception e) { e. printStackTrace ( ) * gparam seckil 1Sta tus public void clearQueue (Secki11Status secki11Status) { redisTemp1ate. boundHashOps ( key: redisTemp1ate. boundHashOps ( key: UserQueueCount) . delete (secki 11Status. getUsername ( ) ) UserQueueStatus) . delete (secki 11Status. getUsername ( ) ) %}
+<img src="/2024/04/07/%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/clip_image032.gif" class="" width="">
 
-&lt;h3 id&#x3D;goods-setStockCount-surplusCount-intValue-只是为了下面将数据重置到redis&quot;&gt;&lt;a href&#x3D;#goods-setStockCount-surplusCount-intValue-只是为了下面将数据重置到redis class&#x3D;headerlink title&#x3D;goods.setStockCount(surplusCount.intValue()) 只是为了下面将数据重置到redis&gt;&lt;&#x2F;a&gt;goods.setStockCount(surplusCount.intValue()) 只是为了下面将数据重置到redis&lt;&#x2F;h3&gt;&lt;p&gt;清理用户排队信息：UserQueueCount是为了防止用户重复抢单建立的&lt;&#x2F;p&gt; &lt;p&gt; UserQueueStatus是为了查询用户订单状态建立的&lt;&#x2F;p&gt; &lt;h3 id&#x3D;下单状态查询&gt;&lt;a href&#x3D;#下单状态查询 class&#x3D;headerlink title&#x3D;下单状态查询&gt;&lt;&#x2F;a&gt;下单状态查询&lt;&#x2F;h3&gt;&lt;p&gt;虽然可以实现用户下单异步操作，但是并不能确定下单是否成功，所以我们需要做一个页面判断，每过1秒钟查询一次下单状态,多线程下单的时&lt;&#x2F;p&gt; &lt;p&gt;候，需要修改抢单状态，支付的时候，清理抢单状态。&lt;&#x2F;p&gt; &lt;p&gt;排队信息不仅放到list集合中供抢单使用，也会放到一个hash中，供查询状态&lt;&#x2F;p&gt; {% asset_img clip_image034.jpg new SeckillStatus (username, new Date Status: l, id, time) .  SeckillStatus secki IIStatus -  ( key: I ;  rcdisTompIato. boundHashOps ( key: UserQucucStatus¯) . put (username. seckiIIStatus) %}
+<h3 id="goods-setStockCount-surplusCount-intValue-只是为了下面将数据重置到redis"><a href="#goods-setStockCount-surplusCount-intValue-只是为了下面将数据重置到redis" class="headerlink" title="goods.setStockCount(surplusCount.intValue()) 只是为了下面将数据重置到redis"></a>goods.setStockCount(surplusCount.intValue()) 只是为了下面将数据重置到redis</h3><p>清理用户排队信息：UserQueueCount是为了防止用户重复抢单建立的</p>
+<p>   UserQueueStatus是为了查询用户订单状态建立的</p>
+<h3 id="下单状态查询"><a href="#下单状态查询" class="headerlink" title="下单状态查询"></a>下单状态查询</h3><p>虽然可以实现用户下单异步操作，但是并不能确定下单是否成功，所以我们需要做一个页面判断，每过1秒钟查询一次下单状态,多线程下单的时</p>
+<p>候，需要修改抢单状态，支付的时候，清理抢单状态。</p>
+<p>排队信息不仅放到list集合中供抢单使用，也会放到一个hash中，供查询状态</p>
+<img src="/2024/04/07/%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/clip_image034.jpg" class="" width="">
 
-&lt;p&gt;多线程抢单后更新状态：&lt;&#x2F;p&gt;
-&lt;p&gt;0是排队，2是等待支付&lt;&#x2F;p&gt;
-{% asset_img clip_image036.jpg&quot; seekiIIStatus. setStatus (2)  setOrderld(seckillOrder. getld())  secki IStatus  setb%ney L " alt="Order. getoney floatValue ; redisTeapIate. boundHashOps( key: •UserOueueStatus•). put (usernatne. seckiIIStatus) %}
+<p>多线程抢单后更新状态：</p>
+<p>0是排队，2是等待支付</p>
+<img src="/2024/04/07/%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/clip_image036.jpg" class="" width="">
 
-&lt;h3 id&#x3D;后台可根据用户名查询抢单状态&quot;&gt;&lt;a href&#x3D;#后台可根据用户名查询抢单状态 class&#x3D;headerlink title&#x3D;后台可根据用户名查询抢单状态&gt;&lt;&#x2F;a&gt;后台可根据用户名查询抢单状态&lt;&#x2F;h3&gt;{% asset_img clip_image038.jpg public Secki11Status queryStatus(String username) {  return (Secki11Status) redisTemp1ate.boundHashOps(lJserQueueStatus&quot;) .get(username); %}
+<h3 id="后台可根据用户名查询抢单状态"><a href="#后台可根据用户名查询抢单状态" class="headerlink" title="后台可根据用户名查询抢单状态"></a>后台可根据用户名查询抢单状态</h3><img src="/2024/04/07/%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/clip_image038.jpg" class="" width="">
 
-&lt;h3 id&#x3D;订单支付&quot;&gt;&lt;a href&#x3D;#订单支付 class&#x3D;headerlink title&#x3D;订单支付&gt;&lt;&#x2F;a&gt;订单支付&lt;&#x2F;h3&gt;&lt;p&gt;创建支付二维码&lt;&#x2F;p&gt; &lt;p&gt;下单成功后，会跳转到支付选择页面，在支付选择页面要显示订单编号和订单金额，所以我们需要在下单的时候，将订单金额以及订单编号信息存储到用户查询对象中。&lt;&#x2F;p&gt; &lt;p&gt;选择微信支付后，会跳转到微信支付页面，微信支付页面会根据用户名查看用户秒杀订单，并根据用户秒杀订单的ID和钱数创建预支付信息并获取二维码信息，展示给用户看,此时页面每3秒查询一次支付状态，如果支付成功，需要修改订单状态信息。&lt;&#x2F;p&gt; &lt;p&gt;支付流程&lt;&#x2F;p&gt; {% asset_img clip_image040.gif @支 付 状 态 一 〉 n 。 ti 巧 -1  微 信 支 付  @二 维  O  网 关  1 下 单  Order—Hash  支 付 系 统  MySQL  订 单 入  Redi s—MySQL  秒 杀 系 统  4 s end  清 理 排 队  Redis  存 回 滚  清 理 排 队  成 功  L1st ner  昷 听 回 讠 周 支 、  send  delay  LIStener  delay  订 单 支 付 超 时  Redis  R dis 存 在 订 单  清 理 排 队 信 息  回 滚 存  10 S  微 信 支 付">
+<h3 id="订单支付"><a href="#订单支付" class="headerlink" title="订单支付"></a>订单支付</h3><p>创建支付二维码</p>
+<p>下单成功后，会跳转到支付选择页面，在支付选择页面要显示订单编号和订单金额，所以我们需要在下单的时候，将订单金额以及订单编号信息存储到用户查询对象中。</p>
+<p>选择微信支付后，会跳转到微信支付页面，微信支付页面会根据用户名查看用户秒杀订单，并根据用户秒杀订单的ID和钱数创建预支付信息并获取二维码信息，展示给用户看,此时页面每3秒查询一次支付状态，如果支付成功，需要修改订单状态信息。</p>
+<p>支付流程</p>
+<img src="/2024/04/07/%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/clip_image040.gif" class="">
 
 <p>1.用户抢单，经过秒杀系统实现抢单，下单后会将向MQ发送一个延时队列消</p>
 <p>息，包含抢单信息，延时半小时后才能监听到</p>
@@ -614,17 +623,17 @@ SPU &amp;#x3D; Standard Product Unit  （标准产品单位）概念 : SPU 是�
 <p>2.回调地址回调的时候，获取支付二维码指定的队列，将支付信息发送到</p>
 <p>指定队列中</p>
 <p>支付微服务的参数携带</p>
-<img src="/2024/04/07/%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/clip_image042.jpg" class="" title="Map paran new HashMap()  param. put ( •appid•, appid);  param. put ( •mch_id•, partner);  param. put (  •nonce_str•, FXPayUti l.  param. put (  • body • , ;  param. put ( •  out _ , get  param. put (  param. put (  •gpbi  • , •127.0.  param. put ( •notify_url•, notifyurl) ;  param. put ( • trade_type• .  •NATIVE) ; param. put ( •attach&quot;, JSON_ toJSQVString(parameter)) %}
+<img src="/2024/04/07/%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/clip_image042.jpg" class="" width="">
 
-&lt;p&gt;支付状态监听&lt;&#x2F;p&gt;
-&lt;p&gt;支付状态通过回调地址发送给MQ之后，我们需要在秒杀系统中监听支付信息（支付成功的状态码，success还是fail）&lt;&#x2F;p&gt;
-&lt;p&gt;如果用户支付成功，则修改订单信息（为了将订单信息放入mysql，先将”SeckillOrder”从redis中查出来，修改成已支付：1），并将订单入库，删除用户排队信息（”UserQueueCount”），清空redis中缓存（”SeckillOrder”），删除抢购状态信息(“UserQueueStatus”)&lt;&#x2F;p&gt;
-{% asset_img clip_image044.jpg&quot; @param out trade _ no  @param transaction_id  @param username  @Override  public void updatePayStatus(String out_trade_no,  Secki110rder secki110rder  (Seckillorder)  String username) {  redisTemp1ate. boundHashOps ( Seckillorder ) . get(username ) ;  secki110rder. setSta  secki110rder. setPayTime(new Date()) ;  secki110rderMapper. insertselective(seckillorder) ;  redisTemp1ate. boundHashOps ( Seckillorder&quot; ) . delete(username) ; redisTemp1ate. boundHashOps ( UserQueueCount ) . del ete ( username) ; redisTemp1ate. boundHashOps ( UserQueueStatus ) . delete( username) ; %}
+<p>支付状态监听</p>
+<p>支付状态通过回调地址发送给MQ之后，我们需要在秒杀系统中监听支付信息（支付成功的状态码，success还是fail）</p>
+<p>如果用户支付成功，则修改订单信息（为了将订单信息放入mysql，先将”SeckillOrder”从redis中查出来，修改成已支付：1），并将订单入库，删除用户排队信息（”UserQueueCount”），清空redis中缓存（”SeckillOrder”），删除抢购状态信息(“UserQueueStatus”)</p>
+<img src="/2024/04/07/%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/clip_image044.jpg" class="" width="">
 
-&lt;p&gt;如果用户支付失败，则关闭订单，删除订单信息，回滚库存，删除用户排队信息。&lt;&#x2F;p&gt;
-{% asset_img clip_image046.jpg&quot; @param username  @Override  public void closeOrder(String username) {  Secki11Status secki11Status &#x3D;  (Secki11Status)  redisTemp1ate. boundHashOps ( UserQueueStatus . get(username) ; Secki110rder secki110rder (Seckillorder) redisTemp1ate. boundHashOps ( Seckillorder ) . get(username ) ; if(secki11Status!&#x3D;nu11 &amp;&amp; secki110rder redis Templ ate. boundHashOps( Secki110rder ) . delete( username) ; Secki11Goods secki11Goods &#x3D; (Secki11Goods) redisTemp1ate. boundHashOps ( Secki11Goods_+secki11Status. getT ime() ) . get(secki11Status . getGoodsId ( ) ) ; e Secki11GoodsCount Secki11GoodsCountList&quot; if(secki11Goods&#x3D;&#x3D;nu11){ secki11Goods - secki11GoodsMapper. selectByPrimaryKey (secki11Status . getGoodsId ( ) ) ; Long surplusCount redisTemp1ate. boundHashOps ( Secki 11Good scount ) . increment( secki IIStatus. getGoodsId() , secki11Goods. setStockCount(surp1 usCount. intVa1ue()) ; redisTemp1ate. bound ListOps(Secki11GoodsCountList secki11Status . getGoodsId ( ) ) . leftPush(secki11Status . getGoodsId ) ; Windows Windowsc %}
+<p>如果用户支付失败，则关闭订单，删除订单信息，回滚库存，删除用户排队信息。</p>
+<img src="/2024/04/07/%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/clip_image046.jpg" class="">
 
-{% asset_img clip_image048.jpg&quot; img">
+<img src="/2024/04/07/%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/clip_image048.jpg" class="">
 
 <h3 id="用户超时半小时未支付关闭订单回滚库存"><a href="#用户超时半小时未支付关闭订单回滚库存" class="headerlink" title="用户超时半小时未支付关闭订单回滚库存"></a>用户超时半小时未支付关闭订单回滚库存</h3><p>1.创建一个过期队列 Queue1</p>
 <p>2.接收消息的队列  Queue2</p>
@@ -634,7 +643,7 @@ SPU &amp;#x3D; Standard Product Unit  （标准产品单位）概念 : SPU 是�
 <p>2)如果有订单信息，调用删除订单回滚库存-&gt;[需要先关闭微信支付]</p>
 <p>3)如果关闭订单时，用户已支付，修改订单状态即可</p>
 <p>4)如果关闭订单时，发生了别的错误，记录日志，人工处理</p>
-<h2 id="秒杀系统的设计思考"><a href="#秒杀系统的设计思考" class="headerlink" title="秒杀系统的设计思考"></a>秒杀系统的设计思考</h2><img src="/2024/04/07/%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/clip_image092.gif" class="" title="img">
+<h2 id="秒杀系统的设计思考"><a href="#秒杀系统的设计思考" class="headerlink" title="秒杀系统的设计思考"></a>秒杀系统的设计思考</h2><img src="/2024/04/07/%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/clip_image092.gif" class="">
 
 
 
@@ -764,7 +773,7 @@ SPU &amp;#x3D; Standard Product Unit  （标准产品单位）概念 : SPU 是�
 <p>4、写校验：对写请求做一致性校验，只保留最终的有效数据</p>
 <h3 id="2-Plan-B"><a href="#2-Plan-B" class="headerlink" title="2 Plan B"></a>2 Plan B</h3><p>在秒杀这一场景下，为了保证系统的高可用，必须设计一个 Plan B 方案来进行兜底。</p>
 <p>高可用建设，其实是一个系统工程，贯穿在系统建设的整个生命周期。</p>
-<img src="/2024/04/07/%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/clip_image094.gif" class="" title="img">
+<img src="/2024/04/07/%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/clip_image094.gif" class="">
 
 <p>具体来说，系统的高可用建设涉及架构阶段、编码阶段、测试阶段、发布阶段、运行阶段，以及故障发生时，逐一进行分析：</p>
 <ol>
@@ -1220,7 +1229,7 @@ SPU &amp;#x3D; Standard Product Unit  （标准产品单位）概念 : SPU 是�
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">153.7k</span>
+                        class="white-color">156k</span>
             
             
             

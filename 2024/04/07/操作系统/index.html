@@ -433,13 +433,13 @@
 <p>从用户空间到内核空间有两种触发手段：</p>
 <p>1.用户空间的应用程序，通过系统调用，进入内核空间。这个时候用户空间的进程要传递很多变量、参数的值给内核，内核态运行的时候也要保存用户进程的一些寄存器值、变量等。所谓的“进程上下文”，可以看作是用户进程传递给内核的这些参数以及内核要保存的那一整套的变量和寄存器值和当时的环境等。</p>
 <p>2.硬件通过触发信号，导致内核调用中断处理程序，进入内核空间。这个过程中，硬件的一些变量和参数也要传递给内核，内核通过这些参数进行中断处理。所谓的“中断上下文”，其实也可以看作就是硬件传递过来的这些参数和内核需要保存的一些其他环境（主要是当前被打断执行的进程环境）。</p>
-<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image001.jpg" class="" title="img">
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image001.jpg" class="">
 
-<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image002.jpg" class="" title="img">
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image002.jpg" class="">
 
-<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image003.jpg" class="" title="img">
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image003.jpg" class="">
 
-<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image004.jpg" class="" title="img">
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image004.jpg" class="">
 
 <h1 id="进程和线程"><a href="#进程和线程" class="headerlink" title="进程和线程"></a>进程和线程</h1><h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><ul>
 <li>什么是进程</li>
@@ -491,31 +491,31 @@
 <p>**a.**<strong>地址空间和其它资源</strong>：进程间拥有独立内存，进程是资源分配的基本单位；线程隶属于某一进程，且同一进程的各线程间共享内存（资源），线程是cpu调度的基本单位。 进程间相互独立，同一进程的各线程间共享。某进程内的线程在其它进程不可见。</p>
 <p>**b.**<strong>通信：</strong>进程间相互独立，通信困难，常用的方法有：管道，信号，套接字，共享内存，消息队列等；线程间可以直接读写进程数据段（如全局变量）来进行通信——需要进程同步和互斥手段的辅助，以保证数据的一致性。 </p>
 <p>**c.**<strong>调度和切换</strong>：线程上下文切换比进程上下文切换要快。进程间切换要保存上下文，加载另一个进程；而线程则共享了进程的上下文环境，切换更快。</p>
-<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image005.jpg" class="" title="img">
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image005.jpg" class="">
 
-<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image006.jpg" class="" title="img">
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image006.jpg" class="">
 
-<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image008.jpg" class="" title="线 程 的 优 点 ：  。 一 个 进 程 中 可 以 同 时 存 在 个 线 程 ；  。 各 个 线 程 之 间 可 以 并 发 执 行 ；  。 各 个 线 程 之 间 可 以 共 享 地 址 空 间 和 文 件 等 资 源 ；  线 程 的 缺 点 ：  能 当 进 程 中 的 一 个 线 程 崩 溃 时 ， 会 导 致 其 所 属 进 程 的 所 有 线 程 崩 溃 。">
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image008.jpg" class="" width="">
 
-<h2 id="线程间通信方式"><a href="#线程间通信方式" class="headerlink" title="线程间通信方式"></a>线程间通信方式</h2><img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image009.jpg" class="" title="img">
+<h2 id="线程间通信方式"><a href="#线程间通信方式" class="headerlink" title="线程间通信方式"></a>线程间通信方式</h2><img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image009.jpg" class="">
 
 <p>共享存储：基于数据结构：eg.在共享空间放数组</p>
 <p>基于存储区：在内存区中画出一片共享存储区，数据的形式和存放位置由进程决定</p>
-<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image010.jpg" class="" title="img">
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image010.jpg" class="">
 
-<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image011.jpg" class="" title="img">
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image011.jpg" class="">
 
-<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image012.jpg" class="" title="img">
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image012.jpg" class="">
 
-<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image013.jpg" class="" title="img">
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image013.jpg" class="">
 
-<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image014.jpg" class="" title="img">
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image014.jpg" class="">
 
-<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image015.jpg" class="" title="img">
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image015.jpg" class="">
 
-<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image016.jpg" class="" title="img">
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image016.jpg" class="">
 
-<h2 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h2><img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image017.jpg" class="" title="img">
+<h2 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h2><img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image017.jpg" class="">
 
 <p>死锁的定义</p>
 <p>一组进程中，<strong>每个进程都无限等待被该组进程中另一进程所占有的资源</strong>，因而永远无法得到的资源，这种现象称为进程死锁，这一组进程就称为死锁进程。</p>
@@ -526,21 +526,21 @@
 <p>(4)循环等待：存在一个进程等待队列 {P1 , P2 , … , Pn}，其中P1等待P2占有的资源，P2等待P3占有的资源，…，Pn等待P1占有的资源，形成一个进程等待环路。</p>
 <p>以哲学家进餐问题为例，我占着筷子，你们不能抢我的，我还想要另一只筷子，形成一个圈。            (互斥)   (不可剥夺)   (请求和保持)    (循环等待)</p>
 <p> 什么情况会发生死锁</p>
-<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image018.jpg" class="" title="img">
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image018.jpg" class="">
 
 <p>死锁预防</p>
-<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image019.jpg" class="" title="img">
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image019.jpg" class="">
 
 <p> 死锁避免</p>
-<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image021.jpg" class="" title="img">
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image021.jpg" class="">
 
 <p> 死锁检测与消除</p>
-<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image022.jpg" class="" title="img">
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image022.jpg" class="">
 
 <p><a target="_blank" rel="noopener" href="https://www.huaweicloud.com/articles/9fa2f8ad06587f13ca7f11ec4d9a5077.html">https://www.huaweicloud.com/articles/9fa2f8ad06587f13ca7f11ec4d9a5077.html</a></p>
-<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image023.jpg" class="" title="img">
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image023.jpg" class="">
 
-<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image024.jpg" class="" title="img">
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image024.jpg" class="">
 
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_46527915/category_10424299.html">https://blog.csdn.net/qq_46527915/category_10424299.html</a></p>
 <p>线程之间同步的方式</p>
@@ -551,27 +551,27 @@
 <p>在用CreateSemaphore()创建信号量时即要同时指出允许的最大资源计数和当前可用资源计数。一般是将当前可用资源计数设置为最大资源计数，每增加一个线程对共享资源的访问，当前可用资源计数就会减1 ，只要当前可用资源计数是大于0 的，就可以发出信号量信号。但是当前可用计数减小到0时则说明当前占用资源的线程数已经达到了所允许的最大数目，不能在允许其他线程的进入，此时的信号量信号将无法发出。线程在处理完共享资源后，应在离开的同时通过ReleaseSemaphore （）函数将当前可用资源计数加1 。在任何时候当前可用资源计数决不可能大于最大资源计数。</p>
 <p>4、 事件（CEvent）</p>
 <p>事件机制，则允许一个线程在处理完一个任务后，主动唤醒另外一个线程执行任务。比如在某些网络应用程序中，一个线程如A负责侦听通信端口，另外一个线程B负责更新用户数据，利用事件机制，则线程A可以通知线程B何时更新用户数据。</p>
-<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image025.jpg" class="" title="img">
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image025.jpg" class="">
 
-<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image026.jpg" class="" title="img">
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image026.jpg" class="">
 
-<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image027.jpg" class="" title="img">
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image027.jpg" class="">
 
-<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image028.jpg" class="" title="img">
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image028.jpg" class="">
 
-<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image029.jpg" class="" title="img">
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image029.jpg" class="">
 
-<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image030.jpg" class="" title="img">
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image030.jpg" class="">
 
-<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image031.jpg" class="" title="img">
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image031.jpg" class="">
 
-<h2 id="进程调度"><a href="#进程调度" class="headerlink" title="进程调度"></a>进程调度</h2><img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image032.jpg" class="" title="img">
+<h2 id="进程调度"><a href="#进程调度" class="headerlink" title="进程调度"></a>进程调度</h2><img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image032.jpg" class="">
 
-<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image033.jpg" class="" title="img">
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image033.jpg" class="">
 
-<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image034.jpg" class="" title="img">
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image034.jpg" class="">
 
-<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image035.jpg" class="" title="img">
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image035.jpg" class="">
 
 <h2 id="线程优先级"><a href="#线程优先级" class="headerlink" title="线程优先级"></a>线程优先级</h2><p>线程优先级的<strong>范围是****1~10</strong>。一个线程的<strong>默认优先级是****5</strong>，可以在构建线程时，通过**setPriority()**修改该线程的优先级。优先级高的线程分配时间片的数量会高于优先级低的线程。</p>
 <p>​    一般来说对于频繁阻塞的线程需要设置优先级高点，而偏重计算的线程优先级会设置低些，确保处理器不会被独占。</p>
@@ -579,18 +579,18 @@
 <h2 id="守护线程"><a href="#守护线程" class="headerlink" title="守护线程"></a>守护线程</h2><p>守护线程是一种支持型的线程，我们之前创建的线程都可以称之为用户线程。通过守护线程可以完成一些支持性的工作，如GC、分布式锁续期。守护线程会伴随着用户线程的结束而结束。</p>
 <p>对于守护线程的创建，可以通过setDaemon()设置。</p>
 <p>当线程实例没有被设置为守护线程时，该线程并不会随着主线程的结束而结束。但是当被设置为守护线程后，当主线程结束，该线程也会伴随着结束。同时守护线程不一定会执行finally代码块。所以当线程被设定为守护线程后，无法确保清理资源等操作一定会被执行。</p>
-<h2 id="线程状态"><a href="#线程状态" class="headerlink" title="线程状态"></a>线程状态</h2><p><img src="/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image037.jpg" alt="Object.wait()  Objectjoin()  LockSupportprk()  《 实 例 化  初 始  (NEW)  T “ d 对 酾 0  (RUNNABLE)  运 行 中  (RUNNING)  等 待  (WAITING)  Objectnotify()  Object.notifyAllO  L&#39;EkSupm»rt.unvx•rk(Thread)  系 统 调 度  yield()  系 统 调 度  就 *(READY)  执 行 完 成  终 上  (TERMINATED)  Obiect.waiulong)  Thread.join(long)  LockSupport.parkNanos()  LockSupport.parktJntil()  超 时 等 待  (TIMED WAITING)  （ j “ 上 n 《 下 0  （ 讣 卞 0 ． n fyAll()  L&#39;RkSupport.unpark(Thread)  超 进 时 间 到  等 待 进 入 、 yn 山 ronized 方 法  获 取 到 锁 等 待 进 入 “ niz 块  阻 塞  (BLOCKED)  由 上 图 可 以 看 出 ： 线 程 创 建 之 后 它 将 处 于 NEW （ 新 建 ） 状 态 ， 调 用 start() 方 法 后 开 始 运 行 ，  线 程 这 时 候 处 于 READY （ 可 运 行 ） 状 态 。 可 运 行 状 态 的 线 程 获 得 了 CPU 时 间 片 (timeslice)  后 就 处 于 RUNNING （ 运 行 ） 状 态 。 "><img src="/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image039.jpg" alt="状 态 名 称  NEW  RUNNABLE  BLOCKED  WAITING  TIME WAITING  TERMINATED  初 始 状 态 ， 线 程 被 构 建 ， 但 是 还 没 有 调 用 start() 方 法  运 行 状 态  ， Java 线 程 将 作 系 统 中 的 就 绪 和 运 行 两 种 状 态 花 统 地 你 作 “ 运 行 中 &quot;  阻 不 状 态 ．  表 示 线 程 阻 寒 于 锁  等 待 状 态 ， 表 示 线 程 进 人 等 待 状 态 ， 进 人 该 状 态 表 示 当 前 线 程 需 要 等 待 其 他 线 程  做 出 一 些 特 定 动 作 （ 通 知 或 中 断 ）  超 时 等 侍 状 态 ， 该 状 态 不 同 于 WA 仃 ING ， 它 是 可 以 在 指 定 的 时 间 自 行 返 回 的  这 Il ． 态 ， 表 示 当 前 线 已 经 执 行 完 毕 "></p>
-<h2 id="线程安全活跃态问题以及竞态条件"><a href="#线程安全活跃态问题以及竞态条件" class="headerlink" title="线程安全活跃态问题以及竞态条件"></a>线程安全活跃态问题以及竞态条件</h2><img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image041.jpg" class="" title="1 ． 线 程 安 全 的 活 跃 性 问 题 可 以 分 为 死 锁 、 活 锁 、 饥 饿  1 ． 活 锁 就 是 有 时 线 程 虽 然 没 有 发 生 阻 塞 ， 但 是 仍 然 会 存 在 执 行 不 下 去 的 情 况 ， 活 锁 不 会 阻 塞 线 程 ， 线 程 会 一  直 重 复 执 行 某 个 相 同 的 操 作 ， 并 且 一 直 失 败 重 试  1 ． 我 们 开 发 中 使 用 的 异 步 消 息 队 列 就 有 可 能 造 成 活 锁 的 问 题 ， 在 消 息 队 列 的 消 费 端 如 果 没 有 正 确 的 旦  消 息 ， 并 目 执 行 过 程 中 报 错 了 ， 就 会 冉 次 放 回 消 息 头 ， 然 后 冉 拿 出 来 执 行 ， 一 直 循 环 往 复 的 失 败 。 这  个 问 题 除 了 正 确 的 匹 之 外 ， 往 往 是 通 i 寻 失 败 的 息 放 入 到 延 时 队 列 中 ， 等 到 一 定 的 延 时 冉 进 行 重  试 来 解 决 。  2 ．  几 的 时 间 就 可 以 ， 会 按 时 间  去 重 试">
+<h2 id="线程状态"><a href="#线程状态" class="headerlink" title="线程状态"></a>线程状态</h2><p><img src="/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image037.jpg" alt=" "><img src="/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image039.jpg" alt=" "></p>
+<h2 id="线程安全活跃态问题以及竞态条件"><a href="#线程安全活跃态问题以及竞态条件" class="headerlink" title="线程安全活跃态问题以及竞态条件"></a>线程安全活跃态问题以及竞态条件</h2><img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image041.jpg" class="" width="">
 
-<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image043.jpg" class="" title="2 ． 饥 饿 就 是 线 程 因 无 法 访 问 所 需 资 氵 原 而 无 氵 去 执 行 下 去 的 情 况  1 ， 饥 饿 分 为 两 种 情 况 ：  1 ． 一 种 是 具 他 的 线 程 在 临 界 区 做 了 无 限 循 环 競 无 限 制 等 待 资 源 的 操 作 ， 让 其 他 的 线 程 一 直 不 能 拿 到  锁 进 入 临 界 区 ， 对 其 他 线 程 来 说 ， 就 进 入 了 饥 饿 状 态  2 ． 另 一 种 是 因 为 线 程 优 先 级 不 合 理 的 分 配 ， 导 致 部 分 线 程 始 终 无 法 获 取 到 CPU 资 源 而 一 直 无 法 执 行  2 ． 解 决 饥 饿 的 问 题 有 几 种 方 案 ．  1 ． 保 证 资 源 充 足 ， 很 多 场 景 下 ， 资 源 的 稀 缺 性 无 法 解 决  2 ． 公 平 分 配 资 源 ， 在 并 发 编 程 里 使 用 公 平 锁 ， 例 如 FIFO 策 略 ， 线 程 等 待 是 有 顺 序 的 ， 排 在 等 待 队 列  前 面 的 线 程 会 优 先 获 得 资 源  3 ， 免 持 有 锁 的 线 程 长 时 间 执 行 ， 很 多 场 景 下 ， 持 有 锁 的 线 程 的 执 行 时 间 也 很 难 缩 短  3 ． 死 锁 线 程 在 对 同 一 把 锁 进 行 竟 争 的 时 候 ， 未 抢 占 到 锁 的 纟 呈 会 等 待 持 有 锁 的 线 程 释 放 锁 后 继 纟 仓 占 ， 如  果 两 个 或 两 个 以 上 的 纟 呈 互 相 持 有 对 方 将 要 抢 占 的 锁 ， 互 相 等 待 对 方 先 行 释 放 锁 就 会 进 入 到 一 个 循 环 等 待  的 过 程 ， 这 个 过 程 就 叫 做 死 锁">
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image043.jpg" class="" width="">
 
-<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image045.jpg" class="" title="2 、 线 程 安 全 的 竟 态 条 件 问 题  1 ． 同 一 个 程 序 多 线 程 访 问 同 一 个 资 源 ， 如 果 对 资 源 的 访 问 顺 序 敏 感 ， 就 称 存 在 竞 态 条 件 ， 代 码 区 成 为 临 界  区 。 大 多 数 并 发 错 误 一 样 ， 竟 态 条 件 不 总 是 会 产 生 问 题 ， 还 需 要 不 恰 当 的 执 行 时 序  2 ， 最 常 见 的 竟 态 条 件 为  1 ． 先 检 测 后 执 行 执 行 依 赖 于 检 测 的 结 果 ， 而 检 测 结 果 依 赖 于 多 个 线 程 的 执 行 时 序 ， 而 多 个 线 程 的 执 行 时  序 通 帛 情 况 下 是 不 固 定 不 可 判 断 的 ， 从 而 导 致 执 行 结 果 出 现 各 种 问 题 ， 见 一 种 可 能 的 解 决 办 法 就 是 ．  在 一 个 纟 呈 修 改 访 问 一 个 状 态 时 ， 要 防 止 其 他 线 程 访 问 修 改 ， 也 就 是 加 锁 机 制 ， 保 证 原 子 性  2 ． 延 迟 初 始 化 （ 典 型 为 单 例 ）">
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image045.jpg" class="" width="">
 
-<h2 id="多级反馈队列调度算法"><a href="#多级反馈队列调度算法" class="headerlink" title="多级反馈队列调度算法"></a>多级反馈队列调度算法</h2><img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image046.jpg" class="" title="img">
+<h2 id="多级反馈队列调度算法"><a href="#多级反馈队列调度算法" class="headerlink" title="多级反馈队列调度算法"></a>多级反馈队列调度算法</h2><img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image046.jpg" class="">
 
-<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image047.jpg" class="" title="img">
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image047.jpg" class="">
 
-<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image049.gif" class="" title="img">
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image049.gif" class="">
 
 <h2 id="孤儿进程，僵尸进程"><a href="#孤儿进程，僵尸进程" class="headerlink" title="孤儿进程，僵尸进程"></a>孤儿进程，僵尸进程</h2><p><strong>孤儿进程：一个父进程退出，而它的一个或多个子进程还在运行，那么那些子进程将成为孤儿进程。孤儿进程将被init进程(进程号为1)所收养，并由init进程对它们完成状态收集工作。</strong></p>
 <p><strong>僵尸进程：一个进程使用fork创建子进程，如果子进程退出，而父进程并没有调用wait或waitpid获取子进程的状态信息，那么子进程的进程描述符仍然保存在系统中。这种进程称之为僵死进程。</strong></p>
@@ -622,56 +622,56 @@
 <p><a href="onenote:#内存管理&section-id={7168EEEF-275B-413A-9384-A420806C9C4F}&page-id={9B7BA1DC-0CC3-41C0-A8E0-09388B487078}&object-id={2FB06EC1-4084-4E60-9B5D-D762ABB54D5D}&89&base-path=https://d.docs.live.net/73ef43393996c94e/文档/java/操作系统.one">多级页表</a></p>
 <p><a href="onenote:#内存管理&section-id={7168EEEF-275B-413A-9384-A420806C9C4F}&page-id={9B7BA1DC-0CC3-41C0-A8E0-09388B487078}&object-id={2FB06EC1-4084-4E60-9B5D-D762ABB54D5D}&C4&base-path=https://d.docs.live.net/73ef43393996c94e/文档/java/操作系统.one">段页式内存管理</a></p>
 <p><a href="onenote:#内存管理&section-id={7168EEEF-275B-413A-9384-A420806C9C4F}&page-id={9B7BA1DC-0CC3-41C0-A8E0-09388B487078}&object-id={2FB06EC1-4084-4E60-9B5D-D762ABB54D5D}&DD&base-path=https://d.docs.live.net/73ef43393996c94e/文档/java/操作系统.one">总结</a></p>
-<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image050.jpg" class="" title="img">
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image050.jpg" class="">
 
 <p> 内存分段</p>
-<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image051.jpg" class="" title="img">
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image051.jpg" class="">
 
-<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image052.jpg" class="" title="img">
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image052.jpg" class="">
 
-<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image053.jpg" class="" title="img">
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image053.jpg" class="">
 
-<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image054.jpg" class="" title="img">
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image054.jpg" class="">
 
-<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image056.jpg" class="" title="再 来 看 看 ， 分 段 为 什 么 会 寻 致 内 存 交 换 效 率 低 的 问 ？  对 于 弓 进 程 的 系 统 来 说 ， 用 分 段 的 方 式 ， 内 存 碎 片 是 很 容 易 产 生 的 ， 产 生 了 内 存 碎 片 ， 那 不  得 不 申 新 Swap 内 存 区 域 ， 这 个 过 程 会 产 生 性 能 瓶 颈 。  因 为 硬 盘 的 访 闷 速 度 要 比 内 存 慢 太 了 ， 每 一 次 内 存 交 换 ， 我 们 都 需 要 把 一 大 段 连 续 的 内 存  数 踞 写 到 硬 盘 上 。  所 以 ， 如 果 内 存 交 挨 的 时 候 ， 交 挨 的 是 一 个 占 内 存 空 间 很 大 的 程 序 ， 这 样 整 个 机 器 都 会 显 得  为 了 解 决 内 存 分 殿 的 内 存 碎 片 和 内 存 交 涣 效 率 低 的 闷 ， 就 出 现 了 内 存 分 页 。">
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image056.jpg" class="" width="">
 
 <p>内存分页</p>
-<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image057.jpg" class="" title="img">
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image057.jpg" class="">
 
-<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image058.jpg" class="" title="img">
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image058.jpg" class="">
 
-<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image059.jpg" class="" title="img">
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image059.jpg" class="">
 
-<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image060.jpg" class="" title="img">
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image060.jpg" class="">
 
 <p>多级页表</p>
-<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image061.jpg" class="" title="img">
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image061.jpg" class="">
 
-<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image062.jpg" class="" title="img">
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image062.jpg" class="">
 
-<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image063.jpg" class="" title="img">
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image063.jpg" class="">
 
-<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image064.jpg" class="" title="img">
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image064.jpg" class="">
 
-<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image065.jpg" class="" title="img">
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image065.jpg" class="">
 
-<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image066.jpg" class="" title="img">
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image066.jpg" class="">
 
 <p> 段页式内存管理</p>
-<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image067.jpg" class="" title="img">
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image067.jpg" class="">
 
-<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image068.jpg" class="" title="img">
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image068.jpg" class="">
 
-<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image069.jpg" class="" title="img">
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image069.jpg" class="">
 
 <p>总结</p>
-<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image070.jpg" class="" title="img">
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image070.jpg" class="">
 
-<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image071.jpg" class="" title="img">
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image071.jpg" class="">
 
-<h2 id="快表和多级页表"><a href="#快表和多级页表" class="headerlink" title="快表和多级页表"></a>快表和多级页表</h2><img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image072.jpg" class="" title="img">
+<h2 id="快表和多级页表"><a href="#快表和多级页表" class="headerlink" title="快表和多级页表"></a>快表和多级页表</h2><img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image072.jpg" class="">
 
-<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image073.jpg" class="" title="img">
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image073.jpg" class="">
 
 <h2 id="虚拟内存"><a href="#虚拟内存" class="headerlink" title="虚拟内存"></a>虚拟内存</h2><p>局部性原理</p>
 <p>在CPU访问寄存器时，无论是存取数据抑或存取指令，都趋于聚集在一片连续的区域中，这就被称为局部性原理。 </p>
@@ -681,60 +681,60 @@
 <p>如果一个存储器的位置被引用，那么将来他附近的位置也会被引用。</p>
 <p>基于局部性原理，在程序装入时，可以将程序的一部分装入内存，而将其余部分留在外存，就可以启动程序执行。在程序执行过程中，当所访问的信息不在内存时，由操作系统将所需要的部分调入内存,然后继续执行程序。另一方面，操作系统将内存中暂时不使用的内容换出到外存上，从而腾出空间存放将要调入内存的信息。这样，系统好像为用户提供了一个比实际内存大得多的存储器，称为虚拟存储器。</p>
 <p>之所以将其称为虚拟存储器，是因为这种存储器实际上并不存在，只是由于（对用户完全透明），给用户的感觉是好像存在一个比实际物理内存大得多的存储器。虚拟存储器的大小由计算机的地址结构决定，并非是内存和外存的简单相加。 </p>
-<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image074.jpg" class="" title="img">
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image074.jpg" class="">
 
-<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image075.jpg" class="" title="img">
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image075.jpg" class="">
 
-<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image076.jpg" class="" title="img">
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image076.jpg" class="">
 
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/lvyibin890/article/details/82217193">https://blog.csdn.net/lvyibin890/article/details/82217193</a></p>
-<h2 id="页错误"><a href="#页错误" class="headerlink" title="页错误"></a>页错误</h2><img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image077.jpg" class="" title="img">
+<h2 id="页错误"><a href="#页错误" class="headerlink" title="页错误"></a>页错误</h2><img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image077.jpg" class="">
 
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/lqy971966/article/details/106910442">https://blog.csdn.net/lqy971966/article/details/106910442</a></p>
-<h2 id="时钟置换算法"><a href="#时钟置换算法" class="headerlink" title="时钟置换算法"></a>时钟置换算法</h2><img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image078.jpg" class="" title="img">
+<h2 id="时钟置换算法"><a href="#时钟置换算法" class="headerlink" title="时钟置换算法"></a>时钟置换算法</h2><img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image078.jpg" class="">
 
-<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image079.jpg" class="" title="img">
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image079.jpg" class="">
 
-<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image080.jpg" class="" title="img">
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image080.jpg" class="">
 
 <h2 id="LRU算法"><a href="#LRU算法" class="headerlink" title="LRU算法"></a>LRU算法</h2><p>LRU 存储是基于双向链表实现的，下面的图演示了它的原理。其中 h 代表双向链表的表头，t 代表尾部。首先预先设置 LRU 的容量，如果存储满了，可以通过 O(1) 的时间淘汰掉双向链表的尾部，每次新增和访问数据，都可以通过 O(1)的效率把新的节点增加到对头，或者把已经存在的节点移动到队头。</p>
-<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image081.jpg" class="" title="img">
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image081.jpg" class="">
 
 <p>1.save(key, value)，首先在 HashMap 找到 Key 对应的节点，如果节点存在，更新节点的值，并把这个节点移动队头。如果不存在，需要构造新的节点，并且尝试把节点塞到队头，如果LRU空间不足，则通过 tail 淘汰掉队尾的节点，同时在 HashMap 中移除 Key。</p>
 <p>2.get(key)，通过 HashMap 找到 LRU 链表节点，把节点插入到队头，返回缓存的值。 </p>
 <h1 id="IO模型"><a href="#IO模型" class="headerlink" title="IO模型"></a>IO模型</h1><p>阻塞IO，非阻塞IO，IO多路复用，事件响应IO，异步IO</p>
-<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image082.jpg" class="" title="img">
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image082.jpg" class="">
 
-<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image083.jpg" class="" title="img">
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image083.jpg" class="">
 
-<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image084.jpg" class="" title="img">
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image084.jpg" class="">
 
-<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image085.jpg" class="" title="img">
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image085.jpg" class="">
 
-<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image086.jpg" class="" title="img">
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image086.jpg" class="">
 
-<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image087.jpg" class="" title="img">
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image087.jpg" class="">
 
-<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image088.jpg" class="" title="img">
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image088.jpg" class="">
 
-<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image089.jpg" class="" title="img">
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image089.jpg" class="">
 
-<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image090.jpg" class="" title="img">
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image090.jpg" class="">
 
-<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image091.jpg" class="" title="img">
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image091.jpg" class="">
 
-<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image092.jpg" class="" title="img">
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image092.jpg" class="">
 
-<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image093.jpg" class="" title="img">
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image093.jpg" class="">
 
-<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image094.jpg" class="" title="img">
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image094.jpg" class="">
 
-<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image095.jpg" class="" title="img">
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image095.jpg" class="">
 
-<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image096.jpg" class="" title="img">
+<img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image096.jpg" class="">
 
 <p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/115912936">https://zhuanlan.zhihu.com/p/115912936</a></p>
-<h1 id="中断"><a href="#中断" class="headerlink" title="中断"></a>中断</h1><img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image098.jpg" class="" title="臊 作 系 统 收 到 了 中 断 求 ， 会 打 断 其 他 进 程 的 运 行 ， 所 以 中 断 谴 求 的 应 程 序 ， 也 就 是 中 断  处 理 程 序 ， 要 尽 可 能 快 的 执 行 完 ， 这 样 可 以 少 对 正 常 进 程 运 行 调 度 地 影 。">
+<h1 id="中断"><a href="#中断" class="headerlink" title="中断"></a>中断</h1><img src="/2024/04/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/clip_image098.jpg" class="" width="">
                 
             </div>
             <hr/>
@@ -1172,7 +1172,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">153.7k</span>
+                        class="white-color">156k</span>
             
             
             
