@@ -7,7 +7,7 @@ mathjax: true
 date: 2024-04-08 23:16:39
 password:
 summary:
-tags: java面试,linux命令]
+tags: [java面试,linux命令]
 categories: java面经
 ---
 
