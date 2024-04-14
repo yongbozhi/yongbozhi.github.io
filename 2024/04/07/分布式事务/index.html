@@ -454,15 +454,19 @@
 <p>如果都正常的话，TCC 分布式事务框架推进执行 Confirm 逻辑，完成整个事务。</p>
 <p>如果某个服务的 Try 逻辑有问题，TCC 分布式事务框架感知到之后就会推进执行各个服务的 Cancel 逻辑，撤销之前执行的各种操作。</p>
 <p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/jajian/p/10014145.html">https://www.cnblogs.com/jajian/p/10014145.html</a></p>
-<img src="/2024/04/07/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/clip_image058.jpg" class="">
+<img src="/2024/04/07/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/image-20240414112338652.png" class="">
 
 <h2 id="3-本地消息表："><a href="#3-本地消息表：" class="headerlink" title="3.本地消息表："></a>3.本地消息表：</h2><p>其基本的设计思想是将远程分布式事务拆分成一系列的本地事务。</p>
 <p>举个经典的跨行转账的例子来描述：</p>
 <p>第一步伪代码如下，扣款 1W，通过本地事务保证了凭证消息插入到消息表中。</p>
 <p>第二步，通知对方银行账户上加 1W 了。那问题来了，如何通知到对方呢？</p>
 <p>通常采用两种方式：</p>
-<p>采用时效性高的 MQ，由对方订阅消息并监听，有消息时自动触发事件</p>
-<p>采用定时轮询扫描的方式，去检查消息表的数据。</p>
+<ul>
+<li><p>采用时效性高的 MQ，由对方订阅消息并监听，有消息时自动触发事件</p>
+</li>
+<li><p>采用定时轮询扫描的方式，去检查消息表的数据</p>
+</li>
+</ul>
 <p>两种方式其实各有利弊，仅仅依靠 MQ，可能会出现通知失败的问题。而过于频繁的定时轮询，效率也不是最佳的（90% 是无用功）。所以，我们一般会把两种方式结合起来使用。</p>
 <p>万一这消息有重复被消费，往用户帐号上多加了钱，那岂不是后果很严重？在消息消费方，也通过一个“消费状态表”来记录消费状态。在执行“加款”操作之前，检测下该消息（提供标识）是否已经消费过，消费完成后，通过本地事务控制来更新这个“消费状态表”。这样子就避免重复消费的问题。</p>
 <p><a target="_blank" rel="noopener" href="https://www.infoq.cn/article/solution-of-distributed-system-transaction-consistency/">https://www.infoq.cn/article/solution-of-distributed-system-transaction-consistency/</a></p>
@@ -904,7 +908,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">156k</span>
+                        class="white-color">155.8k</span>
             
             
             
