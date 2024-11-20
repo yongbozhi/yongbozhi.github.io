@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2024-07-13T13:35:09.232Z</updated>
+  <updated>2024-11-20T14:01:05.601Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,60 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>7.机房预约系统</title>
+    <link href="http://example.com/2024/11/20/7-%E6%9C%BA%E6%88%BF%E9%A2%84%E7%BA%A6%E7%B3%BB%E7%BB%9F/"/>
+    <id>http://example.com/2024/11/20/7-%E6%9C%BA%E6%88%BF%E9%A2%84%E7%BA%A6%E7%B3%BB%E7%BB%9F/</id>
+    <published>2024-11-20T13:58:40.000Z</published>
+    <updated>2024-11-20T14:01:05.601Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;机房预约系统&quot;&gt;&lt;a href=&quot;#机房预约系统&quot; class=&quot;headerlink&quot; title=&quot;机房预约系统&quot;&gt;&lt;/a&gt;机房预约系统&lt;/h1&gt;&lt;h2 id=&quot;1、机房预约系统需求&quot;&gt;&lt;a href=&quot;#1、机房预约系统需求&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="c++" scheme="http://example.com/categories/c/"/>
+    
+    
+    <category term="c++" scheme="http://example.com/tags/c/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Git</title>
+    <link href="http://example.com/2024/07/13/Git/"/>
+    <id>http://example.com/2024/07/13/Git/</id>
+    <published>2024-07-13T13:53:03.000Z</published>
+    <updated>2024-07-13T13:55:52.095Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;git add . 将文件加入git&lt;/p&gt;
+&lt;p&gt;git commit -m ‘xxx’ 提交本地仓库&lt;/p&gt;
+&lt;p&gt;git push origin hexo</summary>
+        
+      
+    
+    
+    
+    <category term="后端学习" scheme="http://example.com/categories/%E5%90%8E%E7%AB%AF%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+    <category term="后端学习" scheme="http://example.com/tags/%E5%90%8E%E7%AB%AF%E5%AD%A6%E4%B9%A0/"/>
+    
+    <category term="git" scheme="http://example.com/tags/git/"/>
+    
+  </entry>
   
   <entry>
     <title>个人营销</title>
@@ -504,60 +558,6 @@
     <category term="java面试" scheme="http://example.com/tags/java%E9%9D%A2%E8%AF%95/"/>
     
     <category term="MYSQL" scheme="http://example.com/tags/MYSQL/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>JVM</title>
-    <link href="http://example.com/2024/04/05/JVM/"/>
-    <id>http://example.com/2024/04/05/JVM/</id>
-    <published>2024-04-05T09:22:24.000Z</published>
-    <updated>2024-04-13T08:20:44.196Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;JVM&quot;&gt;&lt;a href=&quot;#JVM&quot; class=&quot;headerlink&quot; title=&quot;JVM&quot;&gt;&lt;/a&gt;JVM&lt;/h1&gt;&lt;h2 id=&quot;概念&quot;&gt;&lt;a href=&quot;#概念&quot; class=&quot;headerlink&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="java面经" scheme="http://example.com/categories/java%E9%9D%A2%E7%BB%8F/"/>
-    
-    
-    <category term="java面试" scheme="http://example.com/tags/java%E9%9D%A2%E8%AF%95/"/>
-    
-    <category term="JVM" scheme="http://example.com/tags/JVM/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>集合</title>
-    <link href="http://example.com/2024/04/05/%E9%9B%86%E5%90%88/"/>
-    <id>http://example.com/2024/04/05/%E9%9B%86%E5%90%88/</id>
-    <published>2024-04-05T08:24:05.000Z</published>
-    <updated>2024-04-14T04:56:15.453Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;数据结构&quot;&gt;&lt;a href=&quot;#数据结构&quot; class=&quot;headerlink&quot; title=&quot;数据结构&quot;&gt;&lt;/a&gt;数据结构&lt;/h1&gt;&lt;img src=&quot;/2024/04/05/%E9%9B%86%E5%90%88/clip_image002.gif&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="java面经" scheme="http://example.com/categories/java%E9%9D%A2%E7%BB%8F/"/>
-    
-    
-    <category term="java面试" scheme="http://example.com/tags/java%E9%9D%A2%E8%AF%95/"/>
-    
-    <category term="集合" scheme="http://example.com/tags/%E9%9B%86%E5%90%88/"/>
     
   </entry>
   
