@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2024-11-20T14:26:51.561Z</updated>
+  <updated>2026-05-17T10:26:11.839Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>ClaudeCode使用</title>
+    <link href="http://example.com/2026/05/16/ClaudeCode%E4%BD%BF%E7%94%A8/"/>
+    <id>http://example.com/2026/05/16/ClaudeCode%E4%BD%BF%E7%94%A8/</id>
+    <published>2026-05-16T06:19:06.000Z</published>
+    <updated>2026-05-17T10:26:11.839Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;1安装ClaudeCode&quot;&gt;&lt;a href=&quot;#1安装ClaudeCode&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="ai" scheme="http://example.com/categories/ai/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>7.机房预约系统</title>
@@ -168,6 +191,27 @@
   
   <entry>
     <title>1.C++基础入门</title>
+    <link href="http://example.com/2024/11/20/1-C-%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8/"/>
+    <id>http://example.com/2024/11/20/1-C-%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8/</id>
+    <published>2024-11-20T14:05:43.000Z</published>
+    <updated>2024-11-20T14:31:18.902Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;C-基础入门&quot;&gt;&lt;a href=&quot;#C-基础入门&quot; class=&quot;headerlink&quot; title=&quot;C++基础入门&quot;&gt;&lt;/a&gt;C++基础入门&lt;/h1&gt;&lt;h2 id=&quot;1-C-初识&quot;&gt;&lt;a href=&quot;#1-C-初识&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>1.C++基础入门</title>
     <link href="http://example.com/2024/11/20/1-C++%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8/"/>
     <id>http://example.com/2024/11/20/1-C++%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8/</id>
     <published>2024-11-20T14:05:43.000Z</published>
@@ -188,27 +232,6 @@
     
     
     <category term="c++" scheme="http://example.com/tags/c/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>1.C++基础入门</title>
-    <link href="http://example.com/2024/11/20/1-C-%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8/"/>
-    <id>http://example.com/2024/11/20/1-C-%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8/</id>
-    <published>2024-11-20T14:05:43.000Z</published>
-    <updated>2024-11-20T14:31:18.902Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;C-基础入门&quot;&gt;&lt;a href=&quot;#C-基础入门&quot; class=&quot;headerlink&quot; title=&quot;C++基础入门&quot;&gt;&lt;/a&gt;C++基础入门&lt;/h1&gt;&lt;h2 id=&quot;1-C-初识&quot;&gt;&lt;a href=&quot;#1-C-初识&quot; class=&quot;headerlink&quot;</summary>
-        
-      
-    
-    
-    
     
   </entry>
   
@@ -509,32 +532,6 @@
     <category term="java面试" scheme="http://example.com/tags/java%E9%9D%A2%E8%AF%95/"/>
     
     <category term="分布式锁" scheme="http://example.com/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>从零实现CludeCode</title>
-    <link href="http://example.com/2024/04/07/%E4%BB%8E%E9%9B%B6%E5%AE%9E%E7%8E%B0CludeCode/"/>
-    <id>http://example.com/2024/04/07/%E4%BB%8E%E9%9B%B6%E5%AE%9E%E7%8E%B0CludeCode/</id>
-    <published>2024-04-07T12:48:42.000Z</published>
-    <updated>2026-05-16T05:27:16.347Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;1.项目链接 &lt;a href=&quot;https://github.com/shareAI-lab/learn-claude-code&quot;&gt;https://github.com/shareAI-lab/learn-claude-code&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;2.下载项目 git</summary>
-        
-      
-    
-    
-    
-    <category term="ai" scheme="http://example.com/categories/ai/"/>
-    
-    
-    <category term="java面试" scheme="http://example.com/tags/java%E9%9D%A2%E8%AF%95/"/>
     
   </entry>
   
